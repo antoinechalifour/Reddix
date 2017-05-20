@@ -3,6 +3,60 @@ import classnames from 'classnames'
 import AppBar from '../widgets/AppBar'
 import CommentsContainer from '../../containers/CommentsContainer'
 
+const getRenderer = ({ src, alt }) => {
+  const typeToRegexp = {
+    video: [
+      /.gifv/,
+      /.mp4/
+    ],
+    img: [
+      /.gif(?!v)/,
+      /.jpg/,
+      /.png/
+    ]
+  }
+  const typeToRenderer = {
+    video: () => {
+      const videoSrc = [
+        src.split('gifv').join('webm'),
+        src.split('gifv').join('mp4')
+      ]
+      return (
+        <video
+          autoPlay
+          preload
+          loop
+          controls
+        >
+          {videoSrc.map(x => <source src={x} />)}
+        </video>
+      )
+    },
+    img: () => (
+      <img src={src} alt={alt} />
+    ),
+    default: () => <a href={src}>{src}</a>
+  }
+
+  let mediaType
+  Object.keys(typeToRegexp).forEach(key => {
+    if (mediaType) {
+      return
+    }
+
+    const regs = typeToRegexp[key]
+
+    regs.forEach(reg => {
+      if (reg.test(src)) {
+        mediaType = key
+      }
+    })
+  })
+
+  mediaType = mediaType || 'default'
+  return typeToRenderer[mediaType]()
+}
+
 class Post extends Component {
   componentDidMount () {
     this.props.actions.requestPost(
@@ -14,17 +68,26 @@ class Post extends Component {
   render () {
     let postContent = ''
     let modifierClass = ''
+    let media
+
+    if (this.props.media) {
+      media = {
+        src: this.props.media.oembed.thumbnail_url,
+        alt: this.props.media.oembed.description
+      }
+    } else if (this.props.url) {
+      media = {
+        src: this.props.url,
+        alt: this.props.title
+      }
+    }
 
     if (this.props.selftext) {
       postContent = this.props.selftext
       modifierClass = '--text'
-    } else if (this.props.url) {
-      postContent = (
-        <a href={this.props.url}>
-          {this.props.url}
-        </a>
-      )
-      modifierClass = '--link'
+    } else if (media) {
+      postContent = getRenderer(media)
+      modifierClass = '--media'
     }
 
     return (

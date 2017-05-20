@@ -30,4 +30,14 @@
     font-size: 150%;
     margin: 24px 0 12px;
   }
+
+  &__body--media {
+    video, img, a {
+      display: block;
+      width: 100%;
+      max-width: 450px;
+      margin: auto;
+      text-align: center;
+    }
+  }
 }
