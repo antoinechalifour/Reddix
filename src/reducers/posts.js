@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_POSTS } from '../actions/subreddit'
-import { RECEIVE_POST } from '../actions/post'
+import {
+  RECEIVE_POSTS
+} from '../actions/subreddit'
+import {
+  REQUEST_POST,
+  RECEIVE_POST
+} from '../actions/post'
 
 const byId = (state = {}, action) => {
   switch (action.type) {
@@ -40,7 +45,27 @@ const allIds = (state = [], action) => {
   }
 }
 
+const api = (state = { isLoading: false }, action) => {
+  switch (action.type) {
+    case REQUEST_POST:
+      return {
+        ...state,
+        isLoading: true
+      }
+    
+    case RECEIVE_POST:
+      return {
+        ...state,
+        isLoading: false
+      }
+    
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   byId,
-  allIds
+  allIds,
+  api
 })

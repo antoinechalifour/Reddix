@@ -1,0 +1,11 @@
+.fake-progress-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 3px;
+  background: rgba(0, 0, 0, .3);
+  z-index: 1;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

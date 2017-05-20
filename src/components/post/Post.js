@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import Markdown from 'react-markdown'
 import AppBar from '../widgets/AppBar'
 import CommentsContainer from '../../containers/CommentsContainer'
 
@@ -35,7 +36,16 @@ const getRenderer = ({ src, alt }) => {
     img: () => (
       <img src={src} alt={alt} />
     ),
-    default: () => <a href={src}>{src}</a>
+    default: () => (
+      <div>
+        <a
+          target='_blank'
+          href={src}
+        >
+          {src}
+        </a>
+      </div>
+    )
   }
 
   let mediaType
@@ -83,7 +93,9 @@ class Post extends Component {
     }
 
     if (this.props.selftext) {
-      postContent = this.props.selftext
+      postContent = (
+        <Markdown source={this.props.selftext} />
+      )
       modifierClass = '--text'
     } else if (media) {
       postContent = getRenderer(media)
@@ -94,21 +106,22 @@ class Post extends Component {
       <div className='post'>
         <AppBar r={this.props.r} />
         
-        <div className='post__content'>
-          <div className="post__header">
-            <div className="post__score">{this.props.score}</div>
-            <div className="post__author">/u/{this.props.author}</div>
-          </div>
+        {postContent && (
+          <div className='post__content'>
+            <div className="post__header">
+              <div className="post__score">{this.props.score}</div>
+              <div className="post__author">/u/{this.props.author}</div>
+            </div>
 
-          <div className="post__title">{this.props.title}</div>
+            <div className="post__title">{this.props.title}</div>
 
-          <div className={classnames('post__body', `post__body${modifierClass}`)}>
-            {postContent}
+            <div className={classnames('post__body', `post__body${modifierClass}`)}>
+              {postContent}
+            </div>
           </div>
-        </div>
-        <div className="post__comments">
-          <CommentsContainer id={this.props.id} />
-        </div>
+        )}
+        
+        <CommentsContainer id={this.props.id} />
       </div>
     )
   }

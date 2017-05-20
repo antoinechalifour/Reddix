@@ -5,10 +5,12 @@ import {
 } from 'react-router-dom'
 import Home from './components/pages/Home'
 import Subreddit from './components/pages/Subreddit'
+import FakeProgressContainer from './containers/FakeProgressContainer'
 
 const App = () => (
   <Router>
     <div>
+      <FakeProgressContainer />
       <Route
         exact
         path="/"
