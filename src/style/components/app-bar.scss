@@ -2,8 +2,8 @@
   font-family: $font-secondary;
   @include elevation(1);
 
-  position: sticky;
-  top: 0px;
+  // position: sticky;
+  // top: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -36,6 +36,7 @@
 
   &__suggestions {
     position: absolute;
+    z-index: 10;
     background: #fff;
     color: $font-color-light;
     font-size: 13px;

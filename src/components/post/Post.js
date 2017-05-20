@@ -40,6 +40,7 @@ const getRenderer = ({ src, alt }) => {
       <div>
         <a
           target='_blank'
+          rel='noopener noreferrer'
           href={src}
         >
           {src}

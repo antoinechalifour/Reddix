@@ -1,12 +1,23 @@
 export function fetchSubreddit (opt = {}) {
-  const { r } = opt
-  const subreddit = r
+  const {
+    r,
+    tag
+  } = opt
+  let subreddit = r
     ? `r/${r}`
     : ''
+
+  if (tag) {
+    subreddit = `${subreddit}/${tag}`
+  }
   
   return fetch(`http://www.reddit.com/${subreddit}.json`)
     .then(response => response.json())
     .then(({ data }) => data.children.map(x => x.data))
+    .then(posts => posts.map(p => ({
+      ...p,
+      tag
+    })))
 }
 
 const parseReplies = comment => {

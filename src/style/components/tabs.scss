@@ -1,0 +1,21 @@
+.tabs {
+  &__header {
+    background: $color-primary;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+
+    > div {
+      flex: 1;
+      text-transform: uppercase;
+      font-family: $font-secondary;
+      text-align: center;
+      cursor: pointer;
+      padding: 16px;
+
+      & + div {
+        border-left: 1px solid rgba(0, 0, 0, .05);
+      }
+    }
+  }
+}

@@ -4,10 +4,10 @@ import * as SubActions from '../actions/subreddit'
 
 function * requestSubreddit () {
   while (true) {
-    const { subreddit } = yield take(SubActions.REQUEST_POSTS)
+    const { subreddit, tag } = yield take(SubActions.REQUEST_POSTS)
 
     try {
-      const posts = yield call(Api.fetchSubreddit, { r: subreddit })
+      const posts = yield call(Api.fetchSubreddit, { r: subreddit, tag })
 
       yield put(SubActions.receivePosts(posts, subreddit))
     } catch (err) {

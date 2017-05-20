@@ -1,5 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import AppBar from '../widgets/AppBar'
+import Tabs, { Tab } from '../widgets/Tabs'
 import SubredditContainer from '../../containers/SubredditContainer'
 import PostContainer from '../../containers/PostContainer'
 
@@ -19,7 +21,22 @@ const Subreddit = ({ match }) => {
       />
       <Route
         path='/r/:r'
-        render={() => <SubredditContainer r={r} />}
+        render={() => (
+          <div className='page-subreddit'>
+            <AppBar r={r} />
+            <Tabs>
+              <Tab title='Hot'>
+                <SubredditContainer r={r} />
+              </Tab>
+              <Tab title='New'>
+                <SubredditContainer r={r} from='new' />
+              </Tab>
+              <Tab title='Rising'>
+                <SubredditContainer r={r} from='rising' />
+              </Tab>
+            </Tabs>
+          </div>
+        )}
       />
     </Switch>
   )
