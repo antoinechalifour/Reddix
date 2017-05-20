@@ -1,22 +1,30 @@
+import qs from 'querystring'
+
 export function fetchSubreddit (opt = {}) {
   const {
     r,
-    tag
+    tag,
+    query
   } = opt
   let subreddit = r
     ? `r/${r}`
     : ''
+  let queryString = ''
 
   if (tag) {
     subreddit = `${subreddit}/${tag}`
   }
+
+  if (query) {
+    queryString = qs.stringify(query)
+  }
   
-  return fetch(`http://www.reddit.com/${subreddit}.json`)
+  return fetch(`http://www.reddit.com/${subreddit}.json?${queryString}`)
     .then(response => response.json())
     .then(({ data }) => data.children.map(x => x.data))
     .then(posts => posts.map(p => ({
       ...p,
-      tag
+      __tag: tag
     })))
 }
 

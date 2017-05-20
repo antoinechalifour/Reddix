@@ -10,10 +10,13 @@ import {
 const byId = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_POSTS:
-      return action.posts.reduce((accumulator, post) => {
+      return {
+        ...state,
+        ...action.posts.reduce((accumulator, post) => {
         accumulator[post.id] = post
         return accumulator
       }, {})
+      }
 
     case RECEIVE_POST:
       return {

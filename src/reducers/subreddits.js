@@ -4,12 +4,29 @@ import {
   RECEIVE_POSTS
 } from '../actions/subreddit'
 
+const addOnlyNewPosts = (oPosts = [], nPosts) => {
+  const result = [...oPosts]
+  const added = result.reduce((accumulator, post) => {
+    accumulator[post] = true
+    return accumulator
+  }, {})
+
+  nPosts.forEach(post => {
+    if (!added[post]) {
+      added[post] = true
+      result.push(post)
+    }
+  })
+
+  return result
+}
+
 const posts = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_POSTS:
       return {
         ...state,
-        [action.sub]: action.posts.map(x => x.id)
+        [action.sub]: addOnlyNewPosts(state[action.sub], action.posts.map(x => x.id))
       }
     default:
       return state

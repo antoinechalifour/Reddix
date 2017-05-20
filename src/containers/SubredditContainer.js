@@ -6,7 +6,11 @@ import * as SubredditActions from '../actions/subreddit'
 const mapStateToProps = (state, ownProps) => {
   const { r = 'all' } = ownProps
   const postIds = state.subreddits.posts[r] || []
-  const posts = postIds.map(id => state.posts.byId[id])
+  let posts = postIds.map(id => state.posts.byId[id])
+
+  if (ownProps.from) {
+    posts = posts.filter(x => x.__tag === ownProps.from)
+  }
 
   return { posts }
 }
