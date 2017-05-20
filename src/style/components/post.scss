@@ -13,6 +13,14 @@
   &__content {
     margin-bottom: 24px;
     @include elevation(2);
+
+    pre {
+      font-family: monospace;
+      margin: 16px 0;
+      padding: 16px;
+      border-left: 3px solid #bcbcbc;
+      background: #f1f2f3;
+    }
   }
 
   &__header {
