@@ -10,7 +10,7 @@
 
 $max-width: 960px;
 
-$color-primary: #004d99;
+$color-primary: #2196f3;
 $font-color: #555f61;
 $font-color-light: #879c9a;
 
@@ -21,7 +21,7 @@ a {
   color: $color-primary;
 
   &:visited {
-    color: shade($color-primary, 33%);
+    color: shade($color-primary, 25%);
   }
 }
 

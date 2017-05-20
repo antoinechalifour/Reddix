@@ -10,11 +10,12 @@
   justify-content: space-between;
   padding: 12px;
   margin-bottom: 12px;
-  background: #fff;
+  background: $color-primary;
+  color: #fff;
 
   &__title a {
     text-decoration: none;
-    color: $color-primary;
+    color: inherit;
   }
 
   &__search input {
@@ -24,15 +25,19 @@
     border: none;
     outline: none;
     box-sizing: border-box;
+    background: none;
   }
 
   &__search {
     position: relative;
+    padding: 4px 12px;
+    border-bottom: 2px solid rgba(255, 255, 255, .3);
   }
 
   &__suggestions {
     position: absolute;
     background: #fff;
+    color: $font-color-light;
     font-size: 13px;
     padding: 12px;
     @include elevation(2);
@@ -44,5 +49,9 @@
       text-decoration: none;
       color: inherit;
     }
+  }
+
+  ::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, .5);
   }
 }
