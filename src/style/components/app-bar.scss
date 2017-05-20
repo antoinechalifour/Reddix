@@ -1,0 +1,48 @@
+.app-bar {
+  font-family: $font-secondary;
+  @include elevation(1);
+
+  position: sticky;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #fff;
+
+  &__title a {
+    text-decoration: none;
+    color: $color-primary;
+  }
+
+  &__search input {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  &__search {
+    position: relative;
+  }
+
+  &__suggestions {
+    position: absolute;
+    background: #fff;
+    font-size: 13px;
+    padding: 12px;
+    @include elevation(2);
+    left: 0;
+    right: 0;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}

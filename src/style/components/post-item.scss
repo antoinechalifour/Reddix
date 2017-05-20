@@ -1,0 +1,39 @@
+.post-item {
+  @include elevation(1);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px;
+
+  & + & {
+    margin-top: 12px;
+  }
+
+  &__header,
+  &__footer {
+    font-family: $font-secondary;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    font-size: 75%;
+    color: $font-color-light;
+
+    div + div {
+      margin-left: 12px;
+    }
+  }
+
+  &__score {
+    font-size: 125%;
+  }
+
+  &__content {
+    padding: 12px 0;
+  }
+
+  &__title a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

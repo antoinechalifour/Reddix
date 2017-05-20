@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url(../fonts/Merriweather-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url(../fonts/Raleway-Medium.ttf);
+}
+
+$max-width: 960px;
+
+$color-primary: #004d99;
+$font-color: #555f61;
+$font-color-light: #879c9a;
+
+$font-primary: 'Merriweather', sans-serif;
+$font-secondary: 'Raleway', serif;
+
+a {
+  color: $color-primary;
+
+  &:visited {
+    color: shade($color-primary, 33%);
+  }
+}
+
+body {
+  font-size: 16px;
+  color: $font-color;
+  background: #f7f7f9;
+  line-height: 1.7;
+  font-family: 'Merriweather', sans-serif;
+}

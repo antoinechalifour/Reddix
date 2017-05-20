@@ -1,0 +1,33 @@
+.post {
+  &__content,
+  &__comments {
+    max-width: $max-width;
+    width: 95%;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 16px;
+    background: #fff;
+    @include elevation(1);
+  }
+
+  &__content {
+    margin-bottom: 24px;
+    @include elevation(2);
+  }
+
+  &__header {
+    font-family: $font-secondary;
+    display: flex;
+    flex-direction: row;
+    color: $font-color-light;
+
+    div + div {
+      margin-left: 12px;
+    }
+  }
+
+  &__title {
+    font-size: 150%;
+    margin: 24px 0 12px;
+  }
+}
