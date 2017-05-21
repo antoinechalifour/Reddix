@@ -17,12 +17,12 @@ My main goal for now is to integrate native Reddit features but more is comming 
 
 ## Todo list
 
+* Other Reddit features (submit content, link, coments,...)
 * Design
 * Customization using CSS variables
 * Integrate PWA features (service workers,...)
-* SSR ?
 * Code splitting
-* Other Reddit features (submit content, link, coments,...)
+* SSR ?
 
 ## Getting Started
 
@@ -36,10 +36,10 @@ My main goal for now is to integrate native Reddit features but more is comming 
 
 *As this project is a side project, I will be using brand news features and APIs such as CSS variables, Flexboxes, the Fetch API,... As such this client will not support older browers.*
 
-This app uses React as a view library and Redux for state management (with React / Redux). I am trying my best to use best practises and current patterns such as Dumb Component (for the view) and Smart Components (for behaviour). 
+This app uses React as a view library and Redux for state management (with React-Redux). I am trying my best to use best practises and recommended patterns such as Dumb Component (for the view) and Smart Components (for behaviour). 
 
 Async flows and actions are described in Sagas (using Redux-Saga).
 
 CSS is generated using SCSS, using the BEM notation.
 
-All these things are tight together using Webpack and a buch of loaders (see ./config/ directory).
+All these things are tight together using Webpack with a buch of loaders (see ./config/ directory).
