@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import Drawer from './Drawer'
+import DrawerContainer from '../../containers/DrawerContainer'
 
 class DrawerLayout extends Component {
   render () {
-    console.log(this.props.children)
     return (
       <div
         className={classnames('drawer-layout', {
@@ -12,7 +11,7 @@ class DrawerLayout extends Component {
         })}
       >
         <div className='drawer-layout__drawer'>
-          <Drawer />
+          <DrawerContainer />
         </div>
         <main className='drawer-layout__content'>
           {this.props.children}

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 import {
   REQUEST_POSTS,
-  RECEIVE_POSTS
+  RECEIVE_POSTS,
+  RECEIVE_SUBREDDITS
 } from '../actions/subreddit'
 
 const addOnlyNewPosts = (oPosts = [], nPosts) => {
@@ -19,6 +20,22 @@ const addOnlyNewPosts = (oPosts = [], nPosts) => {
   })
 
   return result
+}
+
+const byName = (state = {}, action) => {
+  switch (action.type) {
+    case RECEIVE_SUBREDDITS:
+      return {
+        ...state,
+        ...(action.subreddits.reduce((accumulator, sub) => {
+          accumulator[sub.display_name] = sub
+          return accumulator
+        }, {}))
+      }
+    
+    default:
+      return state
+  }
 }
 
 const posts = (state = {}, action) => {
@@ -53,6 +70,7 @@ const api = (state = { isLoading: false }, action) => {
 }
 
 export default combineReducers({
+  byName,
   posts,
   api
 })

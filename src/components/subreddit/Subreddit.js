@@ -34,13 +34,15 @@ class Subreddit extends PureComponent {
     const scrollBottom = document.body.scrollHeight - document.body.scrollTop - window.innerHeight
 
     if (scrollBottom / window.innerHeight < 0.1) {
-      this.props.actions.requestPosts({
-        subreddit: this.props.r,
-        tag: this.props.from,
-        query: {
-          after: `t3_${this.props.posts[this.props.posts.length - 1].id}`
-        }
-      })
+      if (this.props.posts[this.props.posts.length - 1]) {
+        this.props.actions.requestPosts({
+          subreddit: this.props.r,
+          tag: this.props.from,
+          query: {
+            after: `t3_${this.props.posts[this.props.posts.length - 1].id}`
+          }
+        })
+      }
     }
   }
 
