@@ -28,7 +28,7 @@ class AppBar extends Component {
     const { r } = this.props
     const title = r
       ? `/r/${r}`
-      : 'Home'
+      : 'Frontpage'
     const href = r
       ? title
       : '/'
