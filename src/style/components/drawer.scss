@@ -1,0 +1,58 @@
+.drawer {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  border-right: 1px solid #d1d2d3;
+
+  &__header {
+    position: relative;
+    height: 175px;
+    background: shade($color-primary, 20%);
+    overflow: hidden;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &::before {
+      background: tint($color-primary, 66%);
+      opacity: .8;
+      transform: rotate(-45deg) scaleX(1.5);
+    }
+
+    &::after {
+      background: shade($color-primary, 99%);
+      opacity: .3;
+      transform: rotate(45deg) scaleY(1.5);
+    }
+  }
+
+  &__content {
+    padding: 16px;
+  }
+
+  &__section {
+    div {
+      text-transform: uppercase;
+      font-family: $font-secondary;
+      letter-spacing: 0.1rem;
+    }
+    
+    a {
+      font-size: 14px;
+      display: block;
+    }
+
+    & + & {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #d1d2d3;
+    }
+  }
+}

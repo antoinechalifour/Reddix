@@ -13,6 +13,11 @@
   background: $color-primary;
   color: #fff;
 
+  &__menu {
+    margin-right: 12px;
+    font-size: 1.2rem;
+  }
+
   &__title a {
     text-decoration: none;
     color: inherit;

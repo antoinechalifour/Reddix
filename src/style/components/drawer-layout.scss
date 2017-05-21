@@ -1,0 +1,48 @@
+.drawer-layout {
+  @media (max-width: $bp-tablet) {
+    $drawer-width: 256px;
+    overflow-x: hidden;
+
+    &__drawer {
+      position: fixed;
+      top: 0;
+      left: (-$drawer-width);
+      width: $drawer-width;
+      height: 100vh;
+    }
+
+    &__content {
+      position: relative;
+      left: 0;
+    }
+
+    &__drawer,
+    &__content {
+      transition: left .3s ease-in-out;
+    }
+
+    &--open {
+      .drawer-layout__drawer {
+        left: 0;
+      }
+
+      .drawer-layout__content {
+        left: $drawer-width;
+      }
+    }
+  }
+
+
+  @media (min-width: $bp-tablet) {
+    display: flex;
+    flex-direction: row;
+
+    .drawer-layout__drawer {
+      flex: 2;
+    }
+
+    .drawer-layout__content {
+      flex: 10;
+    }
+  }
+}

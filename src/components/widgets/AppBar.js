@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import MdMenu from 'react-icons/lib/md/menu'
 import * as Api from '../../api'
 import debounce from '../../util/debounce'
 
@@ -34,8 +35,14 @@ class AppBar extends Component {
 
     return (
       <div className='app-bar'>
-        <div className='app-bar__title'>
-          <Link to={href}>{title}</Link>
+        <div>
+          <MdMenu
+            className='app-bar__menu'
+            onClick={() => this.props.actions.toggleDrawer()}
+          />
+          <span className='app-bar__title'>
+            <Link to={href}>{title}</Link>
+          </span>
         </div>
         <div className='app-bar__search'>
           <span>/r/</span>

@@ -6,10 +6,11 @@ import {
 import Home from './components/pages/Home'
 import Subreddit from './components/pages/Subreddit'
 import FakeProgressContainer from './containers/FakeProgressContainer'
+import DrawerLayoutContainer from './containers/DrawerLayoutContainer'
 
 const App = () => (
   <Router>
-    <div>
+    <DrawerLayoutContainer>
       <FakeProgressContainer />
       <Route
         exact
@@ -18,7 +19,7 @@ const App = () => (
       />
 
       <Route path='/r/:r' component={Subreddit} />
-    </div>
+    </DrawerLayoutContainer>
   </Router>
 )
 

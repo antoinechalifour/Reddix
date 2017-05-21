@@ -1,10 +1,10 @@
 import React from 'react'
 import SubredditContainer from '../../containers/SubredditContainer'
-import AppBar from '../widgets/AppBar'
+import AppBarContainer from '../../containers/AppBarContainer'
 
 const Home = () => (
   <div>
-    <AppBar />
+    <AppBarContainer />
     <SubredditContainer />
   </div>
 )
