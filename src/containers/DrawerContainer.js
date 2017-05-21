@@ -5,8 +5,9 @@ import * as AuthActions from '../actions/auth'
 
 const mapStateToProps = state => {
   const subreddits = Object.keys(state.subreddits.byName)
+  const me = state.me
 
-  return { subreddits }
+  return { subreddits, me }
 }
 
 const mapDispatchToProps = dispatch => ({

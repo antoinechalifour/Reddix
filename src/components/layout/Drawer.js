@@ -2,10 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import AuthFilterContainer from '../../containers/AuthFilterContainer'
 
-const Drawer = ({ actions, subreddits }) => (
+const Drawer = ({ actions, subreddits, me }) => (
   <div className='drawer'>
     <div className="drawer__header">
-
+      <AuthFilterContainer
+        lIn={() => (
+          <div className='drawer__me'>
+            <img src={me.subreddit.icon_img} />
+            <div>/u/{me.name}</div>
+          </div>
+        )}
+      />
     </div>
     <div className="drawer__content">
       <div className="drawer__section">
@@ -14,9 +21,9 @@ const Drawer = ({ actions, subreddits }) => (
       </div>
 
       <AuthFilterContainer
-        lIn={
+        lIn={() => (
           <div className="drawer__section">
-            <div>My subreddits</div>
+            <div>My subs</div>
 
             {subreddits.map(r => (
               <Link
@@ -27,7 +34,7 @@ const Drawer = ({ actions, subreddits }) => (
               </Link>
             ))}
           </div>
-        }
+        )}
       />
 
       <div className="drawer__section">
@@ -35,8 +42,8 @@ const Drawer = ({ actions, subreddits }) => (
         <Link to='/customize'>Customize Reddix</Link>
 
         <AuthFilterContainer
-          lIn={<span onClick={() => actions.logout()}>Log out</span>}
-          lOut={<span onClick={() => actions.login()}>Log In</span>}
+          lIn={() => <span onClick={() => actions.logout()}>Log out</span>}
+          lOut={() => <span onClick={() => actions.login()}>Log In</span>}
         />
       </div>
     </div>

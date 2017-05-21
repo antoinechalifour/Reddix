@@ -3,6 +3,12 @@ import { all, take, put, fork } from 'redux-saga/effects'
 import snoowrap from 'snoowrap'
 import * as AuthActions from '../actions/auth'
 import * as SubredditActions from '../actions/subreddit'
+import * as MeActions from '../actions/me'
+
+const REFRESH_TOKEN_KEY = 'REDDIX::refresh_token'
+
+// TMP CLIENT ID FOR DEV PURPOSES
+const CLIENT_ID = 'GDObwCGoh5qWdg'
 
 const watchOauthWindow = wOauth => new Promise((resolve, reject) => {
   let interval = setInterval(() => {
@@ -17,11 +23,42 @@ const watchOauthWindow = wOauth => new Promise((resolve, reject) => {
   }, 2000)
 })
 
+function * setUp (r) {
+  let [me, subscriptions] = yield Promise.all([
+    r.getMe(),
+    r.getSubscriptions()
+  ])
+
+  me = me.toJSON()
+
+  yield all([
+    put(AuthActions.loginSuccess(r)),
+    put(SubredditActions.receiveSubreddits(subscriptions)),
+    put(MeActions.receiveMe(me))
+  ])
+}
+
+function * loginFromLocalStorage () {
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
+
+  if (refreshToken) {
+    const r = new snoowrap({
+      userAgent: navigator.userAgent,
+      clientId: CLIENT_ID,
+      clientSecret: '',
+      refreshToken
+    })
+
+    yield setUp(r)
+  }
+}
+
 function * loginFlow () {
+  yield loginFromLocalStorage()
+
   while (true) {
     yield take(AuthActions.LOGIN)
     console.log('Loggin in...')
-    const clientId = 'GDObwCGoh5qWdg'
     const scope = [
       'subscribe',
       'vote',
@@ -35,7 +72,7 @@ function * loginFlow () {
       'history'
     ]
     const authUrl = snoowrap.getAuthUrl({
-      clientId,
+      clientId: CLIENT_ID,
       scope,
       redirectUri: 'http://localhost:3000/oauth'
     })
@@ -51,19 +88,15 @@ function * loginFlow () {
 
     const r = yield snoowrap.fromAuthCode({
       code,
-      clientId,
+      clientId: CLIENT_ID,
       redirectUri: 'http://localhost:3000/oauth'
     })
 
-    let [me, subscriptions] = yield Promise.all([
-      r.getMe(),
-      r.getSubscriptions()
-    ])
+    const { refreshToken } = r
 
-    yield all([
-      put(AuthActions.loginSuccess(r)),
-      put(SubredditActions.receiveSubreddits(subscriptions))
-    ])
+    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken)
+
+    yield setUp(r)
   }
 }
 

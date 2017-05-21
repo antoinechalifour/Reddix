@@ -2,15 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth
+  isLoggedIn: state.me
 })
 
-const AuthFilterContainer = ({ isLoggedIn, lIn = null, lOut = null }) => {
+const noop = () => null
+const AuthFilterContainer = ({ isLoggedIn, lIn = noop, lOut = noop }) => {
   if (isLoggedIn) {
-    return lIn
+    return lIn()
   }
 
-  return lOut
+  return lOut()
 }
 
 export default connect(mapStateToProps)(AuthFilterContainer)

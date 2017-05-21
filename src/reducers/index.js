@@ -3,6 +3,7 @@ import auth from './auth'
 import posts from './posts'
 import subreddits from './subreddits'
 import comments from './comments'
+import me from './me'
 import ui from './ui'
 
 const reducer = combineReducers({
@@ -10,6 +11,7 @@ const reducer = combineReducers({
   posts,
   subreddits,
   comments,
+  me,
   ui
 })
 
