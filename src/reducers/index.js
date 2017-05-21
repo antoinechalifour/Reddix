@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { LOGOUT } from '../actions/auth'
 import auth from './auth'
 import posts from './posts'
 import subreddits from './subreddits'
@@ -15,4 +16,12 @@ const reducer = combineReducers({
   ui
 })
 
-export default reducer
+const rootReducer = (state, action) => {
+  if (action.type === LOGOUT) {
+    state = undefined
+  }
+
+  return reducer(state, action)
+}
+
+export default rootReducer

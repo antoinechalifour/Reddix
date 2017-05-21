@@ -1,5 +1,5 @@
 import qs from 'querystring'
-import { all, take, put, fork } from 'redux-saga/effects'
+import { all, take, put, fork, select } from 'redux-saga/effects'
 import snoowrap from 'snoowrap'
 import * as AuthActions from '../actions/auth'
 import * as SubredditActions from '../actions/subreddit'
@@ -100,6 +100,24 @@ function * loginFlow () {
   }
 }
 
+function * logout () {
+  while (true) {
+    // When the user wishes to logout
+    yield take(AuthActions.LOGOUT_REQUEST)
+
+    // 1. Revoke the refresh token
+    const r = yield select(state => state.auth)
+    yield r.revokeRefreshToken()
+
+    // 2. Remove the refresh token from the locale storage
+    localStorage.removeItem(REFRESH_TOKEN_KEY)
+
+    // 3. Reset the app (see root reducer)
+    yield put(AuthActions.logout())
+  }
+}
+
 export default function * root () {
   yield fork(loginFlow)
+  yield fork(logout)
 }

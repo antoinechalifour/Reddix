@@ -42,7 +42,7 @@ const Drawer = ({ actions, subreddits, me }) => (
         <Link to='/customize'>Customize Reddix</Link>
 
         <AuthFilterContainer
-          lIn={() => <span onClick={() => actions.logout()}>Log out</span>}
+          lIn={() => <span onClick={() => actions.logoutRequest()}>Log out</span>}
           lOut={() => <span onClick={() => actions.login()}>Log In</span>}
         />
       </div>
