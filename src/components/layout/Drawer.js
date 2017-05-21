@@ -8,6 +8,10 @@ const Drawer = () => (
     </div>
     <div className="drawer__content">
       <div className="drawer__section">
+        <div>Reddix</div>
+        <Link to='/'>Frontpage</Link>
+      </div>
+      <div className="drawer__section">
         <div>Settings</div>
         <Link to='/customize'>Customize Reddix</Link>
         <Link to='/customize'>Log In</Link>
