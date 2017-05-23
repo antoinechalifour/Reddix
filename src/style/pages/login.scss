@@ -1,0 +1,41 @@
+.login-page {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $color-primary;
+
+  &__content {
+    text-align: center;
+    width: 95%;
+    white-space: nowrap;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    button {
+      text-transform: uppercase;
+      border: none;
+      font-size: inherit;
+      padding: 16px 32px;
+      background: rgba(0, 0, 0, .2);
+      color: inherit;
+      cursor: pointer;
+      border: 4px;
+      @include elevation(2);
+      transition: box-shadow .2s ease-in;
+
+      &:hover {
+        @include elevation(3);
+      }
+    }
+  }
+
+  &__title {
+    font-size: 6rem;
+    text-transform: uppercase;
+  }
+}

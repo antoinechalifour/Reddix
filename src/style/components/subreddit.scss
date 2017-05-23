@@ -1,4 +1,41 @@
 .subreddit {
+  &__header {
+    min-height: 175px;
+    position: relative;
+
+    h1 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      z-index: 10;
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 2rem;
+    }
+  }
+
+  &__cover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, .7);
+    }
+  }
+
   &__post-list {
     width: 95%;
     margin: auto;

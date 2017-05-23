@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MdMenu from 'react-icons/lib/md/menu'
-import * as Api from '../../api'
 import debounce from '../../util/debounce'
 
 class AppBar extends Component {
@@ -17,8 +16,8 @@ class AppBar extends Component {
 
   onChange (value) {
     if (value.length > 2) {
-      Api.searchSubreddit(value)
-      .then(suggestions => this.setState({ suggestions }))
+      // Api.searchSubreddit(value)
+      // .then(suggestions => this.setState({ suggestions }))
     } else if (value.length === 0) {
       this.setState({ suggestions: [] })
     }

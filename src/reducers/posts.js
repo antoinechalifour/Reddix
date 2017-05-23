@@ -1,24 +1,19 @@
 import { combineReducers } from 'redux'
-import {
-  RECEIVE_POSTS
-} from '../actions/subreddit'
-import {
-  REQUEST_POST,
-  RECEIVE_POST
-} from '../actions/post'
+import * as actions from '../actions/post'
+import mergeDeep from '../util/mergeDeep'
 
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_POSTS:
+    case actions.RECEIVE_POSTS:
       return {
         ...state,
         ...action.posts.reduce((accumulator, post) => {
-        accumulator[post.id] = post
-        return accumulator
-      }, {})
+          accumulator[post.id] = post
+          return accumulator
+        }, {})
       }
 
-    case RECEIVE_POST:
+    case actions.RECEIVE_POST:
       return {
         ...state,
         [action.post.id]: action.post
@@ -29,20 +24,33 @@ const byId = (state = {}, action) => {
   }
 }
 
-const allIds = (state = [], action) => {
+const byCategory = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_POSTS:
-      return [...new Set([
+    case actions.RECEIVE_POSTS:
+      const oldPosts = state[action.from] || []
+      const newPosts = action.posts.map(x => x.id)
+
+      return {
         ...state,
-        ...action.posts.map(x => x.id)
-      ])]
+        [action.from]: [...new Set([...oldPosts, ...newPosts])]
+      }
     
-    case RECEIVE_POST:
-      return [...new Set([
-        ...state,
-        action.post.id
-      ])]
-    
+    default:
+      return state
+  }
+}
+
+const bySubreddit = (state = {}, action) => {
+  switch (action.type) {
+    case actions.RECEIVE_POSTS:
+      const newEntries = action.posts.reduce((acc, post) => {
+        acc[post.subreddit] = acc[post.subreddit] || []
+        acc[post.subreddit].push(post.id)
+
+        return acc
+      }, {})
+      return mergeDeep(state, newEntries)
+
     default:
       return state
   }
@@ -50,13 +58,15 @@ const allIds = (state = [], action) => {
 
 const api = (state = { isLoading: false }, action) => {
   switch (action.type) {
-    case REQUEST_POST:
+    case actions.REQUEST_POST:
+    case actions.RECEIVE_POSTS:
       return {
         ...state,
         isLoading: true
       }
     
-    case RECEIVE_POST:
+    case actions.RECEIVE_POSTS:
+    case actions.RECEIVE_POST:
       return {
         ...state,
         isLoading: false
@@ -69,6 +79,7 @@ const api = (state = { isLoading: false }, action) => {
 
 export default combineReducers({
   byId,
-  allIds,
+  byCategory,
+  bySubreddit,
   api
 })

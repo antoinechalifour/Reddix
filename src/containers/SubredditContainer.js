@@ -4,19 +4,16 @@ import Subreddit from '../components/subreddit/Subreddit'
 import * as SubredditActions from '../actions/subreddit'
 
 const mapStateToProps = (state, ownProps) => {
-  const { r = 'all' } = ownProps
-  const postIds = state.subreddits.posts[r] || []
-  let posts = postIds.map(id => state.posts.byId[id])
-
-  if (ownProps.from) {
-    posts = posts.filter(x => x.__tag === ownProps.from)
-  }
-
-  return { posts }
+  const sid = Object.keys(state.subreddits.byId).find(
+    id => state.subreddits.byId[id].display_name === ownProps.r
+  )
+  const subreddit = state.subreddits.byId[sid]
+  
+  return { subreddit }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: bindActionCreators(SubredditActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Subreddit)
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Subreddit)

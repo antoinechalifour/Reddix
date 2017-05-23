@@ -26,7 +26,9 @@ My main goal for now is to integrate native Reddit features but more is comming 
 
 ## Getting Started
 
+* create 2 apps on Reddit ((a.)web application, (b.) installed app)
 * clone the repo
+* duplicate .env.sample -> .env.development.local and add the ids
 * yarn (or npm install)
 * yarn start (or npm start)
 

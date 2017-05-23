@@ -4,7 +4,7 @@ import { RECEIVE_POST } from '../actions/post'
 const byId = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_POST:
-      const commentsToAdd = action.comments.reduce((accumulator, comment) => {
+      const commentsToAdd = action.post.comments.reduce((accumulator, comment) => {
         accumulator[comment.id] = comment
         return accumulator
       }, {})
@@ -21,11 +21,9 @@ const byId = (state = {}, action) => {
 const byPost = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_POST:
-      const { post, comments } = action
-
       return {
         ...state,
-        [post.id]: comments.map(x => x.id)
+        [action.post.id]: action.post.comments.map(x => x.id)
       }
     
     default:

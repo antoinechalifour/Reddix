@@ -1,23 +1,24 @@
+export const REQUEST_SUBREDDIT = 'REQUEST_SUBREDDIT'
+export const RECEIVE_SUBREDDIT = 'RECEIVE_SUBREDDIT'
 export const RECEIVE_SUBREDDITS = 'RECEIVE_SUBREDDITS'
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const RECEIVE_SUBSCRIPTIONS = 'RECEIVE_SUBSCRIPTIONS'
 
-export const receiveSubreddits = (subreddits) => ({
+export const requestSubreddit = name => ({
+  type: REQUEST_SUBREDDIT,
+  name
+})
+
+export const receiveSubreddit = subreddit => ({
+  type: RECEIVE_SUBREDDIT,
+  subreddit
+})
+
+export const receiveSubreddits = subreddits => ({
   type: RECEIVE_SUBREDDITS,
   subreddits
 })
 
-export const requestPosts = ({ subreddit, tag, query }) => {
-  return {
-    type: REQUEST_POSTS,
-    subreddit,
-    tag,
-    query
-  }
-}
-
-export const receivePosts = (posts, sub = 'all') => ({
-  type: RECEIVE_POSTS,
-  sub,
-  posts
+export const receiveSubscriptions = subreddits => ({
+  type: RECEIVE_SUBSCRIPTIONS,
+  subreddits
 })

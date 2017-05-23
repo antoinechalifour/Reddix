@@ -24,17 +24,7 @@ const Subreddit = ({ match }) => {
         render={() => (
           <div className='page-subreddit'>
             <AppBarContainer r={r} />
-            <Tabs>
-              <Tab title='Hot'>
-                <SubredditContainer r={r} />
-              </Tab>
-              <Tab title='New'>
-                <SubredditContainer r={r} from='new' />
-              </Tab>
-              <Tab title='Rising'>
-                <SubredditContainer r={r} from='rising' />
-              </Tab>
-            </Tabs>
+            <SubredditContainer r={r} />
           </div>
         )}
       />

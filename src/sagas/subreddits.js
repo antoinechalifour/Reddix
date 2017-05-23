@@ -1,18 +1,13 @@
-import { call, take, put, fork } from 'redux-saga/effects'
-import * as Api from '../api'
-import * as SubActions from '../actions/subreddit'
+import { call, take, put, fork, select } from 'redux-saga/effects'
+import * as actions from '../actions/subreddit'
 
 function * requestSubreddit () {
   while (true) {
-    const { subreddit, tag, query } = yield take(SubActions.REQUEST_POSTS)
+    const { name } = yield take(actions.REQUEST_SUBREDDIT)
+    const r = yield select(state => state.r)
+    const { data: subreddit } = yield r.getSubreddit(name)
 
-    try {
-      const posts = yield call(Api.fetchSubreddit, { r: subreddit, tag, query })
-
-      yield put(SubActions.receivePosts(posts, subreddit))
-    } catch (err) {
-
-    }
+    yield put(actions.receiveSubreddit(subreddit))
   }
 }
 

@@ -1,14 +1,13 @@
 import qs from 'querystring'
 import { all, take, put, fork, select } from 'redux-saga/effects'
-import snoowrap from 'snoowrap'
+import Api from '../api/Api'
 import * as AuthActions from '../actions/auth'
 import * as SubredditActions from '../actions/subreddit'
 import * as MeActions from '../actions/me'
 
 const REFRESH_TOKEN_KEY = 'REDDIX::refresh_token'
-
-// TMP CLIENT ID FOR DEV PURPOSES
-const CLIENT_ID = 'GDObwCGoh5qWdg'
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+const REDIRECT_URL = process.env.REACT_APP_OAUTH_REDIRECT_URL
 
 const watchOauthWindow = wOauth => new Promise((resolve, reject) => {
   let interval = setInterval(() => {
@@ -24,17 +23,16 @@ const watchOauthWindow = wOauth => new Promise((resolve, reject) => {
 })
 
 function * setUp (r) {
-  let [me, subscriptions] = yield Promise.all([
+  const [me, _subreddits] = yield Promise.all([
     r.getMe(),
     r.getSubscriptions()
   ])
-
-  me = me.toJSON()
+  const subreddits = _subreddits.data.children.map(x => x.data)
 
   yield all([
     put(AuthActions.loginSuccess(r)),
-    put(SubredditActions.receiveSubreddits(subscriptions)),
-    put(MeActions.receiveMe(me))
+    put(MeActions.receiveMe(me)),
+    put(SubredditActions.receiveSubscriptions(subreddits))
   ])
 }
 
@@ -42,11 +40,10 @@ function * loginFromLocalStorage () {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
 
   if (refreshToken) {
-    const r = new snoowrap({
-      userAgent: navigator.userAgent,
+    const r = yield Api.fromRefreshToken({
+      refreshToken,
       clientId: CLIENT_ID,
-      clientSecret: '',
-      refreshToken
+      redirectUri: REDIRECT_URL
     })
 
     yield setUp(r)
@@ -58,7 +55,6 @@ function * loginFlow () {
 
   while (true) {
     yield take(AuthActions.LOGIN)
-    console.log('Loggin in...')
     const scope = [
       'subscribe',
       'vote',
@@ -71,10 +67,11 @@ function * loginFlow () {
       'edit',
       'history'
     ]
-    const authUrl = snoowrap.getAuthUrl({
+
+    const authUrl = Api.getAuthUrl({
       clientId: CLIENT_ID,
       scope,
-      redirectUri: 'http://localhost:3000/oauth'
+      redirectUri: REDIRECT_URL
     })
 
     const wOauth = window.open(authUrl, "Authorize Reddix", "width=800, height=600")
@@ -86,17 +83,16 @@ function * loginFlow () {
       return
     }
 
-    const r = yield snoowrap.fromAuthCode({
+    const r = yield Api.fromAuthCode({
       code,
       clientId: CLIENT_ID,
-      redirectUri: 'http://localhost:3000/oauth'
+      redirectUri: REDIRECT_URL
     })
 
-    const { refreshToken } = r
-
-    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken)
+    localStorage.setItem(REFRESH_TOKEN_KEY, r.refreshToken)
 
     yield setUp(r)
+
   }
 }
 

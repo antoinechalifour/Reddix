@@ -1,18 +1,20 @@
 import { combineReducers } from 'redux'
 import { LOGOUT } from '../actions/auth'
-import auth from './auth'
-import posts from './posts'
-import subreddits from './subreddits'
-import comments from './comments'
+// import comments from './comments'
 import me from './me'
+import posts from './posts'
+import r from './r'
+import subreddits from './subreddits'
+import subscriptions from './subscriptions'
 import ui from './ui'
 
 const reducer = combineReducers({
-  auth,
-  posts,
-  subreddits,
-  comments,
+  // comments,
   me,
+  posts,
+  r,
+  subreddits,
+  subscriptions,
   ui
 })
 
