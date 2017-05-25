@@ -58,6 +58,26 @@ export default class Api {
     })
   }
 
+  save (id) {
+    const form = new FormData()
+    form.append('id', id)
+
+    return this._makeAuthorizedRequest('/api/save', {
+      method: 'POST',
+      body: form
+    })
+  }
+
+  unsave (id) {
+    const form = new FormData()
+    form.append('id', id)
+
+    return this._makeAuthorizedRequest('/api/unsave', {
+      method: 'POST',
+      body: form
+    })
+  }
+
   _generateSubredditsMethodsHOF (endpoint) {
     return (name, options) => {
       let uri = ''
