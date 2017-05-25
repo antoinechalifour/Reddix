@@ -90,8 +90,50 @@ function * watchToggleSave () {
   }
 }
 
+function * watchToggleUpvote () {
+  while (true) {
+    const { id } = yield take(actions.TOGGLE_UPVOTE)
+    const { likes } = yield select(state => state.posts.byId[id])
+    const r = yield select(state => state.r)
+    const prefixedId = `t3_${id}`
+    const updates = {}
+
+    if (likes === 1) {
+      yield r.unvote(prefixedId)
+      updates.likes = 0
+    } else {
+      yield r.upvote(prefixedId)
+      updates.likes = 1
+    }
+    
+    yield put(actions.updatePost(id, updates))
+  }
+}
+
+function * watchToggleDownvote () {
+  while (true) {
+    const { id } = yield take(actions.TOGGLE_DOWNVOTE)
+    const { likes } = yield select(state => state.posts.byId[id])
+    const r = yield select(state => state.r)
+    const prefixedId = `t3_${id}`
+    const updates = {}
+
+    if (likes === -1) {
+      yield r.unvote(prefixedId)
+      updates.likes = 0
+    } else {
+      yield r.downvote(prefixedId)
+      updates.likes = -1
+    }
+
+    yield put(actions.updatePost(id, updates))
+  }
+}
+
 export default function * root () {
   yield fork(requestPost)
   yield fork(requestPosts)
   yield fork(watchToggleSave)
+  yield fork(watchToggleUpvote)
+  yield fork(watchToggleDownvote)
 }

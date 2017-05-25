@@ -25,8 +25,9 @@ const PostItem = ({
     <div className='post-item__actions'>
       <MdArrowUpward
         className={classnames({
-          'post-item__actions--active': likes
+          'post-item__actions--active': likes === 1
         })}
+        onClick={() => actions.toggleUpvote(id)}
       />
       <MdStar
         className={classnames({
@@ -34,7 +35,12 @@ const PostItem = ({
         })}
         onClick={() => actions.toggleSave(id)}
       />
-      <MdArrowDownward />
+      <MdArrowDownward
+        className={classnames({
+          'post-item__actions--active': likes === -1
+        })}
+        onClick={() => actions.toggleDownvote(id)}
+      />
     </div>
     <div className='post-item__main'>
       <div className='post-item__header'>
