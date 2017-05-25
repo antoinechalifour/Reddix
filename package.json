@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "html-entities": "^1.2.1",
     "humanize-plus": "^1.8.2",
     "moment": "^2.18.1",
     "normalizr": "^3.2.3",

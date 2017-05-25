@@ -4,6 +4,7 @@ import AppBarContainer from '../../containers/AppBarContainer'
 import Tabs, { Tab } from '../widgets/Tabs'
 import SubredditContainer from '../../containers/SubredditContainer'
 import PostContainer from '../../containers/PostContainer'
+import PostModalContainer from '../../containers/PostModalContainer'
 
 const Subreddit = ({ match }) => {
   const { r } = match.params
@@ -25,6 +26,7 @@ const Subreddit = ({ match }) => {
           <div className='page-subreddit'>
             <AppBarContainer r={r} />
             <SubredditContainer r={r} />
+            <PostModalContainer />
           </div>
         )}
       />

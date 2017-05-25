@@ -1,0 +1,36 @@
+.post-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .6);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    position: relative;
+    width: 95%;
+    max-width: 900px;
+    background: #313131;
+    border-radius: 4px;
+    overflow: hidden;
+    @include elevation(1);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #f7f7f9;
+    font-size: 32px;
+    cursor: pointer;
+  }
+}
