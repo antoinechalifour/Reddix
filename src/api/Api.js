@@ -39,6 +39,18 @@ export default class Api {
     return this._makeAuthorizedRequest(`/r/${name}/about`)
   }
 
+  getPost (id, subreddit) {
+    let uri = ''
+
+    if (subreddit) {
+      uri += `/r/${subreddit}`
+    }
+
+    uri += `/comments/${id}`
+
+    return this._makeAuthorizedRequest(uri)
+  }
+
   _generateSubredditsMethodsHOF (endpoint) {
     return (name, options) => {
       let uri = ''
@@ -50,7 +62,14 @@ export default class Api {
 
       uri += `/${endpoint}`
 
-      return this._makeAuthorizedRequest(uri, options)
+      if (options.after) {
+        uri += `?after=${options.after}`
+      }
+
+      const opts = { ...options }
+      delete opts.after
+
+      return this._makeAuthorizedRequest(uri, opts)
     }
   }
 

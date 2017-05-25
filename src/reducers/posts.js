@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import * as actions from '../actions/post'
-import mergeDeep from '../util/mergeDeep'
 
 const byId = (state = {}, action) => {
   switch (action.type) {
@@ -43,13 +42,22 @@ const byCategory = (state = {}, action) => {
 const bySubreddit = (state = {}, action) => {
   switch (action.type) {
     case actions.RECEIVE_POSTS:
+      const nextState = { ...state }
       const newEntries = action.posts.reduce((acc, post) => {
         acc[post.subreddit] = acc[post.subreddit] || []
         acc[post.subreddit].push(post.id)
 
         return acc
       }, {})
-      return mergeDeep(state, newEntries)
+
+      Object.keys(newEntries).forEach(subreddit => {
+        const oldPosts = state[subreddit] || []
+        nextState[subreddit] = [...new Set([
+          ...oldPosts,
+          ...newEntries[subreddit]
+        ])]
+      })
+      return nextState
 
     default:
       return state

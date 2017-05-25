@@ -1,16 +1,16 @@
 import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 import Comments from '../components/post/Comments'
+import {
+  createPostTopLevelCommentSelector,
+  mapIdsToComments
+ } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
-  const commentIds = state.comments.byPost[id] || []
-  const comments = commentIds.map(id => state.comments.byId[id])
+  const commentIds = createPostTopLevelCommentSelector(id)(state)
 
-  return { comments }
+  return { commentIds }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Comments)
+export default connect(mapStateToProps)(Comments)

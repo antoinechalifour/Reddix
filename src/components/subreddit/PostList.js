@@ -15,7 +15,7 @@ class PostList extends Component {
       this.props.from
     )
 
-    // window.addEventListener('scroll', this.onScroll)
+    window.addEventListener('scroll', this.onScroll)
   }
 
   componentWillUnmount () {

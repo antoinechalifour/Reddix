@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Comment from './Comment'
+import CommentContainer from '../../containers/CommentContainer'
 
 class Comments extends Component {
   render () {
-    if (this.props.comments.length === 0) {
+    if (this.props.commentIds.length === 0) {
       // Prevent empty content to display
       // when no comments are loaded
       return null
@@ -11,10 +11,10 @@ class Comments extends Component {
   
     return (
       <div className='post__comments'>
-        {this.props.comments.map(x => (
-          <Comment
-            key={x.id}
-            {...x}
+        {this.props.commentIds.map(id => (
+          <CommentContainer
+            key={id}
+            id={id}
           />
         ))}
       </div>

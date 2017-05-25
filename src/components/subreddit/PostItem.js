@@ -11,7 +11,8 @@ const PostItem = ({
   subreddit,
   thumbnail,
   created_utc,
-  domain
+  domain,
+  num_comments
 }) => (
   <div className='post-item'>
     <div className='post-item__header'>
@@ -19,15 +20,16 @@ const PostItem = ({
         {Humanize.compactInteger(score, 1)}
       </div>
       <div className='post-item__meta'>
-        <Link to={`/u/${author.name}`}>{author.name}</Link> in <Link to={`/r/${subreddit.display_name}`}>{subreddit.display_name}</Link>
+        <Link to={`/u/${author}`}>{author}</Link> in <Link to={`/r/${subreddit}`}>{subreddit}</Link>
       </div>
     </div>
     <div className='post-item__content'>
       <div className='post-item__title'>
-        <Link to={`/r/${subreddit.display_name}/comments/${id}`}>{title}</Link>
+        <Link to={`/r/${subreddit}/comments/${id}`}>{title}</Link>
       </div>
     </div>
     <div className='post-item__footer'>
+      <div className='post-item__comments'>{num_comments} comments</div>
       <div className='post-item__source'>{domain}</div>
       <div className='post-item__created'>{moment(created_utc * 1000).fromNow()}</div>
     </div>

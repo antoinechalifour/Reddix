@@ -1,26 +1,51 @@
 import { call, take, put, fork, select } from 'redux-saga/effects'
 import * as actions from '../actions/post'
+import * as commentsActions from '../actions/comments'
+
+/**
+ * For a given comment, flattens its children and returns it and its
+ * children as a flat array
+ */
+const flattenComments = thing => {
+  const comment = thing.data
+  const replies = comment.replies
+  const flattened = [comment]
+
+  if (replies && replies.kind === 'Listing') {
+    for (let child of replies.data.children) {
+      flattened.push(...flattenComments(child))
+    }
+  }
+
+  return flattened
+}
 
 function * requestPost () {
   while (true) {
-    const { r, id } = yield take(actions.REQUEST_POST)
-    // const client = yield select(state => state.client)
+    const { r: subreddit, id } = yield take(actions.REQUEST_POST)
+    const r = yield select(state => state.r)
 
-    // const _post = client.getSubmission(id)
-    // const post = yield _post.fetch()
+    const [_post, _comments] = yield r.getPost(id, subreddit)
+    const post = _post.data.children[0].data
+    const comments = _comments.data.children
 
-    // yield put(actions.receivePost(post))
+    // Each post comments has a deep nested structure:
+    // - comments
+    //   - replies[]
+    //     -replies[]
+    // - ... repeat
+    // We actually want to store our comments
+    // as a flat structure with an object
+    // indicating the hierarchy, so we first need
+    // to flatten this structure
+    const allComments = []
 
-    // try {
-    //   const client = yield select(state => state.client)
-    //   const sub = yield client.getSubreddit(r)
-    //   console.log({ sub })
-    //   const { post, comments } = yield call(Api.fetchPost, r, id)
+    for (let comment of comments) {
+      allComments.push(...flattenComments(comment))
+    }
 
-    //   yield put(actions.receivePost(post, comments, r))
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    yield put(actions.receivePost(post))
+    yield put(commentsActions.receiveComments(allComments))
   }
 }
 
@@ -32,7 +57,14 @@ function * requestPosts () {
     const [up, ...rest] = from
     // Converts "hot" to "getHot"
     const fetchMethod = `get${up.toUpperCase()}${rest.join('')}`
-    const _posts = yield r[fetchMethod](subreddit, { after: `t3_${after}` })
+
+    const options = {}
+
+    if (after) {
+      options.after = `t3_${after}`
+    }
+
+    const _posts = yield r[fetchMethod](subreddit, options)
     const posts = _posts.data.children.map(x => x.data)
 
     yield put(actions.receivePosts(posts, from))

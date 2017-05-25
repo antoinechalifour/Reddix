@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { LOGOUT } from '../actions/auth'
-// import comments from './comments'
+import comments from './comments'
 import me from './me'
 import posts from './posts'
 import r from './r'
@@ -9,7 +9,7 @@ import subscriptions from './subscriptions'
 import ui from './ui'
 
 const reducer = combineReducers({
-  // comments,
+  comments,
   me,
   posts,
   r,

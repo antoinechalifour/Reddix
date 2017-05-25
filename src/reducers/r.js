@@ -1,4 +1,3 @@
-import snoowrap from 'snoowrap'
 import { LOGIN_SUCCESS, LOGOUT } from '../actions/auth'
 
 const initialState = null

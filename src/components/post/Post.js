@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import Markdown from 'react-markdown'
-import AppBar from '../widgets/AppBar'
+import AppBarContainer from '../../containers/AppBarContainer'
 import CommentsContainer from '../../containers/CommentsContainer'
 
 const getRenderer = ({ src, alt }) => {
@@ -105,7 +105,7 @@ class Post extends Component {
 
     return (
       <div className='post'>
-        <AppBar r={this.props.r} />
+        <AppBarContainer r={this.props.r} />
         
         {postContent && (
           <div className='post__content'>
@@ -121,7 +121,7 @@ class Post extends Component {
             </div>
           </div>
         )}
-        
+
         <CommentsContainer id={this.props.id} />
       </div>
     )

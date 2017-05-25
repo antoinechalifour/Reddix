@@ -1,5 +1,12 @@
 import { createSelector } from 'reselect'
 
+const arrayIntersection = (a, b) => {
+  const sA = new Set(a)
+  const sB = new Set(b)
+
+  return [...sA].filter(x => sB.has(x))
+}
+
 /**------------------------------ */
 // Subreddits selectors and helpers
 /**------------------------------ */
@@ -40,10 +47,41 @@ export const createPostsSubredditSelector = subreddit => state => state.posts.by
 export const createPostsCategorySubredditSelector = (category, subreddit) => createSelector(
   createPostsCategorySelector(category),
   createPostsSubredditSelector(subreddit),
-  (cPosts, sPosts) => [...new Set([...cPosts, ...sPosts])]
+  arrayIntersection
 )
 
 /**
  * Maps an array of ids to an array of Posts
  */
 export const mapIdsToPosts = state => ids => ids.map(id => state.posts.byId[id])
+
+
+/**------------------------------ */
+// Comments selectors and helpers
+/**------------------------------ */
+
+export const createPostCommentsSelector = postId => state => state.comments.byPost[postId] || []
+
+export const topLevelCommentSelector = state => {
+  const allIds = Object.keys(state.comments.byId)
+  const children = []
+  Object.keys(state.comments.replies).forEach(parent => {
+    children.push(...state.comments.replies[parent])
+  })
+
+  // Iterate allIds and remove the current ID
+  // if it appears as a child
+  return allIds.filter(id => !children.some(childId => childId === id))
+}
+
+export const createPostTopLevelCommentSelector = postId => createSelector(
+  createPostCommentsSelector(postId),
+  topLevelCommentSelector,
+  arrayIntersection
+)
+
+export const createCommentChildrenSelector = commentId => state => state.comments.replies[commentId] || []
+
+export const createCommentSelector = commentId => state => state.comments.byId[commentId]
+
+export const mapIdsToComments = state => ids => ids.map(id => state.comments.byId[id])
