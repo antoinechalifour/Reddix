@@ -51,6 +51,13 @@ export default class Api {
     return this._makeAuthorizedRequest(uri)
   }
 
+  searchSubreddits (query, { nsfw = true } = {}) {
+    return this._makeAuthorizedRequest(`/api/search_subreddits?query=${query}`, {
+      method: 'POST',
+      body: JSON.stringify({ include_over_18: nsfw })
+    })
+  }
+
   _generateSubredditsMethodsHOF (endpoint) {
     return (name, options) => {
       let uri = ''
