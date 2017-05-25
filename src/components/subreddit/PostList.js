@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PostItem from './PostItem'
+import PostItemContainer from '../../containers/PostItemContainer'
 import debounce from '../../util/debounce'
 
 class PostList extends Component {
@@ -46,7 +46,7 @@ class PostList extends Component {
     return (
       <div className='subreddit__post-list'>
         {this.props.posts.map(p => (
-          <PostItem
+          <PostItemContainer
             key={p.id}
             {...p}
           />

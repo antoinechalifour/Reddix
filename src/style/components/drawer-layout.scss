@@ -38,11 +38,11 @@
     flex-direction: row;
 
     .drawer-layout__drawer {
-      flex: 2;
+      width: 256px;
     }
 
     .drawer-layout__content {
-      flex: 10;
+      flex: 1;
     }
   }
 }

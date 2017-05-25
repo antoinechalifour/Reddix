@@ -71,7 +71,27 @@ function * requestPosts () {
   }
 }
 
+function * watchToggleSave () {
+  while (true) {
+    const { id } = yield take(actions.TOGGLE_SAVE)
+    const { saved } = yield select(state => state.posts.byId[id])
+    const r = yield select(state => state.r)
+
+    // Save / unsave category requires the ID prefix
+    const prefixedId = `t3_${id}`
+
+    if (saved) {
+      yield r.unsave(prefixedId)
+      yield put(actions.updatePost(id, { saved: false }))
+    } else {
+      yield r.save(prefixedId)
+      yield put(actions.updatePost(id, { saved: true }))
+    }
+  }
+}
+
 export default function * root () {
   yield fork(requestPost)
   yield fork(requestPosts)
+  yield fork(watchToggleSave)
 }

@@ -17,6 +17,15 @@ const byId = (state = {}, action) => {
         ...state,
         [action.post.id]: action.post
       }
+    
+    case actions.UPDATE_POST:
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          ...action.updates
+        }
+      }
 
     default:
       return state
