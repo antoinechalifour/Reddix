@@ -25,6 +25,10 @@ export default class Api {
     this.getRising = this._generateSubredditsMethodsHOF('rising')
     this.getTop = this._generateSubredditsMethodsHOF('top')
     this.getControversial = this._generateSubredditsMethodsHOF('controversial')
+
+    // Generate fav endpoints
+    this.save = this._generateSaveMethodsHOF('save')
+    this.unsave = this._generateSaveMethodsHOF('unsave')
   }
 
   getMe () {
@@ -58,24 +62,16 @@ export default class Api {
     })
   }
 
-  save (id) {
-    const form = new FormData()
-    form.append('id', id)
+  _generateSaveMethodsHOF (endpoint) {
+    return id => {
+      const form = new FormData()
+      form.append('id', id)
 
-    return this._makeAuthorizedRequest('/api/save', {
-      method: 'POST',
-      body: form
-    })
-  }
-
-  unsave (id) {
-    const form = new FormData()
-    form.append('id', id)
-
-    return this._makeAuthorizedRequest('/api/unsave', {
-      method: 'POST',
-      body: form
-    })
+      return this._makeAuthorizedRequest(`/api/${endpoint}`, {
+        method: 'POST',
+        body: form
+      })
+    }
   }
 
   _generateSubredditsMethodsHOF (endpoint) {
