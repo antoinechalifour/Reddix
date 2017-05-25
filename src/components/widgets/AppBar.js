@@ -16,8 +16,9 @@ class AppBar extends Component {
 
   onChange (value) {
     if (value.length > 2) {
-      // Api.searchSubreddit(value)
-      // .then(suggestions => this.setState({ suggestions }))
+      this.props.api.searchSubreddits(value)
+        .then(results => results.subreddits.map(x => x.name))
+        .then(suggestions => this.setState({ suggestions }))
     } else if (value.length === 0) {
       this.setState({ suggestions: [] })
     }
