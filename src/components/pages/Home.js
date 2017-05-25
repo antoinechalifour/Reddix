@@ -4,7 +4,8 @@ import AppBarContainer from '../../containers/AppBarContainer'
 
 const Home = () => (
   <div>
-    <AppBarContainer />>
+    <AppBarContainer />
+    <SubredditContainer r='FrontPage' />
   </div>
 )
 
