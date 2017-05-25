@@ -12,17 +12,22 @@
 
   &__content {
     position: relative;
-    width: 95%;
-    max-width: 900px;
+    max-width: 95%;
     background: #313131;
     border-radius: 4px;
     overflow: hidden;
     @include elevation(1);
+
+    &--video {
+      width: 95%;
+      max-width: 900px;
+    }
   }
 
   img {
     display: block;
-    width: 100%;
+    margin: auto;
+    max-height: 95vh;
   }
 
   &__close {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classnames from 'classnames'
 import MdClose from 'react-icons/lib/md/close'
 import { XmlEntities as Entities } from 'html-entities'
 
@@ -63,13 +64,18 @@ const PostModal = ({
     return null
   }
 
+  const isImage = post_hint === 'image'
+  const isVideo = post_hint === 'rich:video'
+
   return (
     <div
       className='post-modal'
       onClick={() => actions.hideModal()}
     >
       <div
-        className='post-modal__content'
+        className={classnames('post-modal__content', {
+          'post-modal__content--video': isVideo
+        })}
         onClick={e => {
           // Stop propagtion in order to prevent the
           // event from bubbing up and closing the
@@ -77,10 +83,10 @@ const PostModal = ({
           e.stopPropagation()
         }}
       >
-        {post_hint === 'image' && (
+        {isImage && (
           <img src={url} />
         )}
-        {post_hint === 'rich:video' && (
+        {isVideo && (
           <RichVideo {...media_embed} />
         )}
 
