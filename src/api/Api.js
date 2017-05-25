@@ -29,6 +29,11 @@ export default class Api {
     // Generate fav endpoints
     this.save = this._generateSaveMethodsHOF('save')
     this.unsave = this._generateSaveMethodsHOF('unsave')
+
+    // Generate vote endpoints
+    this.upvote = this._generateVoteMethodsHOF(1)
+    this.downvote = this._generateVoteMethodsHOF(-1)
+    this.unvote = this._generateVoteMethodsHOF(0)
   }
 
   getMe () {
@@ -53,6 +58,20 @@ export default class Api {
     uri += `/comments/${id}`
 
     return this._makeAuthorizedRequest(uri)
+      .then(data => {
+        // Quick trick: change post.like to the vote
+        // direction (-1, 0 or 1)
+        const isLiked = data[0].data.children[0].likes
+        let dir = 0
+
+        if (isLiked) {
+          dir = 1
+        }
+
+        data[0].data.children[0].likes = dir
+
+        return data
+      })
   }
 
   searchSubreddits (query, { nsfw = true } = {}) {
@@ -68,6 +87,19 @@ export default class Api {
       form.append('id', id)
 
       return this._makeAuthorizedRequest(`/api/${endpoint}`, {
+        method: 'POST',
+        body: form
+      })
+    }
+  }
+
+  _generateVoteMethodsHOF (direction) {
+    return id => {
+      const form = new FormData()
+      form.append('dir', direction)
+      form.append('id', id)
+
+      return this._makeAuthorizedRequest('/api/vote', {
         method: 'POST',
         body: form
       })
@@ -93,6 +125,22 @@ export default class Api {
       delete opts.after
 
       return this._makeAuthorizedRequest(uri, opts)
+        .then(response => {
+          // Quick trick: change post.like to the vote
+          // direction (-1, 0 or 1)
+          response.data.children.forEach(child => {
+            const isLiked = child.data.likes
+            let dir = 0
+
+            if (isLiked) {
+              dir = 1
+            }
+
+            child.data.likes = dir
+          })
+
+          return response
+        })
     }
   }
 
