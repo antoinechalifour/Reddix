@@ -18,6 +18,15 @@ class PostList extends Component {
     window.addEventListener('scroll', this.onScroll)
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (this.props.r !== nextProps.r) {
+      this.props.actions.requestPosts(
+        nextProps.r,
+        nextProps.from
+      )
+    }
+  }
+
   componentWillUnmount () {
     window.removeEventListener('scroll', this.onScroll)
   }
