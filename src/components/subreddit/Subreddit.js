@@ -11,6 +11,12 @@ class Subreddit extends Component {
     this.props.actions.requestSubreddit(this.props.r)
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (this.props.r !== nextProps.r) {
+      this.props.actions.requestSubreddit(nextProps.r)
+    }
+  }
+
   render () {
     if (!this.props.subreddit) {
       return null
