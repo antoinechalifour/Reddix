@@ -1,0 +1,15 @@
+.thing-meta {
+  font-size: 14px;
+  color: $font-color-light;
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+
+  &__score {
+    font-size: 18px;
+  }
+
+  > div {
+    margin-right: 8px;
+  }
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Markdown from 'react-markdown'
 import Humanize from 'humanize-plus'
 import CommentContainer from '../../containers/CommentContainer'
+import { Link } from 'react-router-dom'
 
 class Comment extends Component {
   constructor (props) {
@@ -14,13 +15,14 @@ class Comment extends Component {
   render () {
     return (
       <div className='comment'>
-        <div className="comment__header">
-          <div className="comment__score">{Humanize.compactInteger(this.props.score, 1)}</div>
-          <div className="comment__author">/u/{this.props.author}</div>
+        <div className="thing-meta">
+          <div className="thing-meta__score">{Humanize.compactInteger(this.props.score, 1)}</div>
+          <div>
+            Posted by <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
+          </div>
         </div>
 
         <div
-          className="comment__body"
           onClick={() => this.setState(ls => ({
             ...ls,
             showChildren: !ls.showChildren
@@ -28,8 +30,11 @@ class Comment extends Component {
         >
           <Markdown source={this.props.body} />
         </div>
+        <div className='thing-meta'>
+          <div onClick={() => this.setState({ showReply: true })}>Reply</div>
+        </div>
 
-        {this.state.showChildren && (
+        {this.state.showChildren && this.props.replies.length > 0 && (
           <div className="comment__replies">
             {this.props.replies.map(id => (
               <CommentContainer

@@ -1,0 +1,12 @@
+.thread-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 18px;
+
+  :last-child {
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+  }
+}

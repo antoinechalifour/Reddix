@@ -1,51 +1,37 @@
 .post {
   &__content,
   &__comments {
-    max-width: $max-width;
+    margin: 24px auto;
     width: 95%;
-    margin: auto;
-    box-sizing: border-box;
-    padding: 16px;
+    max-width: $max-width;
     background: #fff;
-    @include elevation(1);
+    padding: 16px;
+    box-sizing: border-box;
   }
 
   &__content {
-    margin: 24px auto;
     @include elevation(2);
-
-    pre {
-      font-family: monospace;
-      margin: 16px 0;
-      padding: 16px;
-      border-left: 3px solid #bcbcbc;
-      background: #f1f2f3;
-    }
   }
 
-  &__header {
-    font-family: $font-secondary;
-    display: flex;
-    flex-direction: row;
-    color: $font-color-light;
-
-    div + div {
-      margin-left: 12px;
-    }
+  &__comments {
+    @include elevation(1);
   }
 
-  &__title {
-    font-size: 150%;
-    margin: 24px 0 12px;
+  &__body {
+    font-size: 14px;
   }
 
-  &__body--media {
-    video, img, a {
+  .thread-header {
+    margin: 8px 0;
+  }
+
+  &__media {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: -16px;
+    
+    iframe {
       display: block;
-      width: 100%;
-      max-width: 450px;
-      margin: auto;
-      text-align: center;
     }
   }
 }

@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import Markdown from 'react-markdown'
+import { Link } from 'react-router-dom'
+import MdExitToApp from 'react-icons/lib/md/exit-to-app'
 import AppBarContainer from '../../containers/AppBarContainer'
+import ThreadHeader from '../widgets/ThreadHeader'
 import CommentsContainer from '../../containers/CommentsContainer'
+import FluidIframe from '../widgets/FluidIframe'
 
 const getRenderer = ({ src, alt }) => {
   const typeToRegexp = {
@@ -77,50 +81,34 @@ class Post extends Component {
   }
 
   render () {
-    let postContent = ''
-    let modifierClass = ''
-    let media
-
-    if (this.props.media) {
-      media = {
-        src: this.props.media.oembed.thumbnail_url,
-        alt: this.props.media.oembed.description
-      }
-    } else if (this.props.url) {
-      media = {
-        src: this.props.url,
-        alt: this.props.title
-      }
-    }
-
-    if (this.props.selftext) {
-      postContent = (
-        <Markdown source={this.props.selftext} />
-      )
-      modifierClass = '--text'
-    } else if (media) {
-      postContent = getRenderer(media)
-      modifierClass = '--media'
-    }
-
     return (
       <div className='post'>
         <AppBarContainer r={this.props.r} />
-        
-        {postContent && (
-          <div className='post__content'>
-            <div className="post__header">
-              <div className="post__score">{this.props.score}</div>
-              <div className="post__author">/u/{this.props.author}</div>
-            </div>
 
-            <div className="post__title">{this.props.title}</div>
-
-            <div className={classnames('post__body', `post__body${modifierClass}`)}>
-              {postContent}
+        <div className="post__content">
+          <div className='thing-meta'>
+            <div className="thing-meta__score">{this.props.score}</div>
+            <div>
+              Posted by <Link to={`/u/${this.props.author}`}>{this.props.author}</Link>
             </div>
           </div>
-        )}
+          
+          <ThreadHeader {...this.props} />
+          
+          {/* Only for selfs posts with texts */}
+          {this.props.selftext && (
+            <div className="post__body">
+              <Markdown source={this.props.selftext} />
+            </div>
+          )}
+
+          {/* Only for Rich:Video content */}
+          {this.props.post_hint === 'rich:video' && (
+            <div className='post__media'>
+              <FluidIframe {...this.props.media_embed} />
+            </div>
+          )}
+        </div>
 
         <CommentsContainer id={this.props.id} />
       </div>

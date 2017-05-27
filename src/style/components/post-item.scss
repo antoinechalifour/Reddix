@@ -9,6 +9,9 @@
     margin-top: 12px;
   }
 
+  // Upvote
+  // Star
+  // Downvote
   &__actions {
     display: flex;
     flex-direction: column;
@@ -34,54 +37,7 @@
     flex: 1;
   }
 
-  &__header,
-  &__footer {
-    font-family: $font-secondary;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    font-size: 75%;
-    color: $font-color-light;
-
-    div + div {
-      margin-left: 12px;
-    }
-  }
-
-  &__score {
-    font-size: 125%;
-  }
-
-  &__content {
-    &--image,
-    &--link,
-    &--self,
-    &--video {
-      margin: 12px 0;
-    }
-
-    &--link,
-    &--video,
-    &--image {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      > :first-child {
-        background-size: cover;
-        height: 70px;
-        width: 70px;
-      }
-
-      > :last-child {
-        flex: 1;
-        margin-left: 16px;
-      }
-    }
-  }
-
-  &__title a {
-    text-decoration: none;
-    color: inherit;
+  .thread-header {
+    margin: 8px 0;
   }
 }
