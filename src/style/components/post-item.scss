@@ -57,9 +57,10 @@
     &--link,
     &--self,
     &--video {
-      padding: 12px 0;
+      margin: 12px 0;
     }
 
+    &--link,
     &--video,
     &--image {
       display: flex;

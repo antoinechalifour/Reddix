@@ -9,6 +9,12 @@ import MdStar from 'react-icons/lib/md/star'
 
 const ContentLink = props => (
   <div className='post-item__content--link'>
+    <div
+      className='post-item__content--image'
+      style={{
+        backgroundImage: `url(${props.thumbnail})`
+      }}
+    />
     <PostTitle {...props} />
   </div>
 )
