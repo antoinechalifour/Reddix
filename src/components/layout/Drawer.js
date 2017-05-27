@@ -5,8 +5,12 @@ const Drawer = ({ actions, subreddits, me }) => (
   <div className='drawer'>
     <div className="drawer__header">
       <div className='drawer__me'>
-        <img src={me.subreddit.icon_img} />
-        <div>/u/{me.name}</div>
+        {me.subreddit && (
+          <img src={me.subreddit.icon_img} />
+        )}
+        <div>
+          <Link to='/me'>/u/{me.name}</Link>
+        </div>
       </div>
     </div>
     <div className="drawer__content">
