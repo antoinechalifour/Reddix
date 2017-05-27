@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 import {
-  createCommentChildrenSelector,
-  createCommentSelector
-} from '../selectors'
+  commentChildrenSelectorFactory,
+  commentSelectorFactory
+} from '../selectors/comments'
 import Comment from '../components/post/Comment'
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
-  const comment = createCommentSelector(id)(state)
-  const replies = createCommentChildrenSelector(id)(state)
+  const comment = commentSelectorFactory(id)(state)
+  const replies = commentChildrenSelectorFactory(id)(state)
 
   return {
     ...comment,

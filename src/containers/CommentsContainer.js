@@ -2,13 +2,13 @@ import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 import Comments from '../components/post/Comments'
 import {
-  createPostTopLevelCommentSelector,
+  postRootCommentSelectorFactory,
   mapIdsToComments
- } from '../selectors'
+ } from '../selectors/comments'
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
-  const commentIds = createPostTopLevelCommentSelector(id)(state)
+  const commentIds = postRootCommentSelectorFactory(id)(state)
 
   return { commentIds }
 }

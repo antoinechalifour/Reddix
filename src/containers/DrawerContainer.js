@@ -5,7 +5,7 @@ import * as AuthActions from '../actions/auth'
 import {
   subscriptionsSelector,
   mapIdsToSubreddits
-} from '../selectors'
+} from '../selectors/subreddits'
 import { createSelector } from 'reselect'
 
 const mapStateToProps = state => {

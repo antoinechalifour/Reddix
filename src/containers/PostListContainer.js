@@ -3,16 +3,15 @@ import { connect } from 'react-redux'
 import * as actions from '../actions/post'
 import PostList from '../components/subreddit/PostList'
 import {
-  createPostsCategorySubredditSelector,
+  categorySubredditSelectorFactory,
   mapIdsToPosts
-} from '../selectors'
+} from '../selectors/posts'
 import { createSelector } from 'reselect'
-import unionArray from '../util/unionArray'
 
 const mapStateToProps = (state, ownProps) => {
   const { r, from } = ownProps
   const posts = createSelector(
-    createPostsCategorySubredditSelector(from, r),
+    categorySubredditSelectorFactory(from, r),
     mapIdsToPosts(state)
   )(state)
 
