@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 import Home from './components/pages/Home'
 import Subreddit from './components/pages/Subreddit'
+import Me from './components/pages/Me'
 import FakeProgressContainer from './containers/FakeProgressContainer'
 import DrawerLayoutContainer from './containers/DrawerLayoutContainer'
 import LoginContainer from './containers/LoginContainer'
@@ -27,6 +28,8 @@ const App = () => (
             />
 
             <Route path='/r/:r' component={Subreddit} />
+
+            <Route exact path='/me' component={Me} />
           </DrawerLayoutContainer>
         )}
       </IfLoggedIn>

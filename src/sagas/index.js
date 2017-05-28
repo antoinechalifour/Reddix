@@ -1,10 +1,14 @@
 import { fork } from 'redux-saga/effects'
-import watchSubreddits from './subreddits'
-import watchPosts from './post'
-import watchAuth from './auth'
+import auth from './auth'
+import comments from './comments'
+import posts from './post'
+import prefs from './prefs'
+import subreddits from './subreddits'
 
 export default function * root () {
-  yield fork(watchSubreddits)
-  yield fork(watchPosts)
-  yield fork(watchAuth)
+  yield fork(auth)
+  yield fork(comments)
+  yield fork(posts)
+  yield fork(prefs)
+  yield fork(subreddits)
 }

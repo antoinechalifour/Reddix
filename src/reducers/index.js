@@ -3,6 +3,7 @@ import { LOGOUT } from '../actions/auth'
 import comments from './comments'
 import me from './me'
 import posts from './posts'
+import prefs from './prefs'
 import r from './r'
 import subreddits from './subreddits'
 import subscriptions from './subscriptions'
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   comments,
   me,
   posts,
+  prefs,
   r,
   subreddits,
   subscriptions,
