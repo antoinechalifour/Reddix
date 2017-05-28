@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from '../actions/subreddit'
 
-const byId = (state = {}, action) => {
+export const byId = (state = {}, action) => {
   switch (action.type) {
     case actions.RECEIVE_SUBREDDIT:
       return {
