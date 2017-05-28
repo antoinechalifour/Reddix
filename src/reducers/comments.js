@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { RECEIVE_COMMENTS } from '../actions/comments'
 
-const byId = (state = {}, action) => {
+export const byId = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_COMMENTS:
       return {
@@ -17,32 +17,40 @@ const byId = (state = {}, action) => {
   }
 }
 
-const byPost = (state = {}, action) => {
+export const byPost = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_COMMENTS:
-      return {
-        ...state,
-        ...(action.comments.reduce((acc, comment) => {
-          const { link_id } = comment
-          // Remove the "t3_" prefix to get
-          // The post id
-          const postId = link_id.substr(3)
+      const nextState = { ...state }
+      const newEntries = action.comments.reduce((acc, comment) => {
+        const { link_id } = comment
+        // Remove the "t3_" prefix to get
+        // The post id
+        const postId = link_id.substr(3)
 
-          acc[postId] = acc[postId] || []
-          acc[postId].push(comment.id)
-          return acc
-        }, {}))
-      }
+        acc[postId] = acc[postId] || []
+        acc[postId].push(comment.id)
+        return acc
+      }, {})
+
+      Object.keys(newEntries).forEach(postId => {
+        const oldComments = state[postId] || []
+        nextState[postId] = [...new Set([
+          ...oldComments,
+          ...newEntries[postId]
+        ])]
+      })
+
+      return nextState
 
     default:
       return state
   }
 }
 
-const replies = (state = {}, action) => {
+export const replies = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_COMMENTS:
-      const newHierarchy = {}
+      const newHierarchy = { ... state }
 
       // Iterate the comments to build
       // the hierarchy
