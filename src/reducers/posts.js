@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from '../actions/post'
 
-const byId = (state = {}, action) => {
+export const byId = (state = {}, action) => {
   switch (action.type) {
     case actions.RECEIVE_POSTS:
       return {
@@ -32,7 +32,7 @@ const byId = (state = {}, action) => {
   }
 }
 
-const byCategory = (state = {}, action) => {
+export const byCategory = (state = {}, action) => {
   switch (action.type) {
     case actions.RECEIVE_POSTS:
       const oldPosts = state[action.from] || []
@@ -48,7 +48,7 @@ const byCategory = (state = {}, action) => {
   }
 }
 
-const bySubreddit = (state = {}, action) => {
+export const bySubreddit = (state = {}, action) => {
   switch (action.type) {
     case actions.RECEIVE_POSTS:
       const nextState = { ...state }
@@ -73,7 +73,7 @@ const bySubreddit = (state = {}, action) => {
   }
 }
 
-const api = (state = { isLoading: false }, action) => {
+export const api = (state = { isLoading: false }, action) => {
   switch (action.type) {
     case actions.REQUEST_POST:
     case actions.RECEIVE_POSTS:
