@@ -40,6 +40,10 @@ export default class Api {
     return this._makeAuthorizedRequest('/api/v1/me')
   }
 
+  getPrefs () {
+    return this._makeAuthorizedRequest('/api/v1/me/prefs')
+  }
+
   getSubscriptions () {
     return this._makeAuthorizedRequest('/subreddits/mine/subscriber')
   }
