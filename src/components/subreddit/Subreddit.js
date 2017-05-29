@@ -3,10 +3,6 @@ import PostListContainer from '../../containers/PostListContainer'
 import Tabs, { Tab } from '../widgets/Tabs'
 
 class Subreddit extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount () {
     this.props.actions.requestSubreddit(this.props.r)
   }

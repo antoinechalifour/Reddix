@@ -76,7 +76,7 @@ export const bySubreddit = (state = {}, action) => {
 export const api = (state = { isLoading: false }, action) => {
   switch (action.type) {
     case actions.REQUEST_POST:
-    case actions.RECEIVE_POSTS:
+    case actions.REQUEST_POSTS:
       return {
         ...state,
         isLoading: true

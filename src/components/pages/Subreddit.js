@@ -1,7 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import AppBarContainer from '../../containers/AppBarContainer'
-import Tabs, { Tab } from '../widgets/Tabs'
 import SubredditContainer from '../../containers/SubredditContainer'
 import PostContainer from '../../containers/PostContainer'
 import PostModalContainer from '../../containers/PostModalContainer'

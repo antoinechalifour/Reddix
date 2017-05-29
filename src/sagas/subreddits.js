@@ -1,4 +1,4 @@
-import { call, take, put, fork, select } from 'redux-saga/effects'
+import { take, put, fork, select } from 'redux-saga/effects'
 import * as actions from '../actions/subreddit'
 
 function * requestSubreddit () {

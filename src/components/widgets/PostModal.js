@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import MdClose from 'react-icons/lib/md/close'
 import FluidIframe from './FluidIframe'
@@ -8,7 +8,8 @@ const PostModal = ({
   show,
   post_hint,
   media_embed,
-  url
+  url,
+  title
 }) => {
   if (!show) {
     return null
@@ -34,7 +35,10 @@ const PostModal = ({
         }}
       >
         {isImage && (
-          <img src={url} />
+          <img
+            alt={title}
+            src={url}
+          />
         )}
         {isVideo && (
           <FluidIframe {...media_embed} />

@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import classnames from 'classnames'
 import Markdown from 'react-markdown'
 import { Link } from 'react-router-dom'
-import MdExitToApp from 'react-icons/lib/md/exit-to-app'
 import AppBarContainer from '../../containers/AppBarContainer'
 import ThreadHeader from '../widgets/ThreadHeader'
 import CommentsContainer from '../../containers/CommentsContainer'
 import FluidIframe from '../widgets/FluidIframe'
 
-const getRenderer = ({ src, alt }) => {
+/*const getRenderer = ({ src, alt }) => {
   const typeToRegexp = {
     video: [
       /.gifv/,
@@ -70,7 +68,7 @@ const getRenderer = ({ src, alt }) => {
 
   mediaType = mediaType || 'default'
   return typeToRenderer[mediaType]()
-}
+}*/
 
 class Post extends Component {
   componentDidMount () {

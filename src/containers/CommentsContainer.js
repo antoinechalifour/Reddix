@@ -1,10 +1,6 @@
 import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
 import Comments from '../components/post/Comments'
-import {
-  postRootCommentSelectorFactory,
-  mapIdsToComments
- } from '../selectors/comments'
+import { postRootCommentSelectorFactory } from '../selectors/comments'
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps

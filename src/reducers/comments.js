@@ -50,7 +50,7 @@ export const byPost = (state = {}, action) => {
 export const replies = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_COMMENTS:
-      const newHierarchy = { ... state }
+      const newHierarchy = { ...state }
 
       // Iterate the comments to build
       // the hierarchy

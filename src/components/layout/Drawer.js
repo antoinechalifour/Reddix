@@ -6,7 +6,10 @@ const Drawer = ({ actions, subreddits, me }) => (
     <div className="drawer__header">
       <div className='drawer__me'>
         {me.subreddit && (
-          <img src={me.subreddit.icon_img} />
+          <img
+            alt='My profile'
+            src={me.subreddit.icon_img}
+          />
         )}
         <div>
           <Link to='/me'>/u/{me.name}</Link>

@@ -10,11 +10,12 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 const REDIRECT_URL = process.env.REACT_APP_OAUTH_REDIRECT_URL
 
 const watchOauthWindow = wOauth => new Promise((resolve, reject) => {
-  let interval = setInterval(() => {
+  const interval = setInterval(() => {
     try {
       const href = wOauth.location.href
       const query = qs.parse(href)
       resolve(query.code)
+      clearInterval(interval)
       wOauth.close()
     } catch (err) {
       // Cannot read when on reddit oauth page

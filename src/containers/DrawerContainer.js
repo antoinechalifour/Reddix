@@ -13,7 +13,6 @@ const mapStateToProps = state => {
     subscriptionsSelector,
     mapIdsToSubreddits(state)
   )(state)
-  const ids = state.subscriptions
   const me = state.me
 
   return { subreddits, me }
