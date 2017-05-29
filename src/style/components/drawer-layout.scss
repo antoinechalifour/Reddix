@@ -1,4 +1,9 @@
 .drawer-layout {
+  &__content {
+    height: 100vh;
+    overflow: scroll;
+  }
+
   @media (max-width: $bp-tablet) {
     $drawer-width: 256px;
     overflow-x: hidden;
