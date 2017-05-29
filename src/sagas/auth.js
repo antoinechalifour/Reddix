@@ -24,12 +24,46 @@ const watchOauthWindow = wOauth => new Promise((resolve, reject) => {
 })
 
 function * setUp (r) {
-  const [me, _subreddits] = yield Promise.all([
-    r.getMe(),
-    r.getSubscriptions()
-  ])
-  const subreddits = _subreddits.data.children.map(x => x.data)
+  // In the set up, we want to fetch:
+  // (1) the current user information (me)
+  // (2) the current user subscriptions
 
+  // TODO make parallel promises
+
+  // (1) Fetch the current user information
+  const me = yield r.getMe()
+
+  // (2) Fetch the user subscriptions
+  // This one is more tricky because the API is paginated
+  // When the API has a next page, it returns an "after"
+  // field which we need to store.
+  // While the API returns "after", we can
+  // request more subreddits
+
+  // Will store all subreddits (after all requests)
+  const subreddits = []
+  let after
+
+  do {
+    const options = {}
+
+    // If the API gave use an "after" field
+    // we need to add it to the query string
+    if (after) {
+      options.after = after
+    }
+
+    const _subreddits = yield r.getSubscriptions(options)
+
+    // Add all new subs to the total array
+    subreddits.push(
+      ..._subreddits.data.children.map(x => x.data)
+    )
+
+    after = _subreddits.data.after
+  } while (after)
+  
+  // (1) + (2) are done, yey!
   yield all([
     put(AuthActions.loginSuccess(r)),
     put(MeActions.receiveMe(me)),

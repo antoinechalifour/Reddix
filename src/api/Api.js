@@ -1,3 +1,5 @@
+import qs from 'querystring'
+
 const genBasicAuth = (username, password) => `Basic ${btoa(`${username}:${password}`)}`
 
 const UNAUTHENTICATED_URI_BASE = 'https://www.reddit.com/api/v1'
@@ -48,8 +50,9 @@ export default class Api {
     return this._makeAuthorizedRequest('/api/v1/me/prefs')
   }
 
-  getSubscriptions () {
-    return this._makeAuthorizedRequest('/subreddits/mine/subscriber')
+  getSubscriptions (options = {}) {
+    const query = qs.stringify(options)
+    return this._makeAuthorizedRequest(`/subreddits/mine/subscriber?${query}`)
   }
 
   getSubreddit (name) {
