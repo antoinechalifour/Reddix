@@ -7,13 +7,19 @@ const Drawer = ({ actions, subreddits, me }) => (
       <div className='drawer__me'>
         {me.subreddit && (
           <img
+            className='drawer__me__avatar'
             alt='My profile'
             src={me.subreddit.icon_img}
           />
         )}
-        <div>
-          <Link to='/me'>/u/{me.name}</Link>
-        </div>
+        {!me.subreddit && (
+          <div
+            className='drawer__me__avatar drawer__me__avatar--default'
+          >
+            {me.name.substr(0, 1)}
+          </div>
+        )}
+        <Link to='/me'>/u/{me.name}</Link>
       </div>
     </div>
     <div className="drawer__content">

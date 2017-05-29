@@ -4,11 +4,15 @@
   height: 100vh;
   overflow-y: scroll;
   border-right: 1px solid #d1d2d3;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   &__header {
     position: relative;
     position: sticky;
     top: 0;
+    display: flex;
     min-height: 150px;
     background: shade($color-primary, 20%);
     overflow: hidden;
@@ -38,22 +42,43 @@
 
   &__me {
     position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     z-index: 1;
     padding: 16px;
     color: #fff;
     text-align: center;
 
-    img {
+    .drawer__me__avatar {
       display: block;
       margin: auto;
       max-width: 100px;
       border-radius: 50%;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+
+      &--default {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        text-transform: uppercase;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, .5);
+      }
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
     }
   }
 
   &__content {
     padding: 16px;
+    flex: 1;
+    overflow: scroll;
   }
 
   &__section {
