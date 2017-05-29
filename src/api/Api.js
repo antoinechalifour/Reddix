@@ -34,6 +34,10 @@ export default class Api {
     this.upvote = this._generateVoteMethodsHOF(1)
     this.downvote = this._generateVoteMethodsHOF(-1)
     this.unvote = this._generateVoteMethodsHOF(0)
+
+    // Generate subscription endpoints
+    this.sub = this._generateSubscriptionMethodsHOF('sub')
+    this.unsub = this._generateSubscriptionMethodsHOF('unsub')
   }
 
   getMe () {
@@ -83,6 +87,19 @@ export default class Api {
       method: 'POST',
       body: JSON.stringify({ include_over_18: nsfw })
     })
+  }
+
+  _generateSubscriptionMethodsHOF (action) {
+    return id => {
+      const form = new FormData()
+      form.append('action', action)
+      form.append('sr', id)
+
+      return this._makeAuthorizedRequest('/api/subscribe', {
+        method: 'POST',
+        body: form
+      })
+    }
   }
 
   _generateSaveMethodsHOF (endpoint) {
