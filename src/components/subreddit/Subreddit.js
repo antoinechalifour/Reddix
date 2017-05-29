@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import MdBookmark from 'react-icons/lib/md/bookmark'
+import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
 import PostListContainer from '../../containers/PostListContainer'
 import Tabs, { Tab } from '../widgets/Tabs'
 
@@ -20,12 +22,18 @@ class Subreddit extends Component {
     return (
       <div className='subreddit'>
         <div className="subreddit__header">
-          <div
-            className='subreddit__cover'
-            style={{
-              backgroundImage: `url(${this.props.subreddit.header_img})`
-            }}
-          />
+          <div className='subreddit__actions'>
+            {this.props.isSubscribed && (
+              <MdBookmark
+                onClick={() => this.props.actions.toggleSubscription(this.props.subreddit.id)}
+              />
+            )}
+            {!this.props.isSubscribed && (
+              <MdBookmarkOutline
+                onClick={() => this.props.actions.toggleSubscription(this.props.subreddit.id)}
+              />
+            )}
+          </div>
           <h1>{this.props.subreddit.title}</h1>
         </div>
         <Tabs>

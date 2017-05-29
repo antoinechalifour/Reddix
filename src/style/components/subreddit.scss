@@ -11,9 +11,12 @@
     }
   }
 
-  &__cover {
-    min-height: 175px;
-    background-size: cover;
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px;
+    color: #fff;
+    font-size: 24px;
   }
 
   &__post-list {
