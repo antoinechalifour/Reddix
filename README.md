@@ -6,42 +6,50 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Reddix (which is a week end project of mine) is a Reddit client built with React and Redux.
 
-**You are welcome to send your Pull Request and other contributions ❤️**
+*I am starting this project in order to build a rather big app using trending technologies. Of course any contribution / advice is welcome* 😁
 
-## Current Features
+## Features
 
-My main goal for now is to integrate native Reddit features but more is comming 😁
+- [X] Authenticate with your Reddit account
+- [X] Get your subscriptions
+- [X] Browser any subreddit + hot / new / rising
+- [X] (Un)Subscribe to any subreddit
+- [X] (Up/Down)vote posts
+- [X] Save posts
+- [~] Fetch comments (almost there!)
+- [ ] (Up/Down)vote comments
+- [ ] Save comments
+- [ ] Post comments
+- [ ] Submit Links / Posts
+- [ ] ... Messaging
+- [ ] ... others
 
-* Browse any subreddit and posts
-* Authenticate and browse your subscriptions
+## Additional Features
 
-## Todo list
-
-* Other Reddit features (submit content, link, coments,...)
-* Design
-* Customization using CSS variables
-* Integrate PWA features (service workers,...)
-* Code splitting
-* SSR ?
+- [ ] Nice design & UX
+- [ ] Open links in-app
+- [ ] Customization using CSS variables
+- [ ] Offline reading
+- [ ] Code splitting
 
 ## Getting Started
 
-* create 2 apps on Reddit ((a.)web application, (b.) installed app)
-* clone the repo
-* duplicate .env.sample -> .env.development.local and add the ids
-* yarn (or npm install)
-* yarn start (or npm start)
+1. Create 1 "installed app" on your [Reddit prefs page](https://www.reddit.com/prefs/apps)
+2. Clone the repo `git clone https://github.com/antoinechalifour/Reddix.git`
+3. Duplicate .env.sample -> .env.development.local your credentials (see 1.)
+4. yarn (or npm install)
+5. yarn start (or npm start)
 
-**/!\ Build scripts are not ready yet**
+In order to build the project for production, simply run `yarn run build`.
 
 ## Technologies & Patterns
 
 *As this project is a side project, I will be using brand news features and APIs such as CSS variables, Flexboxes, the Fetch API,... As such this client will not support older browers.*
 
-This app uses React as a view library and Redux for state management (with React-Redux). I am trying my best to use best practises and recommended patterns such as Dumb Component (for the view) and Smart Components (for behaviour). 
+This app uses React as a view library and Redux for state management (with React-Redux). I am trying my best to apply best practises and recommended patterns such as Dumb Component (for the view) and Smart Components (for behaviour). 
 
 Async flows and actions are described in Sagas (using Redux-Saga).
 
-CSS is generated using SCSS, using the BEM notation.
+CSS is generated using SCSS, using BEM convention.
 
 All these things are tight together using Webpack with a buch of loaders (see ./config/ directory).
