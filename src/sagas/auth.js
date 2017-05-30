@@ -11,6 +11,7 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 const REDIRECT_URL = process.env.REACT_APP_OAUTH_REDIRECT_URL
 
 function * setUp (r) {
+  yield put(AuthActions.login())
   // In the set up, we want to fetch:
   // (1) the current user information (me)
   // (2) the current user subscriptions
@@ -97,7 +98,7 @@ function * loginFlow () {
   yield loginFromAuthCode()
 
   while (true) {
-    yield take(AuthActions.LOGIN)
+    yield take(AuthActions.LOGIN_REQUEST)
     const scope = [
       'subscribe',
       'vote',

@@ -1,11 +1,21 @@
 import React from 'react'
+import InfiniteProgressWrapper from '../widgets/InfiniteProgressWrapper'
 
-const Login = ({ actions }) => (
+const Login = ({ actions, isLoading }) => (
   <div className='login-page'>
     <div className="login-page__content">
       <div className="login-page__title">Reddix</div>
 
-      <button onClick={() => actions.login()}>Login with Reddit</button>
+      <div className='login-page__button'>
+        {isLoading && (
+          <div className='login-page__progress-wrapper'>
+            <InfiniteProgressWrapper>
+              <div className='login-page__progress' />
+            </InfiniteProgressWrapper>
+          </div>
+        )}
+        <button onClick={() => actions.loginRequest()}>Login with Reddit</button>
+      </div>
     </div>
   </div>
 )

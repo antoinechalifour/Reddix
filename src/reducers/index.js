@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { routerMiddleware as router } from 'react-router-redux'
 import { LOGOUT } from '../actions/auth'
 import comments from './comments'
+import login from './login'
 import me from './me'
 import posts from './posts'
 import prefs from './prefs'
@@ -12,6 +13,7 @@ import ui from './ui'
 
 const reducer = combineReducers({
   comments,
+  login,
   me,
   posts,
   prefs,
