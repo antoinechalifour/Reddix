@@ -12,7 +12,7 @@ Reddix (which is a week end project of mine) is a Reddit client built with React
 
 - [X] Authenticate with your Reddit account
 - [X] Get your subscriptions
-- [X] Browser any subreddit + hot / new / rising
+- [X] Browse any subreddit + hot / new / rising
 - [X] (Un)Subscribe to any subreddit
 - [X] (Up/Down)vote posts
 - [X] Save posts
