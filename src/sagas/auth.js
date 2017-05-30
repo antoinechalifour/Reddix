@@ -86,7 +86,7 @@ function * loginFromAuthCode () {
     redirectUri: REDIRECT_URL
   })
 
-  // localStorage.setItem(REFRESH_TOKEN_KEY, r.refreshToken)
+  localStorage.setItem(REFRESH_TOKEN_KEY, r.refreshToken)
 
   yield setUp(r)
   yield put(push('/'))
