@@ -1,15 +1,24 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_COMMENTS } from '../actions/comments'
+import * as actions from '../actions/comments'
 
 export const byId = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_COMMENTS:
+    case actions.RECEIVE_COMMENTS:
       return {
         ...state,
         ...(action.comments.reduce((acc, comment) => {
           acc[comment.id] = comment
           return acc
         }, {}))
+      }
+    
+    case actions.UPDATE_COMMENT:
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          ...action.updates
+        }
       }
     
     default:
@@ -19,7 +28,7 @@ export const byId = (state = {}, action) => {
 
 export const byPost = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_COMMENTS:
+    case actions.RECEIVE_COMMENTS:
       const nextState = { ...state }
       const newEntries = action.comments.reduce((acc, comment) => {
         const { link_id } = comment
@@ -49,7 +58,7 @@ export const byPost = (state = {}, action) => {
 
 export const replies = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_COMMENTS:
+    case actions.RECEIVE_COMMENTS:
       const newHierarchy = { ...state }
 
       // Iterate the comments to build

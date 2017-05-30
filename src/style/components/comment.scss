@@ -12,7 +12,43 @@
     border-left: 1px solid rgba(0, 0, 0, .1);
   }
 
+  &__main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__body {
+    flex: 1;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    margin-right: 12px;
+    font-size: 16px;
+    color: #bcbcbc;
+
+    &--active {
+      color: $color-primary;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+
+    svg + svg {
+      margin-top: 8px;
+    }
+  }
+
   &__replies {
     margin-top: 8px;
+  }
+
+  &__meta {
+    svg {
+      font-size: 18px;
+    }
   }
 }

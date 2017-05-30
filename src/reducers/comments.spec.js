@@ -54,6 +54,40 @@ describe('byId', () => {
       }
     })
   })
+
+  it('Should handle UPDATE_COMMENT', () => {
+    expect(
+      byId(
+        // State
+        {
+        comment1: {
+            id: 'comment1',
+            foo: 'bar'
+          },
+          comment2: {
+            id: 'comment2',
+            foo: 'buzz'
+          }
+        },
+        // Action
+        {
+          type: 'UPDATE_COMMENT',
+          id: 'comment2',
+          updates: { foo: 'baz' }
+        }
+      )
+    )
+    .toEqual({
+      comment1: {
+          id: 'comment1',
+          foo: 'bar'
+        },
+        comment2: {
+          id: 'comment2',
+          foo: 'baz'
+        }
+      })
+  })
 })
 
 describe('byPost', () => {

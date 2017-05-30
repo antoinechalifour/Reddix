@@ -1,8 +1,10 @@
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
   commentChildrenSelectorFactory,
   commentSelectorFactory
 } from '../selectors/comments'
+import * as actions from '../actions/comments'
 import Comment from '../components/post/Comment'
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,6 +18,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment)

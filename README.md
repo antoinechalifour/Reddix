@@ -17,8 +17,8 @@ Reddix (which is a week end project of mine) is a Reddit client built with React
 - [X] (Up/Down)vote posts
 - [X] Save posts
 - [~] Fetch comments (almost there!)
-- [ ] (Up/Down)vote comments
-- [ ] Save comments
+- [X] (Up/Down)vote comments
+- [X] Save comments
 - [ ] Post comments
 - [ ] Submit Links / Posts
 - [ ] ... Messaging

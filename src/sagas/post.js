@@ -38,11 +38,18 @@ function * requestPost () {
     // as a flat structure with an object
     // indicating the hierarchy, so we first need
     // to flatten this structure
-    const allComments = []
+    let allComments = []
 
     for (let comment of comments) {
       allComments.push(...flattenComments(comment))
     }
+
+    // Quick trick
+    // Replaces likes: null || true by 0 || 1 for the Api
+    allComments = allComments.map(x => ({
+      ...x,
+      likes: x.likes ? 1 : 0
+    }))
 
     yield put(actions.receivePost(post))
     yield put(commentsActions.receiveComments(allComments))
