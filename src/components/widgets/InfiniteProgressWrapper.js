@@ -13,6 +13,10 @@ class InfiniteProgressWrapper extends Component {
     }, 1)
   }
 
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+
   render () {
     // Formula from https://blog.teamweek.com/2015/08/using-maths-to-fake-progress-bars-for-fun-and-profit/
     const width = Math.atan(this.state.time / 3000) / (Math.PI / 2) * 100
