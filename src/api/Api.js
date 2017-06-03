@@ -7,19 +7,19 @@ const AUTHENTICATED_URI_BASE = 'https://oauth.reddit.com'
 
 export default class Api {
   constructor ({
-    access_token,
-    refresh_token,
+    access_token: accessToken,
+    refresh_token: refreshToken,
     clientId,
     redirectUri,
     scope,
-    token_type
+    token_type: tokenType
   }) {
-    this.accessToken = access_token
-    this.refreshToken = refresh_token
+    this.accessToken = accessToken
+    this.refreshToken = refreshToken
     this.clientId = clientId
     this.redirectUri = redirectUri
     this.scope = scope
-    this.token_type = token_type
+    this.token_type = tokenType
 
     // Generate hot, new rising, ... endpoints
     this.getHot = this._generateSubredditsMethodsHOF('hot')
@@ -89,6 +89,40 @@ export default class Api {
     return this._makeAuthorizedRequest(`/api/search_subreddits?query=${query}`, {
       method: 'POST',
       body: JSON.stringify({ include_over_18: nsfw })
+    })
+  }
+
+  post (kind, data) {
+    let inputs
+
+    if (kind === 'link') {
+      if (!data.url) {
+        throw new Error('"data.url" is expected when submitting a "link"')
+      }
+
+      const { text, ...rest } = data
+      inputs = rest
+    } else if (kind === 'self') {
+      if (!data.text) {
+        throw new Error('"data.text" is expected when submitting a "self text')
+      }
+
+      const { url, ...rest } = data
+      inputs = rest
+    }
+
+    inputs.api_type = 'json'
+    inputs.kind = kind
+
+    const form = new FormData()
+
+    Object.keys(inputs).forEach(key => {
+      form.append(key, inputs[key])
+    })
+
+    return this._makeAuthorizedRequest('/api/submit', {
+      method: 'POST',
+      body: form
     })
   }
 
@@ -171,7 +205,7 @@ export default class Api {
   _makeAuthorizedRequest (uri, opts = {}) {
     const headers = new Headers()
     headers.append('Authorization', `bearer ${this.accessToken}`)
-    
+
     const options = {
       ...opts,
       headers
@@ -185,7 +219,7 @@ export default class Api {
     const basic = genBasicAuth(this.clientId, '')
     const headers = new Headers()
     const form = new FormData()
-    
+
     headers.append('Authorization', basic)
     form.append('grant_type', 'refresh_token')
     form.append('refresh_token', this.refreshToken)
@@ -212,7 +246,7 @@ export default class Api {
   static getAuthUrl ({ clientId, scope, redirectUri }) {
     return (
       `${UNAUTHENTICATED_URI_BASE}/authorize` +
-      `?client_id=${encodeURIComponent(clientId)}` + 
+      `?client_id=${encodeURIComponent(clientId)}` +
       '&response_type=code' +
       '&state=_' +
       `&redirect_uri=${encodeURIComponent(redirectUri)}` +
@@ -224,12 +258,12 @@ export default class Api {
   /**
    * Generates an API client from an authorization code.
    */
-  static fromAuthCode({ code, clientId, redirectUri }) {
+  static fromAuthCode ({ code, clientId, redirectUri }) {
     const uri = `${UNAUTHENTICATED_URI_BASE}/access_token`
     const headers = new Headers()
     const form = new FormData()
     const basic = genBasicAuth(clientId, '')
-    
+
     headers.append('Authorization', basic)
     const body = {
       grant_type: 'authorization_code',
