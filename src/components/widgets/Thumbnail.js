@@ -18,9 +18,10 @@ const Thumbnail = ({
   let element
 
   if (post_hint === 'link') {
-    element = 'a'
-    commonProps.target = '_blank'
-    commonProps.href = url
+    element = 'div'
+    // commonProps.target = '_blank'
+    // commonProps.href = url
+    commonProps.onClick = () => actions.openSideLink(url)
   } else {
     element = 'div'
     commonProps.onClick = () => actions.displayModal(id)

@@ -1,7 +1,8 @@
 .drawer-layout {
+  // The main content on the right of the navigation drawer
   &__content {
-    height: 100vh;
-    overflow: scroll;
+    display: flex;
+    flex-direction: row;
 
     .app-bar {
       position: sticky;
@@ -11,6 +12,21 @@
       @include elevation(1);
     }
   }
+
+  // Page is the main content, reader is the
+  // iframe for reading links in the app
+  &__page, &__reader {
+    flex: 1;
+    height: 100vh;
+    overflow: scroll;
+    display: block;
+  }
+
+  &__reader {
+    border-left: 4px double #d1d2d3;
+  }
+
+
 
   &__drawer {
     background: #fff;

@@ -70,6 +70,10 @@
   &__post-list {
     margin: auto;
     max-width: $max-width;
+
+    @media (min-width: $bp-tablet) {
+      width: 95%;
+    }
   }
 
   .post-item {

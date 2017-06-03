@@ -112,7 +112,7 @@ function * watchToggleUpvote () {
       yield r.upvote(prefixedId)
       updates.likes = 1
     }
-    
+
     yield put(actions.updatePost(id, updates))
   }
 }

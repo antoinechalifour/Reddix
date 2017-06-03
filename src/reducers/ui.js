@@ -1,12 +1,15 @@
 import {
   TOGGLE_DRAWER,
-  HIDE_MODAL
+  HIDE_MODAL,
+  OPEN_SIDE_LINK,
+  HIDE_SIDE_LINK
 } from '../actions/ui'
 import { DISPLAY_POST_MODAL } from '../actions/post'
 
 const initialState = {
   drawer: 'closed',
-  modal: null
+  modal: null,
+  side: null
 }
 
 const uiReducer = (state = initialState, action) => {
@@ -27,6 +30,18 @@ const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         modal: null
+      }
+    
+    case OPEN_SIDE_LINK:
+      return {
+        ...state,
+        side: action.src
+      }
+
+    case HIDE_SIDE_LINK:
+      return {
+        ...state,
+        side: null
       }
     
     default:
