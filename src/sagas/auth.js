@@ -60,8 +60,12 @@ function * setUp (r) {
 }
 
 function * loginFromLocalStorage () {
+  // Tries to fetch an eixsting refresh_token from the browser local
+  // storage.
   const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
 
+  // If we found one, we can use it to get the current user information
+  // and log him back in.
   if (refreshToken) {
     const r = yield Api.fromRefreshToken({
       refreshToken,
@@ -74,6 +78,8 @@ function * loginFromLocalStorage () {
 }
 
 function * loginFromAuthCode () {
+  // This saga may be called when the app launches from
+  // an OAuth redirection (with a ?code=... query string).
   const href = window.location.href
   const { code } = qs.parse(href)
 
@@ -81,12 +87,16 @@ function * loginFromAuthCode () {
     return
   }
 
+  // At this point the oauth API gave us a code that can be used
+  // to get authentication information (tokens,...)
   const r = yield Api.fromAuthCode({
     code,
     clientId: CLIENT_ID,
     redirectUri: REDIRECT_URL
   })
 
+  // Put the refresh_token in the local storage for next
+  // sessions.
   localStorage.setItem(REFRESH_TOKEN_KEY, r.refreshToken)
 
   yield setUp(r)
