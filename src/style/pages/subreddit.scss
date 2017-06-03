@@ -1,14 +1,2 @@
 .page-subreddit {
-  .app-bar {
-    margin-bottom: 0;
-    box-shadow: none;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-  }
-
-  .tabs__header {
-    margin-bottom: 24px;
-    position: sticky;
-    top: 0;
-    @include elevation(1)
-  }
 }

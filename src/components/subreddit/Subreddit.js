@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
+import MdRefresh from 'react-icons/lib/md/refresh'
 import PostListContainer from '../../containers/PostListContainer'
 import Tabs, { Tab } from '../widgets/Tabs'
 
@@ -22,7 +23,15 @@ class Subreddit extends Component {
     return (
       <div className='subreddit'>
         <div className="subreddit__header">
+          <h1>{this.props.subreddit.title}</h1>
+          <div className="subreddit__information">
+            <div><span>{this.props.subreddit.subscribers}</span> subscribers</div>
+            <div><span>{this.props.subreddit.active_user_count}</span> reading now</div>
+          </div>
           <div className='subreddit__actions'>
+            <MdRefresh
+              onClick={() => this.props.actions.requestSubreddit(this.props.r)}
+            />
             {this.props.isSubscribed && (
               <MdBookmark
                 onClick={() => this.props.actions.toggleSubscription(this.props.subreddit.id)}
@@ -34,7 +43,6 @@ class Subreddit extends Component {
               />
             )}
           </div>
-          <h1>{this.props.subreddit.title}</h1>
         </div>
         <Tabs>
           <Tab title='Hot'>

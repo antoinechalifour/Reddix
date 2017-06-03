@@ -1,13 +1,53 @@
 .subreddit {
   &__header {
-    background: $color-primary;
-
+    padding: 16px;
+    background: #fff;
+    
     h1 {
-      padding: 16px;
-      z-index: 10;
       text-transform: uppercase;
-      color: #fff;
-      font-size: 2rem;
+      font-size: 1.3rem;
+    }
+  }
+
+  &__information {
+    font-size: 0.85rem;
+    color: #bcbcbc;
+
+    div {
+      display: inline-block;
+
+      & + div {
+        margin-left: 8px;
+
+        &::before {
+          content: '•';
+          margin-right: 8px;
+        }
+      }
+    }
+
+    span {
+      font-size: 1rem;
+      color: $font-color;
+    }
+  }
+
+  .tabs__header {
+    background: #fff;
+    color: $font-color;
+
+    @media (max-width: $bp-tablet) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    @media (min-width: $bp-tablet) {
+      position: sticky;
+      top: 61px;
+
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
     }
   }
 
@@ -15,13 +55,24 @@
     display: flex;
     justify-content: flex-end;
     padding: 12px;
-    color: #fff;
-    font-size: 24px;
+
+    svg {
+      color: #bcbcbc;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    svg + svg {
+      margin-left: 12px;
+    }
   }
 
   &__post-list {
-    width: 95%;
     margin: auto;
     max-width: $max-width;
+  }
+
+  .post-item {
+    margin-top: 8px;
   }
 }

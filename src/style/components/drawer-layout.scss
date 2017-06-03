@@ -2,6 +2,19 @@
   &__content {
     height: 100vh;
     overflow: scroll;
+
+    .app-bar {
+      position: sticky;
+      top: 0;
+      margin-bottom: 0;
+      z-index: 1000;
+      @include elevation(1);
+    }
+  }
+
+  &__drawer {
+    background: #fff;
+    z-index: 10;
   }
 
   @media (max-width: $bp-tablet) {
@@ -22,7 +35,8 @@
     }
 
     &__drawer,
-    &__content {
+    &__content,
+    .page-subreddit .tabs__header {
       transition: left .3s ease-in-out;
     }
 
@@ -31,19 +45,22 @@
         left: 0;
       }
 
-      .drawer-layout__content {
+      .drawer-layout__content,
+      .page-subreddit .tabs__header {
         left: $drawer-width;
+        width: 100vw;
       }
     }
   }
 
 
   @media (min-width: $bp-tablet) {
+    $drawer-width: 256px;
     display: flex;
     flex-direction: row;
 
     .drawer-layout__drawer {
-      width: 256px;
+      width: $drawer-width;
     }
 
     .drawer-layout__content {

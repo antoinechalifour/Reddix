@@ -1,8 +1,7 @@
 .post {
   &__content,
   &__comments {
-    margin: 24px auto;
-    width: 95%;
+    margin: 0 auto 24px;
     max-width: $max-width;
     background: #fff;
     padding: 16px;
