@@ -4,6 +4,7 @@ import AppBarContainer from '../../containers/AppBarContainer'
 import SubredditContainer from '../../containers/SubredditContainer'
 import PostContainer from '../../containers/PostContainer'
 import PostModalContainer from '../../containers/PostModalContainer'
+import SubmitPostContainer from '../../containers/SubmitPostContainer'
 
 const Subreddit = ({ match }) => {
   const { r } = match.params
@@ -26,6 +27,13 @@ const Subreddit = ({ match }) => {
             <AppBarContainer r={r} />
             <SubredditContainer r={r} />
             <PostModalContainer />
+
+            <Route
+              path='/r/:r/submit'
+              render={() => {
+                return <SubmitPostContainer r={r} />
+              }}
+            />
           </div>
         )}
       />

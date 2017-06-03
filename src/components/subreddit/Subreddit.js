@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
 import MdRefresh from 'react-icons/lib/md/refresh'
+import MdEdit from 'react-icons/lib/md/edit'
 import PostListContainer from '../../containers/PostListContainer'
 import Tabs, { Tab } from '../widgets/Tabs'
 
@@ -22,9 +24,9 @@ class Subreddit extends Component {
     }
     return (
       <div className='subreddit'>
-        <div className="subreddit__header">
+        <div className='subreddit__header'>
           <h1>{this.props.subreddit.title}</h1>
-          <div className="subreddit__information">
+          <div className='subreddit__information'>
             <div><span>{this.props.subreddit.subscribers}</span> subscribers</div>
             <div><span>{this.props.subreddit.active_user_count}</span> reading now</div>
           </div>
@@ -70,6 +72,13 @@ class Subreddit extends Component {
             </div>
           </Tab>
         </Tabs>
+
+        <Link
+          className='fab'
+          to={`/r/${this.props.r}/submit`}
+        >
+          <MdEdit />
+        </Link>
       </div>
     )
   }

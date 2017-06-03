@@ -7,6 +7,7 @@ export const TOGGLE_UPVOTE = 'TOGGLE_UPVOTE'
 export const TOGGLE_DOWNVOTE = 'TOGGLE_DOWNVOTE'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DISPLAY_POST_MODAL = 'DISPLAY_POST_MODAL'
+export const SUBMIT_POST = 'SUBMIT_POST'
 
 export const requestPost = (r, id) => ({
   type: REQUEST_POST,
@@ -58,4 +59,11 @@ export const updatePost = (id, updates) => ({
 export const displayModal = id => ({
   type: DISPLAY_POST_MODAL,
   modal: { id, kind: 'post' }
+})
+
+export const submitPost = (kind, subreddit, payload) => ({
+  type: SUBMIT_POST,
+  kind,
+  subreddit,
+  ...payload
 })

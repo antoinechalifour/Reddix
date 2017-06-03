@@ -1,4 +1,5 @@
 import { take, put, fork, select } from 'redux-saga/effects'
+import { push } from 'react-router-redux'
 import * as actions from '../actions/post'
 import * as commentsActions from '../actions/comments'
 
@@ -112,15 +113,15 @@ function * watchToggleUpvote () {
       yield r.upvote(prefixedId)
       updates.likes = 1
     }
-    
+
     yield put(actions.updatePost(id, updates))
   }
 }
 
 function * watchToggleDownvote () {
   while (true) {
-    const { id } = yield take(actions.TOGGLE_DOWNVOTE)
-    const { likes } = yield select(state => state.posts.byId[id])
+    const { id } = yield take(actions.TOGGLE_DOWNVOTE)
+    const { likes } = yield select(state => state.posts.byId[id])
     const r = yield select(state => state.r)
     const prefixedId = `t3_${id}`
     const updates = {}
@@ -137,10 +138,37 @@ function * watchToggleDownvote () {
   }
 }
 
+function * watchSubmitPost () {
+  while (true) {
+    const action = yield take(actions.SUBMIT_POST)
+    const r = yield select(state => state.r)
+    const { kind, subreddit } = action
+
+    const kindToFields = {
+      self: ['title', 'text'],
+      link: ['title', 'url']
+    }
+    const data = { sr: subreddit }
+
+    kindToFields[kind].forEach(key => {
+      data[key] = action[key]
+    })
+
+    const { json } = yield r.post(kind, data)
+    const { data: response, errors } = json
+
+    if (errors.length === 0) {
+      yield put(actions.requestPost(subreddit, response.id))
+      yield put(push(`/r/${subreddit}`))
+    }
+  }
+}
+
 export default function * root () {
   yield fork(requestPost)
   yield fork(requestPosts)
   yield fork(watchToggleSave)
   yield fork(watchToggleUpvote)
   yield fork(watchToggleDownvote)
+  yield fork(watchSubmitPost)
 }
