@@ -1,7 +1,78 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import MdMenu from 'react-icons/lib/md/menu'
 import debounce from '../../util/debounce'
+import {
+  PRIMARY_COLOR,
+  BOX_SHADOW_1,
+  BOX_SHADOW_2,
+  FONT_FAMILY_SECONDARY,
+  FONT_COLOR_LIGHT
+} from '../../util/constants'
+
+const Outer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px;
+
+  color: #fff;
+  background: ${PRIMARY_COLOR};
+  box-shadow: ${BOX_SHADOW_1};
+
+  font-family: ${FONT_FAMILY_SECONDARY};
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+`
+
+const MenuIcon = styled(MdMenu)`
+  margin-right: 12px;
+  font-size: 1.2rem;
+`
+
+const Search = styled.div`
+  position: relative;
+  padding: 4px 12px;
+  border-bottom: 2px solid rgba(255, 255, 255, .3);
+
+  input {
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+
+    background: none;
+    color: inherit;
+
+    font-family: inherit;
+    font-size: inherit;
+  }
+`
+
+const Suggestions = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  background: #fff;
+  color: ${FONT_COLOR_LIGHT};
+  box-shadow: ${BOX_SHADOW_2};
+  
+  font-size: 13px;
+  padding: 12px;
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+`
 
 class AppBar extends Component {
   constructor (props) {
@@ -34,17 +105,12 @@ class AppBar extends Component {
       : '/'
 
     return (
-      <div className='app-bar'>
+      <Outer>
         <div>
-          <MdMenu
-            className='app-bar__menu'
-            onClick={() => this.props.actions.toggleDrawer()}
-          />
-          <span className='app-bar__title'>
-            <Link to={href}>{title}</Link>
-          </span>
+          <MenuIcon onClick={() => this.props.actions.toggleDrawer()} />
+          <Link to={href}>{title}</Link>
         </div>
-        <div className='app-bar__search'>
+        <Search>
           <span>/r/</span>
           <input
             placeholder='browse...'
@@ -52,7 +118,7 @@ class AppBar extends Component {
           />
 
           {this.state.suggestions.length > 0 && (
-            <div className="app-bar__suggestions">
+            <Suggestions>
               {this.state.suggestions.map(x => (
                 <Link
                   key={x}
@@ -62,10 +128,10 @@ class AppBar extends Component {
                   {x}
                 </Link>
               ))}
-            </div>
+            </Suggestions>
           )}
-        </div>
-      </div>
+        </Search>
+      </Outer>
     )
   }
 }
