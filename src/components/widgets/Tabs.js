@@ -1,40 +1,98 @@
 import React, { Component } from 'react'
-import classnames from 'classnames'
+import styled from 'styled-components'
+import {
+  PRIMARY_COLOR,
+  FONT_FAMILY_SECONDARY,
+  BOX_SHADOW_1
+} from '../../util/constants'
 
-export class Tab extends Component {
-  render () {
-    return this.props.children
-  }
+const TabListOuter = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  background: #fff;
+  box-shadow: ${BOX_SHADOW_1}
+`
+
+export const TabList = ({
+  children,
+  activeIndex,
+  onClick
+}) => {
+  const kids = React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, {
+      active: activeIndex === index,
+      onClick: () => onClick(index)
+    })
+  })
+
+  return <TabListOuter>{kids}</TabListOuter>
 }
 
-class Tabs extends Component {
+const TabOuter = styled.div`
+  padding: 16px 0;
+  flex: 1;
+
+  text-align:center;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: ${FONT_FAMILY_SECONDARY};
+
+  ${({ active }) => {
+    if (active) {
+      return `border-bottom: 4px solid ${PRIMARY_COLOR};`
+    }
+
+    return `border-bottom: 4px solid transparent;`
+  }}
+
+  transition: border-bottom .2s ease-in;
+`
+
+export const Tab = ({
+  children,
+  onClick,
+  active
+}) => {
+  return (
+    <TabOuter
+      onClick={onClick}
+      active={active}
+    >
+      {children}
+    </TabOuter>
+  )
+}
+
+export const TabPanels = ({ children, activeIndex }) => {
+  return (
+    <div>{children[activeIndex]}</div>
+  )
+}
+
+export class Tabs extends Component {
   constructor (props) {
     super(props)
-    this.state = { tabIndex: 0 }
+
+    this.state = { activeIndex: 0 }
   }
 
   render () {
-    const kids = React.Children.toArray(this.props.children)
-    return (
-      <div className='tabs'>
-        <div className='tabs__header'>
-          {kids.map((x, index) => (
-            <div
-              key={x.props.title}
-              className={classnames({
-                'tabs__title--active': this.state.tabIndex === index
-              })}
-              onClick={() => this.setState({ tabIndex: index })}
-            >
-              {x.props.title}
-            </div>
-          ))}
-        </div>
+    const children = React.Children.map(this.props.children, child => {
+      if (child.type === TabPanels) {
+        return React.cloneElement(child, { activeIndex: this.state.activeIndex })
+      } else if (child.type === TabList) {
+        return React.cloneElement(child, {
+          activeIndex: this.state.activeIndex,
+          onClick: activeIndex => this.setState({ activeIndex })
+        })
+      }
 
-        <div className='tabs__content'>
-          {kids[this.state.tabIndex]}
-        </div>
-      </div>
+      return child
+    })
+
+    return (
+      <div>{children}</div>
     )
   }
 }
