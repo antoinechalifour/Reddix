@@ -19,14 +19,6 @@ $font-color-light: #879c9a;
 $font-primary: 'Merriweather', sans-serif;
 $font-secondary: 'Raleway', serif;
 
-a {
-  color: $color-primary;
-
-  &:visited {
-    color: shade($color-primary, 25%);
-  }
-}
-
 body {
   font-size: 16px;
   color: $font-color;
