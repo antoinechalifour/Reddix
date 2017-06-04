@@ -7,3 +7,5 @@ export const BOX_SHADOW_2 = '0 1px 3px rgba(0, 0, 0, .24)'
 
 export const FONT_FAMILY_PRIMARY = 'Merriweather, sans-serif'
 export const FONT_FAMILY_SECONDARY = 'Raleway, serif'
+
+export const RESPONSIVE_BREAKPOINT = '800px'
