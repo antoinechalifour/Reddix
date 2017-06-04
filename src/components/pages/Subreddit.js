@@ -23,7 +23,7 @@ const Subreddit = ({ match }) => {
       <Route
         path='/r/:r'
         render={() => (
-          <div className='page-subreddit'>
+          <div>
             <AppBarContainer r={r} />
             <SubredditContainer r={r} />
             <PostModalContainer />

@@ -1,11 +1,87 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
 import MdRefresh from 'react-icons/lib/md/refresh'
 import MdEdit from 'react-icons/lib/md/edit'
 import PostListContainer from '../../containers/PostListContainer'
-import Tabs, { Tab } from '../widgets/Tabs'
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanels
+} from '../widgets/Tabs'
+import {
+  FONT_COLOR,
+  RESPONSIVE_BREAKPOINT
+} from '../../util/constants'
+
+const Header = styled.div`
+  padding: 16px;
+  background: #fff;
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 1.3rem;
+  }
+`
+
+const Overview = styled.div`
+  font-size: 0.85rem;
+  color: #bcbcbc;
+
+  div {
+    display: inline-block;
+
+    & + div {
+      margin-left: 8px;
+
+      &::before {
+        content: '•';
+        margin-right: 8px;
+      }
+    }
+  }
+
+  span {
+    font-size: 1rem;
+    color: ${FONT_COLOR};
+  }
+`
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px;
+
+  svg {
+    color: #bcbcbc;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  svg + svg {
+    margin-left: 12px;
+  }
+`
+
+const PostList = styled.div`
+  margin-top: 8px;
+
+  @media (min-width: ${RESPONSIVE_BREAKPOINT}) {
+    width: 95%;
+    max-width: ${RESPONSIVE_BREAKPOINT};
+    margin-left: auto;
+    margin-right: auto;
+  }
+`
+
+const Fab = styled(Link)`
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+`
 
 class Subreddit extends Component {
   componentDidMount () {
@@ -23,14 +99,16 @@ class Subreddit extends Component {
       return null
     }
     return (
-      <div className='subreddit'>
-        <div className='subreddit__header'>
+      <div>
+        <Header>
           <h1>{this.props.subreddit.title}</h1>
-          <div className='subreddit__information'>
+
+          <Overview>
             <div><span>{this.props.subreddit.subscribers}</span> subscribers</div>
             <div><span>{this.props.subreddit.active_user_count}</span> reading now</div>
-          </div>
-          <div className='subreddit__actions'>
+          </Overview>
+
+          <Actions>
             <MdRefresh
               onClick={() => this.props.actions.requestSubreddit(this.props.r)}
             />
@@ -44,41 +122,42 @@ class Subreddit extends Component {
                 onClick={() => this.props.actions.toggleSubscription(this.props.subreddit.id)}
               />
             )}
-          </div>
-        </div>
+          </Actions>
+        </Header>
         <Tabs>
-          <Tab title='Hot'>
-            <div className='subreddit__post-list'>
+          <TabList>
+            <Tab>Hot</Tab>
+            <Tab>New</Tab>
+            <Tab>Risigin</Tab>
+          </TabList>
+          <TabPanels>
+            <PostList>
               <PostListContainer
                 r={this.props.r}
                 from={'hot'}
               />
-            </div>
-          </Tab>
-          <Tab title='New'>
-            <div className='subreddit__post-list'>
+            </PostList>
+            <PostList>
               <PostListContainer
                 r={this.props.r}
                 from={'new'}
               />
-            </div>
-          </Tab>
-          <Tab title='Rising'>
-            <div className='subreddit__post-list'>
+            </PostList>
+            <PostList>
               <PostListContainer
                 r={this.props.r}
                 from={'rising'}
               />
-            </div>
-          </Tab>
+            </PostList>
+          </TabPanels>
         </Tabs>
 
-        <Link
+        <Fab
           className='fab'
           to={`/r/${this.props.r}/submit`}
         >
           <MdEdit />
-        </Link>
+        </Fab>
       </div>
     )
   }
