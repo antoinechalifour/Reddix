@@ -128,7 +128,7 @@ class Subreddit extends Component {
           <TabList>
             <Tab>Hot</Tab>
             <Tab>New</Tab>
-            <Tab>Risigin</Tab>
+            <Tab>Rising</Tab>
           </TabList>
           <TabPanels>
             <PostList>
