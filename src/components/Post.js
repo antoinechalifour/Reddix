@@ -49,6 +49,11 @@ const Comments = Content.extend`
   box-shadow: ${BOX_SHADOW_1};
 `
 
+const AppBar = styled(AppBarContainer)`
+  position: sticky;
+  top: 0px;
+`
+
 class Post extends Component {
   componentDidMount () {
     this.props.actions.requestPost(
@@ -60,7 +65,7 @@ class Post extends Component {
   render () {
     return (
       <div>
-        <AppBarContainer r={this.props.r} />
+        <AppBar r={this.props.r} />
 
         <Content>
           <ThreadInformation>
