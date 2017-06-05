@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
 import MdRefresh from 'react-icons/lib/md/refresh'
-import MdEdit from 'react-icons/lib/md/edit'
+import MdAdd from 'react-icons/lib/md/add'
 import AppBar from 'Components/AppBar'
 import { Tabs, Tab, TabList, TabPanels } from 'Components/Tabs'
 import Fab from 'Components/Fab'
@@ -173,7 +173,7 @@ class Subreddit extends Component {
 
         <FixedFab>
           <Link to={`/r/${this.props.r}/submit`}>
-            <MdEdit />
+            <MdAdd />
           </Link>
         </FixedFab>
       </div>

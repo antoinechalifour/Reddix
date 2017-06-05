@@ -1,9 +1,25 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Tabs, Tab, TabList, TabPanels } from 'Components/Tabs'
+import {
+  Input,
+  Textarea,
+  Button,
+  InputGroup
+} from 'Components/Form'
 
 const TabContent = styled.div`
   padding: 16px;
+`
+
+const ButtonGroup = styled.div`
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+
+  button + button {
+    margin-left: 16px;
+  }
 `
 
 class SubmitLink extends Component {
@@ -12,13 +28,45 @@ class SubmitLink extends Component {
 
     this.state = {
       title: '',
-      link: ''
+      url: ''
     }
   }
 
   render () {
+    const { r } = this.props.match.params
+
     return (
-      <TabContent>SubmitLink</TabContent>
+      <TabContent>
+        <InputGroup>
+          <Input
+            type='text'
+            placeholder='Add an interesting title...'
+            value={this.state.title}
+            onChange={e => this.setState({ title: e.target.value })}
+          />
+        </InputGroup>
+
+        <InputGroup>
+          <Input
+            placeholder='Paste your link here'
+            type='url'
+            value={this.state.text}
+            onChange={e => this.setState({ url: e.target.value })}
+          />
+        </InputGroup>
+
+        <ButtonGroup>
+          <Button onClick={() => this.props.actions.goBack()}>
+            Discard
+          </Button>
+          <Button
+            primary
+            onClick={() => this.props.actions.submitPost('link', r, this.state)}
+          >
+            Send Post
+          </Button>
+        </ButtonGroup>
+      </TabContent>
     )
   }
 }
@@ -34,8 +82,40 @@ class SubmitText extends Component {
   }
 
   render () {
+    const { r } = this.props.match.params
+
     return (
-      <TabContent>SubmitText</TabContent>
+      <TabContent>
+        <InputGroup>
+          <Input
+            type='text'
+            placeholder='Add an interesting title...'
+            value={this.state.title}
+            onChange={e => this.setState({ title: e.target.value })}
+          />
+        </InputGroup>
+
+        <InputGroup>
+          <Textarea
+            placeholder='Add some text...'
+            type='text'
+            value={this.state.text}
+            onChange={e => this.setState({ text: e.target.value })}
+          />
+        </InputGroup>
+
+        <ButtonGroup>
+          <Button onClick={() => this.props.actions.goBack()}>
+            Discard
+          </Button>
+          <Button
+            primary
+            onClick={() => this.props.actions.submitPost('self', r, this.state)}
+          >
+            Send Post
+          </Button>
+        </ButtonGroup>
+      </TabContent>
     )
   }
 }
@@ -62,8 +142,8 @@ const Main = styled.div`
 `
 
 const SubmitPost = props => (
-  <Overlay>
-    <Main>
+  <Overlay onClick={() => props.actions.goBack()}>
+    <Main onClick={e => e.stopPropagation()}>
       <Tabs>
         <TabList>
           <Tab>Text</Tab>
@@ -71,8 +151,8 @@ const SubmitPost = props => (
         </TabList>
 
         <TabPanels>
-          <SubmitText />
-          <SubmitLink />
+          <SubmitText {...props} />
+          <SubmitLink {...props} />
         </TabPanels>
       </Tabs>
     </Main>

@@ -158,8 +158,7 @@ function * watchSubmitPost () {
     const { data: response, errors } = json
 
     if (errors.length === 0) {
-      yield put(actions.requestPost(subreddit, response.id))
-      yield put(push(`/r/${subreddit}`))
+      yield put(push(`/r/${subreddit}/comments/${response.id}`))
     }
   }
 }
