@@ -39,8 +39,6 @@ function * requestPost () {
     const paginationComments = allComments
     .filter(x => !x.link_id)
 
-    console.log(paginationComments)
-
     yield put(actions.receivePost(post))
     yield put(commentsActions.receiveComments(userComments, paginationComments))
   }
