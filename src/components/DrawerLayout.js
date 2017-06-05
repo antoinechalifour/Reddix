@@ -35,8 +35,7 @@ const Drawer = styled.div`
 `
 
 const Content = styled.main`
-  height: 100vh;
-  overflow: scroll;
+  min-height: 100vh;
 
   @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
     position: relative;
