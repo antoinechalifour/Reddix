@@ -83,14 +83,25 @@ class AppBar extends Component {
     }
 
     this.onChange = debounce(this.onChange, 250).bind(this)
+    this.onKeyUp = this.onKeyUp.bind(this)
   }
 
   onChange (value) {
     if (value.length > 2) {
       this.props.api.searchSubreddits(value)
         .then(results => results.subreddits.map(x => x.name))
+        .then(suggestions => [value, ...suggestions])
         .then(suggestions => this.setState({ suggestions }))
     } else if (value.length === 0) {
+      this.setState({ suggestions: [] })
+    }
+  }
+
+  onKeyUp (e) {
+    if (e.keyCode === 13) {
+      const [sub] = this.state.suggestions
+
+      this.props.actions.push(`/r/${sub}`)
       this.setState({ suggestions: [] })
     }
   }
@@ -115,6 +126,7 @@ class AppBar extends Component {
           <input
             placeholder='browse...'
             onChange={e => this.onChange(e.target.value)}
+            onKeyUp={this.onKeyUp}
           />
 
           {this.state.suggestions.length > 0 && (
