@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import PostItemContainer from '../containers/PostItemContainer'
 import debounce from '../util/debounce'
+
+const Outer = styled.div`
+  > div + div {
+    margin-top: 8px;
+  }
+`
 
 class PostList extends Component {
   constructor (props) {
@@ -53,14 +60,14 @@ class PostList extends Component {
 
   render () {
     return (
-      <div className='subreddit__post-list'>
+      <Outer>
         {this.props.posts.map(p => (
           <PostItemContainer
             key={p.id}
             {...p}
           />
         ))}
-      </div>
+      </Outer>
     )
   }
 }
