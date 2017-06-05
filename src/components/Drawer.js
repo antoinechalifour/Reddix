@@ -16,8 +16,8 @@ const Outer = styled.div`
   flex-direction: column;
   overflow-y: scroll;
 
-  border-right: 1px solid #d1d2d3;
   overflow: hidden;
+  box-shadow: ${BOX_SHADOW_1};
 `
 
 const Header = styled.div`
