@@ -25,7 +25,7 @@ const Content = styled.div`
   background: #fff;
   box-shadow: ${BOX_SHADOW_2};
 
-  div:nth-child(2) {
+  > div:nth-child(2) {
     margin-top: 8px;  
     margin-bottom: 8px;  
   }

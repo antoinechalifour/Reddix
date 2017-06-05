@@ -10,7 +10,7 @@ class Comments extends Component {
     }
 
     return (
-      <div className='post__comments'>
+      <div>
         {this.props.commentIds.map(id => (
           <CommentContainer
             key={id}

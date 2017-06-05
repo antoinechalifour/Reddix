@@ -1,12 +1,48 @@
 import React, { Component } from 'react'
-import classnames from 'classnames'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
-import Humanize from 'humanize-plus'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
 import CommentContainer from '../containers/CommentContainer'
-import { Link } from 'react-router-dom'
+import ThreadInformation from './ThreadInformation'
+import ThreadScore from './ThreadScore'
+import { PRIMARY_COLOR } from '../util/constants'
+
+const Outer = styled.div`
+  font-size: 14px;
+`
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #d1d2d3;
+`
+
+const Actions = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 12px;
+  font-size: 16px;
+  color: #bcbcbc;
+`
+
+const Body = styled.div`
+`
+
+const Replies = styled.div`
+  padding-left: 16px;
+`
+
+const StyledIconHOC = WrappedIcon => styled(WrappedIcon)`
+  cursor: pointer;
+  margin-top: 8px;
+
+  ${({ active }) => active && `color: ${PRIMARY_COLOR}`}
+`
 
 class Comment extends Component {
   constructor (props) {
@@ -19,35 +55,33 @@ class Comment extends Component {
 
   render () {
     return (
-      <div className='comment'>
-        <div className='comment__main'>
-          <div className='comment__actions'>
-            <MdArrowUpward
-              className={classnames({
-                  'comment__actions--active': this.props.likes === 1
-                })}
-              onClick={() => this.props.actions.toggleUpvote(this.props.id)}
-              />
-            <MdStar
-              className={classnames({
-                  'comment__actions--active': this.props.saved
-                })}
-              onClick={() => this.props.actions.toggleSave(this.props.id)}
-              />
-            <MdArrowDownward
-              className={classnames({
-                  'comment__actions--active': this.props.likes === -1
-                })}
-              onClick={() => this.props.actions.toggleDownvote(this.props.id)}
-              />
-          </div>
-          <div className='comment__body'>
-            <div className='thing-meta'>
-              <div className='thing-meta__score'>{Humanize.compactInteger(this.props.score, 1)}</div>
+      <Outer>
+        <Main>
+          <Actions>
+            {React.createElement(StyledIconHOC(MdArrowUpward), {
+              active: this.props.likes === 1,
+              onClick: () => this.props.actions.toggleUpvote(this.props.id)
+            })}
+
+            {React.createElement(StyledIconHOC(MdStar), {
+              active: this.props.saved,
+              onClick: () => this.props.actions.toggleSave(this.props.id)
+            })}
+
+            {React.createElement(StyledIconHOC(MdArrowDownward), {
+              active: this.props.likes === -1,
+              onClick: () => this.props.actions.toggleDownvote(this.props.id)
+            })}
+          </Actions>
+          <Body>
+            <ThreadInformation>
+              <div>
+                <ThreadScore>{this.props.score}</ThreadScore>
+              </div>
               <div>
                 Posted by <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
               </div>
-            </div>
+            </ThreadInformation>
 
             <div
               onClick={() => this.setState(ls => ({
@@ -57,22 +91,20 @@ class Comment extends Component {
             >
               <Markdown source={this.props.body} />
             </div>
-            <div className='thing-meta'>
-              <div onClick={() => this.setState({ showReply: true })}>Reply</div>
-            </div>
-          </div>
-        </div>
+          </Body>
+        </Main>
+
         {this.state.showChildren && this.props.replies.length > 0 && (
-        <div className='comment__replies'>
-          {this.props.replies.map(id => (
-                <CommentContainer
-                  key={id}
-                  id={id}
-                />
-              ))}
-        </div>
-          )}
-      </div>
+          <Replies>
+            {this.props.replies.map(id => (
+              <CommentContainer
+                key={id}
+                id={id}
+              />
+            ))}
+          </Replies>
+        )}
+      </Outer>
     )
   }
 }
