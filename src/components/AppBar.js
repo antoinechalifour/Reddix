@@ -105,7 +105,7 @@ class AppBar extends Component {
       : '/'
 
     return (
-      <Outer>
+      <Outer className={this.props.className}>
         <div>
           <MenuIcon onClick={() => this.props.actions.toggleDrawer()} />
           <Link to={href}>{title}</Link>
