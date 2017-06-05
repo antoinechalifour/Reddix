@@ -38,10 +38,10 @@ class PostList extends Component {
       return
     }
     const [lastPost] = this.props.posts.reverse()
-    const scrollBottom = document.body.scrollHeight
-      - document.body.scrollTop
-      - window.innerHeight
-    
+    const scrollBottom = document.body.scrollHeight -
+      document.body.scrollTop -
+      window.innerHeight
+
     if (scrollBottom / window.innerHeight < 0.2) {
       this.props.actions.requestPosts(
         this.props.r,
