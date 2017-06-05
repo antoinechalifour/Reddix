@@ -1,7 +1,7 @@
 import './style/main.scss'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux'
 import ConnectedRouter from './components/ConnectedRouter'
 import createHistory from 'history/createBrowserHistory'
 import createStore from './store'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Tabs, { Tab } from '../widgets/Tabs'
+import Tabs, { Tab } from './Tabs'
 
 class SubmitLink extends Component {
   constructor (props) {

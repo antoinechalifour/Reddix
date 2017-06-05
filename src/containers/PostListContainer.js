@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions/post'
-import PostList from '../components/subreddit/PostList'
+import PostList from '../components/PostList'
 import {
   categorySubredditSelectorFactory,
   mapIdsToPosts

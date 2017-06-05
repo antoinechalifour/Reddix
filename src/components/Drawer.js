@@ -5,7 +5,7 @@ import {
   BOX_SHADOW_1,
   FONT_COLOR,
   FONT_COLOR_LIGHT
-} from '../../util/constants'
+} from '../util/constants'
 
 const Outer = styled.div`
   position: sticky;

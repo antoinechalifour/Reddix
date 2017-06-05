@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FONT_COLOR_LIGHT } from '../../util/constants'
+import { FONT_COLOR_LIGHT } from '../util/constants'
 
 export default styled.div`
   display: flex;

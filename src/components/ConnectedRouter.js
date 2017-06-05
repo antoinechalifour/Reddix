@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react'
 import { Router } from 'react-router-dom'
 
 const LOCATION_CHANGE = '@@router/LOCATION_CHANGE'

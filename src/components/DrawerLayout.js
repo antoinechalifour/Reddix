@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { RESPONSIVE_BREAKPOINT } from '../../util/constants'
-import DrawerContainer from '../../containers/DrawerContainer'
+import { RESPONSIVE_BREAKPOINT } from '../util/constants'
+import DrawerContainer from '../containers/DrawerContainer'
 
 const drawerWidth = '256px'
 

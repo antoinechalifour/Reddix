@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Post from '../components/post/Post'
+import Post from '../components/Post'
 import * as PostActions from '../actions/post'
 
 const mapStateToProps = (state, ownProps) => {

@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import MdMenu from 'react-icons/lib/md/menu'
-import debounce from '../../util/debounce'
+import debounce from '../util/debounce'
 import {
   PRIMARY_COLOR,
   BOX_SHADOW_1,
   BOX_SHADOW_2,
   FONT_FAMILY_SECONDARY,
   FONT_COLOR_LIGHT
-} from '../../util/constants'
+} from '../util/constants'
 
 const Outer = styled.div`
   display: flex;

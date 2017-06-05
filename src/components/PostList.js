@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import PostItemContainer from '../../containers/PostItemContainer'
-import debounce from '../../util/debounce'
+import PostItemContainer from '../containers/PostItemContainer'
+import debounce from '../util/debounce'
 
 class PostList extends Component {
   constructor (props) {

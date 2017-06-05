@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions/ui'
-import PostModal from '../components/widgets/PostModal'
+import PostModal from '../components/PostModal'
 
 const mapStateToProps = state => {
-  const show = state.ui.modal
-    && state.ui.modal.kind === 'post'
+  const show = state.ui.modal &&
+    state.ui.modal.kind === 'post'
   let post
 
   if (show) {

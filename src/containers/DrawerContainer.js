@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Drawer from '../components/layout/Drawer'
+import Drawer from '../components/Drawer'
 import * as AuthActions from '../actions/auth'
 import {
   subscriptionsSelector,
@@ -21,6 +21,5 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AuthActions, dispatch)
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer)

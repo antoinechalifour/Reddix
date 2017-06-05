@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Comments from '../components/post/Comments'
+import Comments from '../components/Comments'
 import { postRootCommentSelectorFactory } from '../selectors/comments'
 
 const mapStateToProps = (state, ownProps) => {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Subreddit from '../components/subreddit/Subreddit'
+import Subreddit from '../components/Subreddit'
 import * as SubredditActions from '../actions/subreddit'
 
 const mapStateToProps = (state, ownProps) => {
@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   const subreddit = state.subreddits.byId[sid]
 
   const isSubscribed = subreddit && subscriptions.indexOf(subreddit.id) !== -1
-  
+
   return { subreddit, isSubscribed }
 }
 

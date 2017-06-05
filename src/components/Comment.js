@@ -5,8 +5,8 @@ import Humanize from 'humanize-plus'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
-import CommentContainer from '../../containers/CommentContainer'
-import { Link } from 'react-router-dom'
+import CommentContainer from '../containers/CommentContainer'
+import { Link } from 'react-router-dom'
 
 class Comment extends Component {
   constructor (props) {
@@ -22,28 +22,28 @@ class Comment extends Component {
       <div className='comment'>
         <div className='comment__main'>
           <div className='comment__actions'>
-              <MdArrowUpward
-                className={classnames({
+            <MdArrowUpward
+              className={classnames({
                   'comment__actions--active': this.props.likes === 1
                 })}
-                onClick={() => this.props.actions.toggleUpvote(this.props.id)}
+              onClick={() => this.props.actions.toggleUpvote(this.props.id)}
               />
-              <MdStar
-                className={classnames({
+            <MdStar
+              className={classnames({
                   'comment__actions--active': this.props.saved
                 })}
-                onClick={() => this.props.actions.toggleSave(this.props.id)}
+              onClick={() => this.props.actions.toggleSave(this.props.id)}
               />
-              <MdArrowDownward
-                className={classnames({
+            <MdArrowDownward
+              className={classnames({
                   'comment__actions--active': this.props.likes === -1
                 })}
-                onClick={() => this.props.actions.toggleDownvote(this.props.id)}
+              onClick={() => this.props.actions.toggleDownvote(this.props.id)}
               />
           </div>
           <div className='comment__body'>
-            <div className="thing-meta">
-              <div className="thing-meta__score">{Humanize.compactInteger(this.props.score, 1)}</div>
+            <div className='thing-meta'>
+              <div className='thing-meta__score'>{Humanize.compactInteger(this.props.score, 1)}</div>
               <div>
                 Posted by <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
               </div>
@@ -63,14 +63,14 @@ class Comment extends Component {
           </div>
         </div>
         {this.state.showChildren && this.props.replies.length > 0 && (
-            <div className="comment__replies">
-              {this.props.replies.map(id => (
+        <div className='comment__replies'>
+          {this.props.replies.map(id => (
                 <CommentContainer
                   key={id}
                   id={id}
                 />
               ))}
-            </div>
+        </div>
           )}
       </div>
     )

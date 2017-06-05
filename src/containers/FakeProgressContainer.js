@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import FakeProgressLoader from '../components/widgets/FakeProgressLoader'
+import FakeProgressLoader from '../components/FakeProgressLoader'
 
 const mapStateToProps = state => {
   const loaderPaths = []

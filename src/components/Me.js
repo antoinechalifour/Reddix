@@ -4,7 +4,7 @@ class Me extends Component {
   componentDidMount () {
     this.props.actions.requestPrefs()
   }
-  
+
   render () {
     return (
       <div>

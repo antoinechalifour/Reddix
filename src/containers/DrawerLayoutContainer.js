@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import DrawerLayout from '../components/layout/DrawerLayout'
+import { connect } from 'react-redux'
+import DrawerLayout from '../components/DrawerLayout'
 
 const mapStateToProps = state => ({
   isDrawerOpen: state.ui.drawer === 'open'

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react'
 import { XmlEntities as Entities } from 'html-entities'
 
 const entities = new Entities()
 
 class FluiIframe extends Component {
   constructor (props) {
-    super (props)
+    super(props)
 
     this.state = { width: 0 }
     this.ratio = props.height / props.width
@@ -34,7 +34,7 @@ class FluiIframe extends Component {
       this.setState({ width })
     }
   }
-  
+
   render () {
     const isReady = this.props.width !== 0
     let content
@@ -49,7 +49,7 @@ class FluiIframe extends Component {
         .join(`width="${width}"`)
         .split(`height="${this.props.height}"`)
         .join(`height="${height}"`)
-      
+
       content = unescaped
     }
     return (

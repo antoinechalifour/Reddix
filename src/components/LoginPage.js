@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import InfiniteProgressWrapper from '../widgets/InfiniteProgressWrapper'
+import InfiniteProgressWrapper from './InfiniteProgressWrapper'
 import {
   PRIMARY_COLOR,
   BOX_SHADOW_1,
   BOX_SHADOW_2
-} from '../../util/constants'
+} from '../util/constants'
 
 const Outer = styled.div`
   min-height: 100vh;

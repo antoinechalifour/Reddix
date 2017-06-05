@@ -1,10 +1,10 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import AppBarContainer from '../../containers/AppBarContainer'
-import SubredditContainer from '../../containers/SubredditContainer'
-import PostContainer from '../../containers/PostContainer'
-import PostModalContainer from '../../containers/PostModalContainer'
-import SubmitPostContainer from '../../containers/SubmitPostContainer'
+import AppBarContainer from '../containers/AppBarContainer'
+import SubredditContainer from '../containers/SubredditContainer'
+import PostContainer from '../containers/PostContainer'
+import PostModalContainer from '../containers/PostModalContainer'
+import SubmitPostContainer from '../containers/SubmitPostContainer'
 
 const Subreddit = ({ match }) => {
   const { r } = match.params

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import CommentContainer from '../../containers/CommentContainer'
+import React, { Component } from 'react'
+import CommentContainer from '../containers/CommentContainer'
 
 class Comments extends Component {
   render () {
@@ -8,7 +8,7 @@ class Comments extends Component {
       // when no comments are loaded
       return null
     }
-  
+
     return (
       <div className='post__comments'>
         {this.props.commentIds.map(id => (

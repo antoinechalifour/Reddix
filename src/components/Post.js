@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Markdown from 'react-markdown'
 import { Link } from 'react-router-dom'
-import AppBarContainer from '../../containers/AppBarContainer'
-import ThreadHeader from '../widgets/ThreadHeader'
-import CommentsContainer from '../../containers/CommentsContainer'
-import FluidIframe from '../widgets/FluidIframe'
+import AppBarContainer from '../containers/AppBarContainer'
+import ThreadHeader from './ThreadHeader'
+import CommentsContainer from '../containers/CommentsContainer'
+import FluidIframe from './FluidIframe'
 
 /*const getRenderer = ({ src, alt }) => {
   const typeToRegexp = {
@@ -68,7 +68,7 @@ import FluidIframe from '../widgets/FluidIframe'
 
   mediaType = mediaType || 'default'
   return typeToRenderer[mediaType]()
-}*/
+} */
 
 class Post extends Component {
   componentDidMount () {
@@ -83,19 +83,19 @@ class Post extends Component {
       <div className='post'>
         <AppBarContainer r={this.props.r} />
 
-        <div className="post__content">
+        <div className='post__content'>
           <div className='thing-meta'>
-            <div className="thing-meta__score">{this.props.score}</div>
+            <div className='thing-meta__score'>{this.props.score}</div>
             <div>
               Posted by <Link to={`/u/${this.props.author}`}>{this.props.author}</Link>
             </div>
           </div>
-          
+
           <ThreadHeader {...this.props} />
-          
+
           {/* Only for selfs posts with texts */}
           {this.props.selftext && (
-            <div className="post__body">
+            <div className='post__body'>
               <Markdown source={this.props.selftext} />
             </div>
           )}

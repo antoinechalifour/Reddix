@@ -5,17 +5,17 @@ import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
 import MdRefresh from 'react-icons/lib/md/refresh'
 import MdEdit from 'react-icons/lib/md/edit'
-import PostListContainer from '../../containers/PostListContainer'
+import PostListContainer from '../containers/PostListContainer'
 import {
   Tabs,
   Tab,
   TabList,
   TabPanels
-} from '../widgets/Tabs'
+} from './Tabs'
 import {
   FONT_COLOR,
   RESPONSIVE_BREAKPOINT
-} from '../../util/constants'
+} from '../util/constants'
 
 const Header = styled.div`
   padding: 16px;

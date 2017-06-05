@@ -4,7 +4,7 @@ import {
   PRIMARY_COLOR,
   FONT_FAMILY_SECONDARY,
   BOX_SHADOW_1
-} from '../../util/constants'
+} from '../util/constants'
 
 const TabListOuter = styled.div`
   display: flex;

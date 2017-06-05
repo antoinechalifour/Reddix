@@ -9,7 +9,7 @@ class InfiniteProgressWrapper extends Component {
 
   componentDidMount () {
     this.interval = setInterval(() => {
-      this.setState({ time: this.state.time + 20})
+      this.setState({ time: this.state.time + 20 })
     }, 1)
   }
 

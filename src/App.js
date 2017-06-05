@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Home from './components/pages/Home'
-import Subreddit from './components/pages/Subreddit'
-import Me from './components/pages/Me'
+import Home from './components/HomePage'
+import Subreddit from './components/SubredditPage'
+import Me from './components/MePage'
 import FakeProgressContainer from './containers/FakeProgressContainer'
 import DrawerLayoutContainer from './containers/DrawerLayoutContainer'
 import LoginContainer from './containers/LoginContainer'
@@ -19,7 +19,7 @@ const App = () => (
           <FakeProgressContainer />
           <Route
             exact
-            path="/"
+            path='/'
             component={Home}
           />
 

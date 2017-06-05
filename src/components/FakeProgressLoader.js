@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class FakeProgressLoader extends Component {
   constructor (props) {
-    super (props)
+    super(props)
 
     this.state = { time: 0 }
   }
@@ -17,9 +17,9 @@ class FakeProgressLoader extends Component {
   }
 
   componentWillUnmount () {
-    if (this.interval) (
+    if (this.interval) {(
       clearInterval(this.interval)
-    )
+    )}
   }
 
   componentWillReceiveProps (nextProps) {

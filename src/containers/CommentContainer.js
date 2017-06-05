@@ -5,7 +5,7 @@ import {
   commentSelectorFactory
 } from '../selectors/comments'
 import * as actions from '../actions/comments'
-import Comment from '../components/post/Comment'
+import Comment from '../components/Comment'
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps

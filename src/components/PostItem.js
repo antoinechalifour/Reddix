@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
-import ThreadHeader from '../widgets/ThreadHeader'
-import ThreadInformation from '../widgets/ThreadInformation'
-import ThreadScore from '../widgets/ThreadScore'
+import ThreadHeader from './ThreadHeader'
+import ThreadInformation from './ThreadInformation'
+import ThreadScore from './ThreadScore'
 import {
   PRIMARY_COLOR,
   BOX_SHADOW_1
-} from '../../util/constants'
+} from '../util/constants'
 
 const Outer = styled.div`
   display: flex;
