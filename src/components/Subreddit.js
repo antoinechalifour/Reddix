@@ -5,6 +5,7 @@ import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
 import MdRefresh from 'react-icons/lib/md/refresh'
 import MdEdit from 'react-icons/lib/md/edit'
+import AppBarContainer from '../containers/AppBarContainer'
 import PostListContainer from '../containers/PostListContainer'
 import {
   Tabs,
@@ -83,6 +84,16 @@ const Fab = styled(Link)`
   right: 24px;
 `
 
+const AppBar = styled(AppBarContainer)`
+  position: sticky;
+  top: 0px;
+`
+
+const StickyTabList = styled(TabList)`
+  position: sticky;
+  top: 61px;
+`
+
 class Subreddit extends Component {
   componentDidMount () {
     this.props.actions.requestSubreddit(this.props.r)
@@ -100,6 +111,8 @@ class Subreddit extends Component {
     }
     return (
       <div>
+        <AppBar r={this.props.r} />
+
         <Header>
           <h1>{this.props.subreddit.title}</h1>
 
@@ -125,11 +138,11 @@ class Subreddit extends Component {
           </Actions>
         </Header>
         <Tabs>
-          <TabList>
+          <StickyTabList>
             <Tab>Hot</Tab>
             <Tab>New</Tab>
             <Tab>Rising</Tab>
-          </TabList>
+          </StickyTabList>
           <TabPanels>
             <PostList>
               <PostListContainer
