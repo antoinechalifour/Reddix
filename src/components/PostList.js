@@ -26,7 +26,7 @@ class PostList extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (this.props.r !== nextProps.r) {
+    if (this.props.r !== nextProps.r || this.props.from !== nextProps.from) {
       this.props.actions.requestPosts(
         nextProps.r,
         nextProps.from
