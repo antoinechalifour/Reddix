@@ -1,9 +1,21 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const ThumbnailLink = styled.a`
+  display: block;
+  width: 70px;
+  height: 70px;
+  background-size: cover;
+  margin-right: 8px;
+  border-radius: 4px;
+`
+
+const ThumbnailDiv = ThumbnailLink.withComponent('div')
 
 const Thumbnail = ({
   actions,
   id,
-  post_hint,
+  post_hint: postHint,
   thumbnail,
   url
 }) => {
@@ -12,17 +24,16 @@ const Thumbnail = ({
   }
 
   const commonProps = {
-    className: 'thumbnail',
-    style: { backgroundImage: `url(${thumbnail})` }
+    style: { backgroundImage: `url(${thumbnail})` }
   }
   let element
 
-  if (post_hint === 'link') {
-    element = 'a'
+  if (postHint === 'link') {
+    element = ThumbnailLink
     commonProps.target = '_blank'
     commonProps.href = url
   } else {
-    element = 'div'
+    element = ThumbnailDiv
     commonProps.onClick = () => actions.displayModal(id)
   }
 
