@@ -3,7 +3,7 @@ import { XmlEntities as Entities } from 'html-entities'
 
 const entities = new Entities()
 
-class FluiIframe extends Component {
+class FluidIframe extends Component {
   constructor (props) {
     super(props)
 
@@ -66,4 +66,4 @@ class FluiIframe extends Component {
   }
 }
 
-export default FluiIframe
+export default FluidIframe
