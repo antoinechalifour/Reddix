@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
@@ -50,13 +50,21 @@ const StyledIconHOC = WrappedIcon => styled(WrappedIcon)`
   ${({ active }) => active && `color: ${PRIMARY_COLOR}`}
 `
 
-class Comment extends Component {
+class Comment extends PureComponent {
   constructor (props) {
     super(props)
 
     this.state = {
       showChildren: true
     }
+
+    this.upvote = () => this.props.actions.toggleUpvote(this.props.id)
+    this.downvote = () => this.props.actions.toggleDownvote(this.props.id)
+    this.save = () => this.props.actions.toggleSave(this.props.id)
+    this.requestMore = () => this.props.actions.requestMoreComments(this.props.id)
+
+    this.hideReplies = () => this.setState({ showChildren: false })
+    this.showReplies = () => this.setState({ showChildren: true })
   }
 
   render () {
@@ -66,17 +74,17 @@ class Comment extends Component {
           <Actions>
             {React.createElement(StyledIconHOC(MdArrowUpward), {
               active: this.props.likes === 1,
-              onClick: () => this.props.actions.toggleUpvote(this.props.id)
+              onClick: this.upvote
             })}
 
             {React.createElement(StyledIconHOC(MdStar), {
               active: this.props.saved,
-              onClick: () => this.props.actions.toggleSave(this.props.id)
+              onClick: this.save
             })}
 
             {React.createElement(StyledIconHOC(MdArrowDownward), {
               active: this.props.likes === -1,
-              onClick: () => this.props.actions.toggleDownvote(this.props.id)
+              onClick: this.downvote
             })}
           </Actions>
           <Body>
@@ -89,14 +97,16 @@ class Comment extends Component {
               </div>
             </ThreadInformation>
 
-            <div
-              onClick={() => this.setState(ls => ({
-                ...ls,
-                showChildren: !ls.showChildren
-              }))}
-            >
-              <Markdown source={this.props.body} />
-            </div>
+            <Markdown source={this.props.body} />
+
+            <ThreadInformation>
+              {this.state.showChildren && (
+                <div onClick={this.hideReplies}>Hide replies</div>
+              )}
+              {!this.state.showChildren && (
+                <div onClick={this.showReplies}>Show replies</div>
+              )}
+            </ThreadInformation>
           </Body>
         </Main>
 
@@ -113,8 +123,9 @@ class Comment extends Component {
               })}
             </div>
           )}
+
           {this.props.more > 0 && (
-            <MoreComments onClick={() => this.props.actions.requestMoreComments(this.props.id)}>
+            <MoreComments onClick={this.requestMore}>
               Load {this.props.more} more comments...
             </MoreComments>
           )}
