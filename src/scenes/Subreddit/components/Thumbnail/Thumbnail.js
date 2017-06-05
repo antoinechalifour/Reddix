@@ -18,7 +18,7 @@ const Thumbnail = ({
   thumbnail,
   url
 }) => {
-  if (thumbnail === 'self') {
+  if (thumbnail === 'self' || !thumbnail) {
     return null
   }
 
