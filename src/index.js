@@ -1,17 +1,22 @@
+// (1.) Style setup imports
 import './reset.css'
+import Merriweather from './fonts/Merriweather-Regular.ttf'
+import Raleway from './fonts/Raleway-Medium.ttf'
+import { injectGlobal } from 'styled-components'
+
+// (2.) Application bootstrap imports
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
-import { injectGlobal } from 'styled-components'
-import Merriweather from './fonts/Merriweather-Regular.ttf'
-import Raleway from './fonts/Raleway-Medium.ttf'
 import ConnectedRouter from './components/ConnectedRouter'
 import createStore from './store'
-import App from './App'
+import App from './scenes'
 import registerServiceWorker from './registerServiceWorker'
 import sagas from './sagas'
 
+// (1.) Styling setup
+// Styling is implemented using styled-components.
 // eslint-disable-next-line
 injectGlobal`
   @font-face {
@@ -32,6 +37,12 @@ injectGlobal`
     font-family: 'Merriweather', sans-serif;
   }
 `
+
+// (2.) Application bootstrap
+// There are a few things we need to boostrap:
+// (a.) Create the store
+// (b.) Run our Sagas
+// (c.) Finally render our app
 
 const history = createHistory()
 const { store, run } = createStore(undefined, { history })
