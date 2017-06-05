@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom'
 import Home from './components/HomePage'
 import Subreddit from './components/SubredditPage'
 import Me from './components/MePage'
-import FakeProgressContainer from './containers/FakeProgressContainer'
 import DrawerLayoutContainer from './containers/DrawerLayoutContainer'
 import LoginContainer from './containers/LoginContainer'
 import { IfLoggedIn, IfAnonymous } from './containers/FeatureToggle'
@@ -16,7 +15,6 @@ const App = () => (
     <IfLoggedIn>
       {() => (
         <DrawerLayoutContainer>
-          <FakeProgressContainer />
           <Route
             exact
             path='/'

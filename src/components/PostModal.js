@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import classnames from 'classnames'
 import MdClose from 'react-icons/lib/md/close'
 import FluidIframe from './FluidIframe'
 import { BOX_SHADOW_1 } from '../util/constants'
