@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-const ThumbnailLink = styled.a`
+const ThumbnailLink = styled(Link)`
   display: block;
   width: 70px;
   height: 70px;
@@ -9,8 +10,6 @@ const ThumbnailLink = styled.a`
   margin-right: 8px;
   border-radius: 4px;
 `
-
-const ThumbnailDiv = ThumbnailLink.withComponent('div')
 
 const Thumbnail = ({
   actions,
@@ -26,18 +25,15 @@ const Thumbnail = ({
   const commonProps = {
     style: { backgroundImage: `url(${thumbnail})` }
   }
-  let element
 
   if (postHint === 'link') {
-    element = ThumbnailLink
     commonProps.target = '_blank'
-    commonProps.href = url
+    commonProps.to = url
   } else {
-    element = ThumbnailDiv
-    commonProps.onClick = () => actions.displayModal(id)
+    commonProps.to = `${window.location.pathname}/media/${id}`
   }
 
-  return React.createElement(element, commonProps)
+  return React.createElement(ThumbnailLink, commonProps)
 }
 
 export default Thumbnail

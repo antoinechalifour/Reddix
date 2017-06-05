@@ -10,7 +10,7 @@ const Outer = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, .8);
   z-index: 50;
   display: flex;
   align-items: center;
@@ -55,13 +55,13 @@ const Close = styled.div`
 
 const PostModal = ({
   actions,
-  show,
+  id,
   post_hint: postHint,
   media_embed: mediaEmbed,
   url,
   title
 }) => {
-  if (!show) {
+  if (!id) {
     return null
   }
 
@@ -70,7 +70,7 @@ const PostModal = ({
 
   return (
     <Outer
-      onClick={() => actions.hideModal()}
+      onClick={() => actions.goBack()}
     >
       {React.createElement(Content, {
         isVideo,
@@ -95,7 +95,7 @@ const PostModal = ({
 
           <Close>
             <MdClose
-              onClick={() => actions.hideModal()}
+              onClick={() => actions.goBack()}
             />
           </Close>
         </div>

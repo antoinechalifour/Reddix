@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import MdBookmark from 'react-icons/lib/md/bookmark'
 import MdBookmarkOutline from 'react-icons/lib/md/bookmark-outline'
@@ -7,6 +7,7 @@ import MdRefresh from 'react-icons/lib/md/refresh'
 import MdEdit from 'react-icons/lib/md/edit'
 import AppBarContainer from '../containers/AppBarContainer'
 import PostListContainer from '../containers/PostListContainer'
+import MediaModalContainer from '../containers/MediaModalContainer'
 import {
   Tabs,
   Tab,
@@ -137,6 +138,7 @@ class Subreddit extends Component {
             )}
           </Actions>
         </Header>
+
         <Tabs>
           <StickyTabList>
             <Tab>Hot</Tab>
@@ -164,6 +166,11 @@ class Subreddit extends Component {
             </PostList>
           </TabPanels>
         </Tabs>
+
+        <Route
+          path={`/r/:r/media/:pid`}
+          component={MediaModalContainer}
+        />
 
         <Fab
           className='fab'
