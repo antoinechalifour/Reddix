@@ -37,6 +37,12 @@ const Replies = styled.div`
   padding-left: 16px;
 `
 
+const MoreComments = styled.div`
+  margin-top: 16px;
+  color: #bcbcbc;
+  cursor: pointer;
+`
+
 const StyledIconHOC = WrappedIcon => styled(WrappedIcon)`
   cursor: pointer;
   margin-top: 8px;
@@ -94,16 +100,26 @@ class Comment extends Component {
           </Body>
         </Main>
 
-        {this.state.showChildren && this.props.replies.length > 0 && (
-          <Replies>
-            {this.props.replies.map(id => (
-              <CommentContainer
-                key={id}
-                id={id}
-              />
-            ))}
-          </Replies>
-        )}
+        <Replies>
+          {this.state.showChildren && this.props.replies.length > 0 && (
+            <div>
+              {this.props.replies.map(id => {
+                return (
+                  <CommentContainer
+                    key={id}
+                    id={id}
+                  />
+                )
+              })}
+            </div>
+          )}
+          {this.props.more > 0 && (
+            <MoreComments onClick={() => this.props.actions.requestMoreComments(this.props.id)}>
+              Load {this.props.more} more comments...
+            </MoreComments>
+          )}
+        </Replies>
+
       </Outer>
     )
   }

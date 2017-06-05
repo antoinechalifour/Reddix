@@ -1,25 +1,8 @@
 import { take, put, fork, select } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux'
 import * as actions from '../actions/post'
 import * as commentsActions from '../actions/comments'
-
-/**
- * For a given comment, flattens its children and returns it and its
- * children as a flat array
- */
-const flattenComments = thing => {
-  const comment = thing.data
-  const replies = comment.replies
-  const flattened = [comment]
-
-  if (replies && replies.kind === 'Listing') {
-    for (let child of replies.data.children) {
-      flattened.push(...flattenComments(child))
-    }
-  }
-
-  return flattened
-}
+import { flattenComments } from '../api/helpers'
 
 function * requestPost () {
   while (true) {
@@ -47,13 +30,19 @@ function * requestPost () {
 
     // Quick trick
     // Replaces likes: null || true by 0 || 1 for the Api
-    allComments = allComments.map(x => ({
+    const userComments = allComments
+    .filter(x => x.link_id)
+    .map(x => ({
       ...x,
       likes: x.likes ? 1 : 0
     }))
+    const paginationComments = allComments
+    .filter(x => !x.link_id)
+
+    console.log(paginationComments)
 
     yield put(actions.receivePost(post))
-    yield put(commentsActions.receiveComments(allComments))
+    yield put(commentsActions.receiveComments(userComments, paginationComments))
   }
 }
 

@@ -1,7 +1,8 @@
 import {
   byId,
   byPost,
-  replies
+  replies,
+  pagination
 } from './comments'
 
 describe('byId', () => {
@@ -60,7 +61,7 @@ describe('byId', () => {
       byId(
         // State
         {
-        comment1: {
+          comment1: {
             id: 'comment1',
             foo: 'bar'
           },
@@ -79,14 +80,14 @@ describe('byId', () => {
     )
     .toEqual({
       comment1: {
-          id: 'comment1',
-          foo: 'bar'
-        },
-        comment2: {
-          id: 'comment2',
-          foo: 'baz'
-        }
-      })
+        id: 'comment1',
+        foo: 'bar'
+      },
+      comment2: {
+        id: 'comment2',
+        foo: 'baz'
+      }
+    })
   })
 })
 
@@ -172,6 +173,42 @@ describe('replies', () => {
       comment1: ['comment2', 'comment7'],
       comment2: ['comment4'],
       comment3: ['comment5', 'comment6']
+    })
+  })
+})
+
+describe('pagination', () => {
+  it('Should return the initial state', () => {
+    expect(
+      pagination(undefined, {})
+    )
+    .toEqual({})
+  })
+
+  it('Should handle RECEIVE_COMMENTS', () => {
+    expect(
+      pagination(
+        // State,
+        {
+          comment1: ['comment2']
+        },
+        // Action
+        {
+          type: 'RECEIVE_COMMENTS',
+          pagination: [{
+            parent_id: 't1_comment2',
+            children: ['comment9', 'comment8']
+          }, {
+            parent_id: 't1_comment3',
+            children: ['comment7', 'comment6']
+          }]
+        }
+      )
+    )
+    .toEqual({
+      comment1: ['comment2'],
+      comment2: ['comment9', 'comment8'],
+      comment3: ['comment7', 'comment6']
     })
   })
 })

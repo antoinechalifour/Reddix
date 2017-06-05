@@ -126,6 +126,19 @@ export default class Api {
     })
   }
 
+  getMoreChildren (id, children) {
+    const search = qs.stringify({
+      link_id: id,
+      children: children.join(','),
+      api_type: 'json',
+      sort: 'confidence'
+    })
+
+    return this._makeAuthorizedRequest(`/api/morechildren.json?${search}`, {
+      method: 'GET'
+    })
+  }
+
   _generateSubscriptionMethodsHOF (action) {
     return id => {
       const form = new FormData()

@@ -7,11 +7,12 @@ export const byId = (state = {}, action) => {
       return {
         ...state,
         ...(action.comments.reduce((acc, comment) => {
+          delete comment.replies
           acc[comment.id] = comment
           return acc
         }, {}))
       }
-    
+
     case actions.UPDATE_COMMENT:
       return {
         ...state,
@@ -20,7 +21,7 @@ export const byId = (state = {}, action) => {
           ...action.updates
         }
       }
-    
+
     default:
       return state
   }
@@ -85,8 +86,31 @@ export const replies = (state = {}, action) => {
   }
 }
 
+export const pagination = (state = {}, action) => {
+  switch (action.type) {
+    case actions.RECEIVE_COMMENTS:
+      return {
+        ...state,
+        ...action.pagination.reduce((acc, page) => {
+          const { parent_id: parentId } = page
+          acc[parentId.substr(3)] = page.children
+          return acc
+        }, {})
+      }
+
+    case actions.RECEIVE_MORE_COMMENTS:
+      const nextState = { ...state }
+      delete nextState[action.id]
+      return nextState
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   byId,
   byPost,
-  replies
+  replies,
+  pagination
 })

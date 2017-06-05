@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
 import { arrayIntersection } from '../util'
 
-/**------------------------------ */
+/** ------------------------------ */
 // Comments selectors and helpers
-/**------------------------------ */
+/** ------------------------------ */
 
 /**
  * Returns a function that returns all comments linked
@@ -39,5 +39,7 @@ export const postRootCommentSelectorFactory = postId => createSelector(
 export const commentChildrenSelectorFactory = commentId => state => state.comments.replies[commentId] || []
 
 export const commentSelectorFactory = commentId => state => state.comments.byId[commentId]
+
+export const commentMoreSelectorFactory = commentId => state => state.comments.pagination[commentId]
 
 export const mapIdsToComments = state => (ids = []) => ids.map(id => state.comments.byId[id])
