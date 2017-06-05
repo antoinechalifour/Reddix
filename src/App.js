@@ -15,14 +15,8 @@ const App = () => (
     <IfLoggedIn>
       {() => (
         <DrawerLayoutContainer>
-          <Route
-            exact
-            path='/'
-            component={Home}
-          />
-
+          <Route exact path='/' component={Home} />
           <Route path='/r/:r' component={Subreddit} />
-
           <Route exact path='/me' component={Me} />
         </DrawerLayoutContainer>
       )}
