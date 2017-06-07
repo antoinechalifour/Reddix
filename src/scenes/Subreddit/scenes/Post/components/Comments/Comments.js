@@ -1,5 +1,19 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import Comment from './components/Comment'
+import { BOX_SHADOW_1, RESPONSIVE_BREAKPOINT } from 'Util/constants'
+
+const Outer = styled.div`
+  max-width: ${RESPONSIVE_BREAKPOINT};
+  box-sizing: border-box;
+  margin: 24px auto;
+  padding: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+
+  background: #fff;
+  box-shadow: ${BOX_SHADOW_1};
+`
 
 class Comments extends Component {
   render () {
@@ -10,14 +24,14 @@ class Comments extends Component {
     }
 
     return (
-      <div>
+      <Outer>
         {this.props.commentIds.map(id => (
           <Comment
             key={id}
             id={id}
           />
         ))}
-      </div>
+      </Outer>
     )
   }
 }
