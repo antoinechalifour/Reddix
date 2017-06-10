@@ -31,12 +31,16 @@ REACT_APP_CLIENT_ID=<your client id> REACT_APP_OAUTH_REDIRECT_URL=<your redirect
 Here is a non-exhaustive list of the things that I use / apply:
 
 * [Reddit API](https://www.reddit.com/dev/api/)
+* [Create React App](https://github.com/facebookincubator/create-react-app)
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
+* [Redux-Saga](https://redux-saga.js.org/)
+* [Reselect](https://github.com/reactjs/reselect)
 * [React-Router v4](https://reacttraining.com/react-router/web/guides/quick-start)
 * [Webpack 2](http://webpack.github.io/docs/)
 * [Smart & Dumbs Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 * [Styled-Components](https://www.styled-components.com/)
+* [StandardJS](https://standardjs.com/)
 * ["Scene-Oriented Architecture"](https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1)
 
 Bonus:
