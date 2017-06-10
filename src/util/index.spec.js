@@ -5,7 +5,7 @@ describe('arrayIntersection', () => {
   const tests = [{
     message: 'Should return an empty array when args are not defined',
     args: [undefined, undefined],
-    expected: []
+    expected: [1]
   }, {
     message: 'Should return commons items',
     args: [['t1_azer', 't1_poiu', 't1_tyui'], ['t1_poiu', 't1_nbvc', 't1_azer']],
