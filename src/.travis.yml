@@ -4,5 +4,8 @@ node_js:
   - 6
   - 7
 cache:
+  yarn: true
   directories:
-    - "node-modules"
+    - node_modules
+before_script:
+  - yarn lint
