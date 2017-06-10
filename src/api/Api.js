@@ -40,6 +40,15 @@ export default class Api {
     // Generate subscription endpoints
     this.sub = this._generateSubscriptionMethodsHOF('sub')
     this.unsub = this._generateSubscriptionMethodsHOF('unsub')
+
+    // Generate user endpoints
+    this.getUser = this._generateUserMethodsHOF('about')
+    this.getUserOverview = this._generateUserMethodsHOF('overview')
+    this.getUserSubmissions = this._generateUserMethodsHOF('submitted')
+    this.getUserComments = this._generateUserMethodsHOF('comments')
+    this.getUserUpvotes = this._generateUserMethodsHOF('upvoted')
+    this.getUserDownvotes = this._generateUserMethodsHOF('downvoted')
+    this.getUserSaves = this._generateUserMethodsHOF('saved')
   }
 
   getMe () {
@@ -225,6 +234,14 @@ export default class Api {
 
           return response
         })
+    }
+  }
+
+  _generateUserMethodsHOF (endpoint) {
+    return (username, options) => {
+      const uri = `/user/${username}/${endpoint}`
+
+      return this._makeAuthorizedRequest(uri, options)
     }
   }
 
