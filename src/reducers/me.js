@@ -4,7 +4,7 @@ const meReducer = (state = null, action) => {
   switch (action.type) {
     case RECEIVE_ME:
       return action.me
-    
+
     default:
       return state
   }

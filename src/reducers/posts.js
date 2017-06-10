@@ -17,7 +17,7 @@ export const byId = (state = {}, action) => {
         ...state,
         [action.post.id]: action.post
       }
-    
+
     case actions.UPDATE_POST:
       return {
         ...state,
@@ -42,7 +42,7 @@ export const byCategory = (state = {}, action) => {
         ...state,
         [action.from]: [...new Set([...oldPosts, ...newPosts])]
       }
-    
+
     default:
       return state
   }
@@ -81,14 +81,14 @@ export const api = (state = { isLoading: false }, action) => {
         ...state,
         isLoading: true
       }
-    
+
     case actions.RECEIVE_POSTS:
     case actions.RECEIVE_POST:
       return {
         ...state,
         isLoading: false
       }
-    
+
     default:
       return state
   }

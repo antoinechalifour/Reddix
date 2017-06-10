@@ -18,13 +18,13 @@ export const api = (state = { isLoading: false }, action) => {
         ...state,
         isLoading: true
       }
-    
+
     case actions.RECEIVE_PREFS:
       return {
         ...state,
         isLoading: false
       }
-    
+
     default:
       return state
   }

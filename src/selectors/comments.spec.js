@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import * as selectors from './comments.js'
 
 describe('postCommentsSelectorFactory', () => {
@@ -202,10 +203,10 @@ describe('commentSelectorFactory', () => {
     }
     const selector = selectors.commentSelectorFactory(commentId)
     const result = selector(state)
-    expect(result).toEqual(expected)  
+    expect(result).toEqual(expected)
   })
 
-  it('Should return undefined if not found', () => {
+  it('Should return undefined if not found', () => {
     const commentId = 'di3smrn'
     const state = {
       comments: {
@@ -216,7 +217,7 @@ describe('commentSelectorFactory', () => {
     }
     const selector = selectors.commentSelectorFactory(commentId)
     const result = selector(state)
-    expect(result).toEqual(undefined) 
+    expect(result).toEqual(undefined)
   })
 })
 
@@ -231,7 +232,7 @@ describe('mapIdsToComments', () => {
     expect(typeof selector).toBe('function')
   })
 
-  it('Should return a comment for each id', () => {
+  it('Should return a comment for each id', () => {
     const state = {
       comments: {
         byId: {
@@ -249,7 +250,7 @@ describe('mapIdsToComments', () => {
     ])
   })
 
-  it('Should return an empty array if no ids are given', () => {
+  it('Should return an empty array if no ids are given', () => {
     const state = {
       comments: {
         byId: {

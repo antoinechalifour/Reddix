@@ -8,7 +8,7 @@ export const byId = (state = {}, action) => {
         ...state,
         [action.subreddit.id]: action.subreddit
       }
-    
+
     case actions.RECEIVE_SUBSCRIPTIONS:
     case actions.RECEIVE_SUBREDDITS:
       return {
@@ -18,7 +18,7 @@ export const byId = (state = {}, action) => {
           return accumulator
         }, {}))
       }
-    
+
     default:
       return state
   }

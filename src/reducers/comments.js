@@ -28,7 +28,7 @@ export const byId = (state = {}, action) => {
 }
 
 export const byPost = (state = {}, action) => {
-  switch (action.type) {
+  switch (action.type) {
     case actions.RECEIVE_COMMENTS:
       const nextState = { ...state }
       const newEntries = action.comments.reduce((acc, comment) => {
@@ -65,14 +65,14 @@ export const replies = (state = {}, action) => {
       // Iterate the comments to build
       // the hierarchy
       action.comments.forEach(comment => {
-        let { link_id, parent_id, id } = comment
+        let { link_id: linkId, parent_id: parentId, id } = comment
 
         // When parent_id is equal to link_id,
         // Then the comment is a "top level" comment
-        if (parent_id && parent_id !== link_id) {
-          parent_id = parent_id.substr(3)
-          newHierarchy[parent_id] = newHierarchy[parent_id] || []
-          newHierarchy[parent_id].push(id)
+        if (parentId && parentId !== linkId) {
+          parentId = parentId.substr(3)
+          newHierarchy[parentId] = newHierarchy[parentId] || []
+          newHierarchy[parentId].push(id)
         }
       })
 

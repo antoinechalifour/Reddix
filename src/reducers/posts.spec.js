@@ -1,8 +1,8 @@
+/* eslint-env jest */
 import {
   byId,
   byCategory,
-  bySubreddit,
-  api
+  bySubreddit
 } from './posts'
 
 describe('byId', () => {
@@ -48,7 +48,7 @@ describe('byId', () => {
     })
   })
 
-  it('Should handle RECEIVE_POST (create)', () => {
+  it('Should handle RECEIVE_POST (create)', () => {
     expect(
       byId(
         // State
@@ -99,7 +99,7 @@ describe('byId', () => {
     })
   })
 
-  it('Should handle UPDATE_POST', () => {
+  it('Should handle UPDATE_POST', () => {
     expect(
       byId(
         // State

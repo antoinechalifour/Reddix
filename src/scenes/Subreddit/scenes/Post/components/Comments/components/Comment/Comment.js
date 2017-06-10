@@ -55,7 +55,7 @@ class Comment extends PureComponent {
 
   render () {
     const leftOffset = 4 * this.props.depth
-    const repliesIndicatorOpacity = 1 - 1/(1 + this.props.depth / 8)
+    const repliesIndicatorOpacity = 1 - 1 / (1 + this.props.depth / 8)
     const repliesIndicatorColor = `rgba(255, 0, 60, ${repliesIndicatorOpacity})`
 
     return (

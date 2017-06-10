@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import reducer from './me'
 
 describe('me', () => {
@@ -8,11 +9,10 @@ describe('me', () => {
 
   const states = [null, { foo: 'bar' }]
 
-
   states.forEach(state => it(`Should handle RECEIVE_ME`, () => {
     expect(
       reducer(
-        state,{
+        state, {
           type: 'RECEIVE_ME',
           me: {
             id: 'some-user-id',

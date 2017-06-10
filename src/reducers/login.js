@@ -8,7 +8,7 @@ export const api = (state = { isLoading: false }, action) => {
         ...state,
         isLoading: true
       }
-    
+
     case actions.LOGIN_FAILED:
     case actions.LOGIN_SUCCESS:
       return {

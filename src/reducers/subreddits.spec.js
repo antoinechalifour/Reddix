@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { byId } from './subreddits'
 
 describe('byId', () => {
@@ -8,18 +9,18 @@ describe('byId', () => {
     .toEqual({})
   })
 
-  it('Should handle RECEIVE_SUBREDDIT (insert)', () => {
+  it('Should handle RECEIVE_SUBREDDIT (insert)', () => {
     expect(
       byId(
         // State
         {
           sub1: {
             id: 'sub1',
-            display_name: 'webdev'  
+            display_name: 'webdev'
           },
           sub2: {
             id: 'sub2',
-            display_name: 'kotlin'  
+            display_name: 'kotlin'
           }
         },
         // Action
@@ -33,18 +34,18 @@ describe('byId', () => {
       )
     )
     .toEqual({
-        sub1: {
-          id: 'sub1',
-          display_name: 'webdev'  
-        },
-        sub2: {
-          id: 'sub2',
-          display_name: 'kotlin'  
-        },
-        sub3: {
-          id: 'sub3',
-          display_name: 'reduxjs'
-        }
+      sub1: {
+        id: 'sub1',
+        display_name: 'webdev'
+      },
+      sub2: {
+        id: 'sub2',
+        display_name: 'kotlin'
+      },
+      sub3: {
+        id: 'sub3',
+        display_name: 'reduxjs'
+      }
     })
   })
 
@@ -55,11 +56,11 @@ describe('byId', () => {
         {
           sub1: {
             id: 'sub1',
-            display_name: 'webdev'  
+            display_name: 'webdev'
           },
           sub2: {
             id: 'sub2',
-            display_name: 'kotlin'  
+            display_name: 'kotlin'
           }
         },
         // Action
@@ -73,14 +74,14 @@ describe('byId', () => {
       )
     )
     .toEqual({
-        sub1: {
-          id: 'sub1',
-          display_name: 'webdev'  
-        },
-        sub2: {
-          id: 'sub2',
-          display_name: 'reduxjs'
-        }
+      sub1: {
+        id: 'sub1',
+        display_name: 'webdev'
+      },
+      sub2: {
+        id: 'sub2',
+        display_name: 'reduxjs'
+      }
     })
   })
 

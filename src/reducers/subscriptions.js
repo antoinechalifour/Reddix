@@ -4,7 +4,7 @@ const subscriptionsReducer = (state = [], action) => {
   switch (action.type) {
     case actions.RECEIVE_SUBSCRIPTIONS:
       return action.subreddits.map(x => x.id)
-    
+
     case actions.ADD_SUBSCRIPTION:
       return [...state, action.id]
 

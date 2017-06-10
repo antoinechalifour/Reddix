@@ -9,7 +9,7 @@ import { arrayIntersection } from '../util'
  * Returns a function that returns all comments linked
  * to the provided postId
  */
-export const postCommentsSelectorFactory = postId => state => state.comments.byPost[postId] || []
+export const postCommentsSelectorFactory = postId => state => state.comments.byPost[postId] || []
 
 /**
  * Returns a list of top level comments (i.e. comments without

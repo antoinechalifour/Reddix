@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Comment from './components/Comment'
-import { BOX_SHADOW_1, RESPONSIVE_BREAKPOINT } from 'Util/constants'
+import { BOX_SHADOW_1, RESPONSIVE_BREAKPOINT } from 'Util/constants'
 
 const Outer = styled.div`
   max-width: ${RESPONSIVE_BREAKPOINT};

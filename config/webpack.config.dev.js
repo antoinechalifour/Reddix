@@ -1,13 +1,11 @@
 'use strict'
 
-const autoprefixer = require('autoprefixer')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
-const eslintFormatter = require('react-dev-utils/eslintFormatter')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getClientEnvironment = require('./env')
 const paths = require('./paths')
@@ -116,15 +114,10 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: eslintFormatter
-
-            },
-            loader: require.resolve('eslint-loader')
-          }
-        ],
+        loader: 'standard-loader',
+        options: {
+          error: true
+        },
         include: paths.appSrc
       },
       // ** ADDING/UPDATING LOADERS **

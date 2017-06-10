@@ -90,7 +90,6 @@ const TitleMaskRightBottom = BaseMasker.extend`
   width: 210px;
 `
 
-
 const Placeholder = () => (
   <Outer>
     <Animated>

@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { arrayIntersection } from './index'
 
 describe('arrayIntersection', () => {
@@ -13,7 +14,7 @@ describe('arrayIntersection', () => {
     message: 'Should only work on primitive types',
     args: [
       [
-        { foo: 'bar' },  { foo: 'baz' },
+        { foo: 'bar' }, { foo: 'baz' },
         { fizz: 'buzz' }, { foo: 'bar' }
       ]
     ],

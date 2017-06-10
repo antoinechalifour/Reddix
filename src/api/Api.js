@@ -1,6 +1,6 @@
 import qs from 'querystring'
 
-const genBasicAuth = (username, password) => `Basic ${btoa(`${username}:${password}`)}`
+const genBasicAuth = (username, password) => `Basic ${window.btoa(`${username}:${password}`)}`
 
 const UNAUTHENTICATED_URI_BASE = 'https://www.reddit.com/api/v1'
 const AUTHENTICATED_URI_BASE = 'https://oauth.reddit.com'
@@ -114,7 +114,7 @@ export default class Api {
     inputs.api_type = 'json'
     inputs.kind = kind
 
-    const form = new FormData()
+    const form = new window.FormData()
 
     Object.keys(inputs).forEach(key => {
       form.append(key, inputs[key])
@@ -141,7 +141,7 @@ export default class Api {
 
   _generateSubscriptionMethodsHOF (action) {
     return id => {
-      const form = new FormData()
+      const form = new window.FormData()
       form.append('action', action)
       form.append('sr', id)
 
@@ -154,7 +154,7 @@ export default class Api {
 
   _generateSaveMethodsHOF (endpoint) {
     return id => {
-      const form = new FormData()
+      const form = new window.FormData()
       form.append('id', id)
 
       return this._makeAuthorizedRequest(`/api/${endpoint}`, {
@@ -166,7 +166,7 @@ export default class Api {
 
   _generateVoteMethodsHOF (direction) {
     return id => {
-      const form = new FormData()
+      const form = new window.FormData()
       form.append('dir', direction)
       form.append('id', id)
 
@@ -192,7 +192,7 @@ export default class Api {
         uri += `?after=${options.after}`
       }
 
-      const opts = { ...options }
+      const opts = { ...options }
       delete opts.after
 
       return this._makeAuthorizedRequest(uri, opts)
@@ -216,7 +216,7 @@ export default class Api {
   }
 
   _makeAuthorizedRequest (uri, opts = {}) {
-    const headers = new Headers()
+    const headers = new window.Headers()
     headers.append('Authorization', `bearer ${this.accessToken}`)
 
     const options = {
@@ -224,31 +224,31 @@ export default class Api {
       headers
     }
 
-    return fetch(`${AUTHENTICATED_URI_BASE}${uri}`, options)
+    return window.fetch(`${AUTHENTICATED_URI_BASE}${uri}`, options)
       .then(response => response.json())
   }
 
   refresh () {
     const basic = genBasicAuth(this.clientId, '')
-    const headers = new Headers()
-    const form = new FormData()
+    const headers = new window.Headers()
+    const form = new window.FormData()
 
     headers.append('Authorization', basic)
     form.append('grant_type', 'refresh_token')
     form.append('refresh_token', this.refreshToken)
 
-    return fetch(`${UNAUTHENTICATED_URI_BASE}/api/v1/access_token`, {
+    return window.fetch(`${UNAUTHENTICATED_URI_BASE}/api/v1/access_token`, {
       method: 'POST',
       headers,
       body: form
     })
     .then(response => response.json())
-    .then(({ access_token }) => {
-      if (!access_token) {
+    .then(({ access_token: accessToken }) => {
+      if (!accessToken) {
         throw new Error('Refresh failed')
       }
 
-      this.accessToken = access_token
+      this.accessToken = accessToken
     })
   }
 
@@ -273,8 +273,8 @@ export default class Api {
    */
   static fromAuthCode ({ code, clientId, redirectUri }) {
     const uri = `${UNAUTHENTICATED_URI_BASE}/access_token`
-    const headers = new Headers()
-    const form = new FormData()
+    const headers = new window.Headers()
+    const form = new window.FormData()
     const basic = genBasicAuth(clientId, '')
 
     headers.append('Authorization', basic)
@@ -288,7 +288,7 @@ export default class Api {
       form.append(key, body[key])
     })
 
-    return fetch(uri, {
+    return window.fetch(uri, {
       method: 'POST',
       headers,
       body: form
@@ -299,15 +299,15 @@ export default class Api {
 
   static fromRefreshToken ({ refreshToken, clientId, redirectUri }) {
     const uri = `${UNAUTHENTICATED_URI_BASE}/access_token`
-    const headers = new Headers()
-    const form = new FormData()
+    const headers = new window.Headers()
+    const form = new window.FormData()
     const basic = genBasicAuth(clientId, '')
 
     headers.append('Authorization', basic)
     form.append('grant_type', 'refresh_token')
     form.append('refresh_token', refreshToken)
 
-    return fetch(uri, {
+    return window.fetch(uri, {
       method: 'POST',
       headers,
       body: form

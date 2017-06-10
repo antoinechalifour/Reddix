@@ -50,7 +50,7 @@ function * setUp (r) {
 
     after = _subreddits.data.after
   } while (after)
-  
+
   // (1) + (2) are done, yey!
   yield all([
     put(AuthActions.loginSuccess(r)),
@@ -62,7 +62,7 @@ function * setUp (r) {
 function * loginFromLocalStorage () {
   // Tries to fetch an eixsting refresh_token from the browser local
   // storage.
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
+  const refreshToken = window.localStorage.getItem(REFRESH_TOKEN_KEY)
 
   // If we found one, we can use it to get the current user information
   // and log him back in.
@@ -97,7 +97,7 @@ function * loginFromAuthCode () {
 
   // Put the refresh_token in the local storage for next
   // sessions.
-  localStorage.setItem(REFRESH_TOKEN_KEY, r.refreshToken)
+  window.localStorage.setItem(REFRESH_TOKEN_KEY, r.refreshToken)
 
   yield setUp(r)
   yield put(push('/'))
@@ -142,7 +142,7 @@ function * logout () {
     // yield r.revokeRefreshToken()
 
     // 2. Remove the refresh token from the locale storage
-    localStorage.removeItem(REFRESH_TOKEN_KEY)
+    window.localStorage.removeItem(REFRESH_TOKEN_KEY)
 
     // 3. Reset the app (see root reducer)
     yield put(AuthActions.logout())

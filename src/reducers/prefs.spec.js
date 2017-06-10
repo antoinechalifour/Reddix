@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { prefs, api } from './prefs'
 
 describe('prefs', () => {

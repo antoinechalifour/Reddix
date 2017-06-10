@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import {
   byId,
   byPost,
@@ -74,7 +75,7 @@ describe('byId', () => {
         {
           type: 'UPDATE_COMMENT',
           id: 'comment2',
-          updates: { foo: 'baz' }
+          updates: { foo: 'baz' }
         }
       )
     )
@@ -129,7 +130,7 @@ describe('byPost', () => {
 })
 
 describe('replies', () => {
-  it('Should return the initial state', () => {
+  it('Should return the initial state', () => {
     expect(
       replies(undefined, {})
     ).toEqual({})

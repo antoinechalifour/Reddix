@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { api } from './login'
 
 describe('api', () => {

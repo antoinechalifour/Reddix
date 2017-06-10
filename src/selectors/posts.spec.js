@@ -1,7 +1,8 @@
+/* eslint-env jest */
 import * as selectors from './posts'
 
 describe('categorySelectorFactory', () => {
-  it('Should be a function', () => {
+  it('Should be a function', () => {
     expect(typeof selectors.categorySelectorFactory).toBe('function')
   })
 
@@ -11,7 +12,7 @@ describe('categorySelectorFactory', () => {
     expect(typeof selector).toBe('function')
   })
 
-  it('Should return an array of ids of posts of the given category', () => {
+  it('Should return an array of ids of posts of the given category', () => {
     const category = 'new'
     const state = {
       posts: {
@@ -67,7 +68,7 @@ describe('subredditSelectorFactory', () => {
     expect(result).toEqual(['6dmiws', '6di1ey', '6dhtwg', '6dh48c'])
   })
 
-  it('Should return an empty array if no posts are found', () => {
+  it('Should return an empty array if no posts are found', () => {
     const subreddit = 'kotlin'
     const state = {
       posts: {
@@ -129,7 +130,7 @@ describe('categorySubredditSelectorFactory', () => {
         },
         bySubreddit: {
           webdev: ['6dn53f', '6dn2k1', '6dmyth', '6dmx10', '6dmsmz', '6dmpgq', '6dmop1'],
-          kotlin: ['6dmiws', '6di1ey', '6dhtwg', '6dh48c', '6dcrxi', ]
+          kotlin: ['6dmiws', '6di1ey', '6dhtwg', '6dh48c', '6dcrxi']
         }
       }
     }

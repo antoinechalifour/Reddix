@@ -56,6 +56,8 @@
     "promise": "7.1.1",
     "react-dev-utils": "^1.0.1",
     "react-error-overlay": "^1.0.1",
+    "standard": "^10.0.2",
+    "standard-loader": "^6.0.1",
     "style-loader": "0.17.0",
     "sw-precache-webpack-plugin": "0.9.1",
     "url-loader": "0.5.8",
@@ -67,7 +69,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "lint": "./node_modules/.bin/standard"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -98,8 +101,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

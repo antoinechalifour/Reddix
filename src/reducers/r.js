@@ -6,7 +6,7 @@ const clientReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return action.client
-    
+
     case LOGOUT:
       return initialState
     default:

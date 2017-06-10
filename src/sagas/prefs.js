@@ -12,5 +12,5 @@ function * requestPrefs () {
 }
 
 export default function * root () {
-  yield fork (requestPrefs)
+  yield fork(requestPrefs)
 }
