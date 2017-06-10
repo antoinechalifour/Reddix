@@ -126,6 +126,19 @@ export default class Api {
     })
   }
 
+  postComment (text, thingId) {
+    const form = new window.FormData()
+
+    form.append('api_type', 'json')
+    form.append('text', text)
+    form.append('thing_id', thingId)
+
+    return this._makeAuthorizedRequest('/api/comment', {
+      method: 'POST',
+      body: form
+    })
+  }
+
   getMoreChildren (id, children) {
     const search = qs.stringify({
       link_id: id,
