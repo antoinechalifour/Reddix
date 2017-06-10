@@ -33,8 +33,8 @@ class UserPage extends Component {
           <TabPanels>
             <User {...this.props.user} />
             <Overview {...this.props.overview} />
+            <Posts {...this.props.submissions} />
             <Comments {...this.props.comments} />
-            <Posts {...this.props.posts} />
           </TabPanels>
         </Tabs>
       </div>
