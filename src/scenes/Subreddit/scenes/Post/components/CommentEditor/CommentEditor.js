@@ -48,7 +48,17 @@ class CommentEditor extends Component {
           onChange={this.onValueChange}
         />
         <ButtonContainer>
-          <Button onClick={this.onSubmit}>Reply</Button>
+          <Button
+            onClick={() => this.props.actions.goBack()}
+          >
+            Discard
+          </Button>
+          <Button
+            primary
+            onClick={this.onSubmit}
+          >
+            Reply
+          </Button>
         </ButtonContainer>
       </Outer>
     )
