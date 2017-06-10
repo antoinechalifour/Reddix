@@ -8,7 +8,6 @@ const Outer = styled.div`
   align-items: center;
   justify-content: center;
 
-  border-right: 1px solid #d1d2d3;
   padding: 12px;
   font-size: 20px;
 
