@@ -5,6 +5,7 @@ export const TOGGLE_DOWNVOTE_COMENT = 'TOGGLE_DOWNVOTE_COMENT'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 export const REQUEST_MORE_COMMENTS = 'REQUEST_MORE_COMMENTS'
 export const RECEIVE_MORE_COMMENTS = 'RECEIVE_MORE_COMMENTS'
+export const SEND_COMMENT = 'SEND_COMMENT'
 
 export const receiveComments = (comments, pagination = []) => ({
   type: RECEIVE_COMMENTS,
@@ -41,4 +42,10 @@ export const requestMoreComments = id => ({
 export const receiveMoreComments = id => ({
   type: RECEIVE_MORE_COMMENTS,
   id
+})
+
+export const sendComment = (text, id) => ({
+  type: SEND_COMMENT,
+  id,
+  text
 })

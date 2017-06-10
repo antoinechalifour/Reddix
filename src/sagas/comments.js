@@ -1,4 +1,5 @@
 import { fork, select, take, put } from 'redux-saga/effects'
+import { goBack } from 'react-router-redux'
 import * as actions from '../actions/comments'
 import { flattenComments } from '../api/helpers'
 
@@ -91,9 +92,21 @@ function * requestMoreComments () {
   }
 }
 
+function * sendComment () {
+  while (true) {
+    const { id, text } = yield take(actions.SEND_COMMENT)
+    const r = yield select(state => state.r)
+
+    yield r.postComment(text, id)
+
+    yield put(goBack())
+  }
+}
+
 export default function * root () {
   yield fork(toggleUpvote)
   yield fork(toggleDownvote)
   yield fork(toggleSave)
   yield fork(requestMoreComments)
+  yield fork(sendComment)
 }

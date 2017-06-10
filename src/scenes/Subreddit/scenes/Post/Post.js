@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Markdown from 'react-markdown'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
 // import MdReply from 'react-icons/lib/md/reply'
 import AppBar from 'Components/AppBar'
 import FluidIframe from 'Components/FluidIframe'
+import OverlayModal from 'Components/OverlayModal'
 import {
   RESPONSIVE_BREAKPOINT,
   BOX_SHADOW_2
@@ -19,6 +20,7 @@ import ActionGroup from '../../components/ActionGroup'
 import ActionIcon from '../../components/ActionIcon'
 import ThreadScore from '../../components/ThreadScore'
 import Comments from './components/Comments'
+import CommentEditor from './components/CommentEditor'
 
 const Content = styled.div`
   max-width: ${RESPONSIVE_BREAKPOINT};
@@ -122,6 +124,8 @@ class Post extends Component {
                       <FluidIframe {...this.props.media_embed} />
                     </RichMedia>
                   )}
+
+                  <Link to={`/r/${this.props.r}/comments/${this.props.id}/submit/${this.props.name}`}>Reply</Link>
                 </div>
               </PostLayout>
             ) : (
@@ -129,6 +133,21 @@ class Post extends Component {
             )
           }
         </Content>
+
+        {this.props.name && (
+          <Route
+            path='/r/:r/comments/:id/submit/:name'
+            render={({ match }) => {
+              const { name } = match.params
+
+              return (
+                <OverlayModal>
+                  <CommentEditor id={name} />
+                </OverlayModal>
+              )
+            }}
+          />
+        )}
 
         <Comments id={this.props.id} />
       </div>

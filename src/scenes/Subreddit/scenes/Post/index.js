@@ -16,4 +16,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(PostActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Post)

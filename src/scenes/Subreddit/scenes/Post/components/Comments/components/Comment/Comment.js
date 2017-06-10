@@ -54,6 +54,8 @@ class Comment extends PureComponent {
   }
 
   render () {
+    const { link_id: linkId } = this.props
+    const postId = linkId.substr(3)
     const leftOffset = 4 * this.props.depth
     const repliesIndicatorOpacity = 1 - 1 / (1 + this.props.depth / 8)
     const repliesIndicatorColor = `rgba(255, 0, 60, ${repliesIndicatorOpacity})`
@@ -111,6 +113,8 @@ class Comment extends PureComponent {
                 {!this.state.showChildren && (
                   <div onClick={this.showReplies}>Show replies</div>
                 )}
+
+                <Link to={`/r/${this.props.subreddit}/comments/${postId}/submit/${this.props.name}`}>Reply</Link>
               </ThreadInformation>
             </Body>
           </Main>
