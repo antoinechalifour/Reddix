@@ -7,7 +7,6 @@ const Outer = styled.div`
   max-width: ${RESPONSIVE_BREAKPOINT};
   box-sizing: border-box;
   margin: 24px auto;
-  padding: 16px;
   border-radius: 4px;
   overflow: hidden;
 
@@ -29,6 +28,7 @@ class Comments extends Component {
           <Comment
             key={id}
             id={id}
+            depth={0}
           />
         ))}
       </Outer>

@@ -11,6 +11,10 @@ function * requestPost () {
 
     const [_post, _comments] = yield r.getPost(id, subreddit)
     const post = _post.data.children[0].data
+    
+    // Hack to convert boolean likes to 1 or 0
+    post.likes = post.likes ? 1 : 0
+
     const comments = _comments.data.children
 
     // Each post comments has a deep nested structure:

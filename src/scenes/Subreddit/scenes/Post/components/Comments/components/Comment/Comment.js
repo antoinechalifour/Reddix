@@ -5,8 +5,9 @@ import Markdown from 'react-markdown'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
-import { PRIMARY_COLOR } from 'Util/constants'
 import CommentContainer from './index'
+import ActionGroup from '../../../../../../components/ActionGroup'
+import ActionIcon from '../../../../../../components/ActionIcon'
 import ThreadInformation from '../../../../../../components/ThreadInformation'
 import ThreadScore from '../../../../../../components/ThreadScore'
 
@@ -18,36 +19,21 @@ const Main = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 16px 0;
+`
+
+const Divider = styled.div`
   border-bottom: 1px solid #d1d2d3;
 `
 
-const Actions = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 12px;
-  font-size: 16px;
-  color: #bcbcbc;
-`
-
 const Body = styled.div`
-`
-
-const Replies = styled.div`
-  padding-left: 16px;
+  padding: 16px;
+  flex: 1;
 `
 
 const MoreComments = styled.div`
-  margin-top: 16px;
+  margin: 16px 0;
   color: #bcbcbc;
   cursor: pointer;
-`
-
-const StyledIconHOC = WrappedIcon => styled(WrappedIcon)`
-  cursor: pointer;
-  margin-top: 8px;
-
-  ${({ active }) => active && `color: ${PRIMARY_COLOR}`}
 `
 
 class Comment extends PureComponent {
@@ -68,49 +54,69 @@ class Comment extends PureComponent {
   }
 
   render () {
+    const leftOffset = 4 * this.props.depth
+    const repliesIndicatorOpacity = 1 - 1/(1 + this.props.depth / 8)
+    const repliesIndicatorColor = `rgba(255, 0, 60, ${repliesIndicatorOpacity})`
+
     return (
       <Outer>
-        <Main>
-          <Actions>
-            {React.createElement(StyledIconHOC(MdArrowUpward), {
-              active: this.props.likes === 1,
-              onClick: this.upvote
-            })}
+        <Divider
+          style={{
+            paddingLeft: `${leftOffset}px`
+          }}
+        >
+          <Main
+            style={{
+              borderLeft: `4px solid ${repliesIndicatorColor}`
+            }}
+          >
+            <div>
+              <ActionGroup>
+                <ActionIcon
+                  active={this.props.likes === 1}
+                  onClick={this.upvote}
+                >
+                  <MdArrowUpward />
+                </ActionIcon>
+                <ActionIcon
+                  active={this.props.saved}
+                  onClick={this.save}
+                >
+                  <MdStar />
+                </ActionIcon>
+                <ActionIcon
+                  active={this.props.likes === -1}
+                  onClick={this.downvote}
+                >
+                  <MdArrowDownward />
+                </ActionIcon>
+              </ActionGroup>
+            </div>
+            <Body>
+              <ThreadInformation>
+                <div>
+                  <ThreadScore>{this.props.score}</ThreadScore>
+                </div>
+                <div>
+                  Posted by <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
+                </div>
+              </ThreadInformation>
 
-            {React.createElement(StyledIconHOC(MdStar), {
-              active: this.props.saved,
-              onClick: this.save
-            })}
+              <Markdown source={this.props.body} />
 
-            {React.createElement(StyledIconHOC(MdArrowDownward), {
-              active: this.props.likes === -1,
-              onClick: this.downvote
-            })}
-          </Actions>
-          <Body>
-            <ThreadInformation>
-              <div>
-                <ThreadScore>{this.props.score}</ThreadScore>
-              </div>
-              <div>
-                Posted by <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
-              </div>
-            </ThreadInformation>
+              <ThreadInformation>
+                {this.state.showChildren && (
+                  <div onClick={this.hideReplies}>Hide replies</div>
+                )}
+                {!this.state.showChildren && (
+                  <div onClick={this.showReplies}>Show replies</div>
+                )}
+              </ThreadInformation>
+            </Body>
+          </Main>
+        </Divider>
 
-            <Markdown source={this.props.body} />
-
-            <ThreadInformation>
-              {this.state.showChildren && (
-                <div onClick={this.hideReplies}>Hide replies</div>
-              )}
-              {!this.state.showChildren && (
-                <div onClick={this.showReplies}>Show replies</div>
-              )}
-            </ThreadInformation>
-          </Body>
-        </Main>
-
-        <Replies>
+        <div>
           {this.state.showChildren && this.props.replies.length > 0 && (
             <div>
               {this.props.replies.map(id => {
@@ -118,6 +124,7 @@ class Comment extends PureComponent {
                   <CommentContainer
                     key={id}
                     id={id}
+                    depth={this.props.depth + 1}
                   />
                 )
               })}
@@ -125,11 +132,16 @@ class Comment extends PureComponent {
           )}
 
           {this.props.more > 0 && (
-            <MoreComments onClick={this.requestMore}>
+            <MoreComments
+              style={{
+                paddingLeft: `${leftOffset}px`
+              }}
+              onClick={this.requestMore}
+            >
               Load {this.props.more} more comments...
             </MoreComments>
           )}
-        </Replies>
+        </div>
 
       </Outer>
     )

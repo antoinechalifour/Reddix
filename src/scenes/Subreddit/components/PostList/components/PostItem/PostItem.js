@@ -5,10 +5,9 @@ import styled from 'styled-components'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
-import {
-  PRIMARY_COLOR,
-  BOX_SHADOW_1
-} from 'Util/constants'
+import { BOX_SHADOW_1 } from 'Util/constants'
+import ActionGroup from '../../../ActionGroup'
+import ActionIcon from '../../../ActionIcon'
 import ThreadHeader from '../../../ThreadHeader'
 import ThreadInformation from '../../../ThreadInformation'
 import ThreadScore from '../../../ThreadScore'
@@ -26,56 +25,35 @@ const Outer = styled.div`
   }
 `
 
-const Actions = styled.div`
+const Main = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  border-right: 1px solid #d1d2d3;
   padding: 12px;
-  font-soze: 20px;
-`
-
-const StyledIconHOC = WrappedComponent => styled(WrappedComponent)`
-  cursor: pointer;
-  color: #bcbcbc;
-
-  + * {
-    margin-top: 16px;
-  }
-
-  ${({ active }) => {
-    if (active) {
-      return `color: ${PRIMARY_COLOR}`
-    }
-  }}
-`
-
-const Main = styled.div`
-display: flex;
-flex-direction: column;
-padding: 12px;
-flex: 1;
+  flex: 1;
 `
 
 const PostItem = props => (
   <Outer>
-    <Actions>
-      {React.createElement(StyledIconHOC(MdArrowUpward), {
-        active: props.likes === 1,
-        onClick: () => props.actions.toggleUpvote(props.id)
-      })}
-
-      {React.createElement(StyledIconHOC(MdStar), {
-        active: props.saved,
-        onClick: () => props.actions.toggleSave(props.id)
-      })}
-
-      {React.createElement(StyledIconHOC(MdArrowDownward), {
-        active: props.likes === -1,
-        onClick: () => props.actions.toggleDownvote(props.id)
-      })}
-    </Actions>
+    <ActionGroup>
+      <ActionIcon
+        active={props.likes === 1}
+        onClick={() => props.actions.toggleUpvote(props.id)}
+      >
+        <MdArrowUpward />
+      </ActionIcon>
+      <ActionIcon
+        active={props.saved}
+        onClick={() => props.actions.toggleSave(props.id)}
+      >
+        <MdStar />
+      </ActionIcon>
+      <ActionIcon
+        active={props.likes === -1}
+        onClick={() => props.actions.toggleDownvote(props.id)}
+      >
+        <MdArrowDownward />
+      </ActionIcon>
+    </ActionGroup>
 
     <Main>
       <ThreadInformation>
