@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import AppBar from 'Components/AppBar'
+import { Tabs, TabList, Tab, TabPanels } from 'Components/Tabs'
 
 class Me extends Component {
   componentDidMount () {
@@ -8,12 +10,28 @@ class Me extends Component {
   render () {
     return (
       <div>
-        <pre>
-          {JSON.stringify(this.props.me, null, 2)}
-        </pre>
-        <pre>
-          {JSON.stringify(this.props.prefs, null, 2)}
-        </pre>
+        <Tabs>
+          <AppBar
+            title='Me'
+            href='/me'
+          />
+          <TabList>
+            <Tab>Activity</Tab>
+            <Tab>Preferences</Tab>
+          </TabList>
+          <TabPanels>
+            <div>
+              <pre>
+                {JSON.stringify(this.props.me, null, 2)}
+              </pre>
+            </div>
+            <div>
+              <pre>
+                {JSON.stringify(this.props.prefs, null, 2)}
+              </pre>
+            </div>
+          </TabPanels>
+        </Tabs>
       </div>
     )
   }

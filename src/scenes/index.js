@@ -6,6 +6,7 @@ import Home from './Home'
 import Subreddit from './Subreddit'
 import Me from './Me'
 import Login from './Login'
+import User from './User'
 
 const App = () => (
   <div>
@@ -18,6 +19,7 @@ const App = () => (
           <Route exact path='/' component={Home} />
           <Route path='/r/:r' component={Subreddit} />
           <Route exact path='/me' component={Me} />
+          <Route path='/u/:username' component={User} />
         </DrawerLayout>
       )}
     </IfLoggedIn>

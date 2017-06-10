@@ -10,6 +10,7 @@ import r from './r'
 import subreddits from './subreddits'
 import subscriptions from './subscriptions'
 import ui from './ui'
+import users from './users'
 
 const reducer = combineReducers({
   comments,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   router,
   subreddits,
   subscriptions,
-  ui
+  ui,
+  users
 })
 
 const rootReducer = (state, action) => {

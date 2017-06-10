@@ -110,10 +110,10 @@ class AppBar extends Component {
     const { r } = this.props
     const title = r
       ? `/r/${r}`
-      : 'Frontpage'
+      : this.props.title
     const href = r
       ? title
-      : '/'
+      : this.props.href
 
     return (
       <Outer className={this.props.className}>
