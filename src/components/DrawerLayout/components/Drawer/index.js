@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import * as AuthActions from 'Actions/auth'
+import * as UiActions from 'Actions/ui'
 import {
   subscriptionsSelector,
   mapIdsToSubreddits
@@ -19,7 +20,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(AuthActions, dispatch)
+  actions: {
+    ...bindActionCreators(AuthActions, dispatch),
+    ...bindActionCreators(UiActions, dispatch)
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer)

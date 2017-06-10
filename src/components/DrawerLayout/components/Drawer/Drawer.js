@@ -163,7 +163,11 @@ const Drawer = ({ actions, subreddits, me }) => (
             key={r.id}
             to={`/r/${r.display_name}`}
           >
-            {r.display_name_prefixed}
+            <span
+              onClick={() => actions.toggleDrawer()}
+            >
+              {r.display_name_prefixed}
+            </span>
           </ItemLink>
         ))}
       </Section>
