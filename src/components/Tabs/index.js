@@ -82,12 +82,12 @@ export class Tabs extends Component {
     const children = React.Children.map(this.props.children, child => {
       if (
         child.type === TabPanels ||
-        (child.type.displayName && child.type.displayName.indexOf('TabPanels') !== -1) // Hack for styled components
+        child.type.displayName === `Styled(${TabPanels.name})` // Hack for styled components
       ) {
         return React.cloneElement(child, { activeIndex: this.state.activeIndex })
       } else if (
         child.type === TabList ||
-        (child.type.displayName && child.type.displayName.indexOf('TabList') !== -1) // Hack for styled components
+        child.type.displayName === `Styled(${TabList.name})` // Hack for styled components
       ) {
         return React.cloneElement(child, {
           activeIndex: this.state.activeIndex,
