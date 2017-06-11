@@ -2,18 +2,36 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import Humanize from 'humanize-plus'
-import MdChatBubble from 'react-icons/lib/md/chat-bubble'
-import ArrowUp from 'react-icons/lib/fa/caret-up'
-import ArrowDown from 'react-icons/lib/fa/caret-down'
+// import Humanize from 'humanize-plus'
+import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
+import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
+import MdFav from 'react-icons/lib/md/favorite'
+import MdChat from 'react-icons/lib/md/chat-bubble'
 import { Card, CardContent } from 'Components/Card'
 import {
   upvotableHOC,
-  downvotableHOC
+  downvotableHOC,
+  savableHOC
 } from 'Components/ThingActions'
 import Thumbnail from 'Components/Thumbnail'
 
-const Content = styled(CardContent)`
+const Header = styled.div`
+  font-size: 14px;
+  font-style: italic;
+  color: #bcbcbc;
+  margin-bottom: 8px;
+
+  span, a {
+    font-weight: bold;
+    color: #666;
+  }
+
+  a {
+    text-decoration: none;
+  }
+`
+
+const Content = styled.div`
   display: flex;
   flex-direction: row;
 
@@ -33,78 +51,87 @@ const Title = styled.div`
   }
 `
 
-const Extra = styled.div`
-  font-size: 14px;
-  margin-top: 12px;
-`
-
-const ExtraRow = styled.div`
-  color: #bcbcbc;
-  font-size: 16px;
+const PostActions = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+`
 
-  > * {
-    display: inline-block;
-    margin-right: 12px;
-  }
+const PostInformation = styled.div`
+  margin-top: 16px;
+  margin-right: 12px;
+  color: #bcbcbc;
 
   a {
-    color: inherit;
     text-decoration: none;
-  }
-
-  svg {
-    font-size: 18px;
+    color: inherit;
   }
 `
 
-const ActionButton = styled.span`
-  ${({ active }) => active && 'color: red;'}
+const PostAction = PostInformation.extend`
+  color: ${({ active }) => active ? '#ff003c' : '#bcbcbc'};
 `
 
-const UpvoteButton = upvotableHOC(ActionButton)
-const DownvoteButton = downvotableHOC(ActionButton)
+const UpvoteButton = upvotableHOC(PostAction)
+const DownvoteButton = downvotableHOC(PostAction)
+const SaveButton = savableHOC(PostAction)
 
 const PostItem = props => (
   <Card>
-    <Content>
-      <Thumbnail {...props} />
-      <div>
-        <Title>
-          {props.is_self ? (
-            <Link to={`/r/${props.subreddit}/comments/${props.id}`}>
-              {props.title}
-            </Link>
-          ) : (
-            <a href={props.url} target='_blank'>{props.title}</a>
-          )}
-        </Title>
-        <Extra>
-          <ExtraRow>
-            <Link to={`/r/${props.subreddit}`}>{props.subreddit}</Link>
-            <Link to={props.domain}>{props.domain}</Link>
-          </ExtraRow>
-          <ExtraRow>
-            <span>
-              <UpvoteButton id={props.name}>
-                <ArrowUp />
-              </UpvoteButton>
-            </span>
-            <span>{Humanize.compactInteger(props.score, 1)}</span>
-            <span>
-              <DownvoteButton id={props.name}>
-                <ArrowDown />
-              </DownvoteButton>
-            </span>
-            <Link to={`/r/${props.subreddit}/comments/${props.id}`}>
-              <MdChatBubble /> {Humanize.compactInteger(props.num_comments)}
-            </Link>
-            <span>{moment(props.created_utc * 1000).fromNow()}</span>
-          </ExtraRow>
-        </Extra>
-      </div>
-    </Content>
+    <CardContent>
+      <Header>
+        <Link to={`/u/${props.author}`}>
+          {props.author}
+        </Link> submitted <span>{moment(props.created_utc * 1000).fromNow()}</span>
+      </Header>
+      <Content>
+        <Thumbnail {...props} />
+        <div>
+          <Title>
+            {props.is_self ? (
+              <Link to={`/r/${props.subreddit}/comments/${props.id}`}>
+                {props.title}
+              </Link>
+            ) : (
+              <a href={props.url} target='_blank'>{props.title}</a>
+            )}
+          </Title>
+        </div>
+      </Content>
+
+      <PostActions>
+        <UpvoteButton id={props.name}>
+          <MdArrowUpward />
+        </UpvoteButton>
+
+        <SaveButton id={props.name}>
+          <MdFav />
+        </SaveButton>
+
+        <DownvoteButton id={props.name}>
+          <MdArrowDownward />
+        </DownvoteButton>
+
+        <PostInformation>
+          <div>•</div>
+        </PostInformation>
+
+        <PostInformation>
+          <Link to={`/r/${props.subreddit}/comments/${props.id}`}>
+            <MdChat /> {props.num_comments}
+          </Link>
+        </PostInformation>
+
+        <PostInformation>
+          <div>•</div>
+        </PostInformation>
+
+        <PostInformation>
+          <div>{props.domain}</div>
+        </PostInformation>
+      </PostActions>
+    </CardContent>
   </Card>
 )
 

@@ -36,6 +36,15 @@ injectGlobal`
     line-height: 1.7;
     font-family: 'Merriweather', sans-serif;
   }
+
+  code {
+    margin: 12px 0;
+    display: block;
+    font-family: monospace;
+    padding: 8px;
+    background: rgba(0, 0, 0, .08);
+    border-left: 4px solid rgba(0, 0, 0, .1);
+  }
 `
 
 // (2.) Application bootstrap

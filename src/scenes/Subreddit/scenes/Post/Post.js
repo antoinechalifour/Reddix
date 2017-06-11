@@ -25,7 +25,7 @@ import CommentEditor from './components/CommentEditor'
 const Container = styled.div`
   max-width: ${RESPONSIVE_BREAKPOINT};
   box-sizing: border-box;
-  margin: auto;
+  margin: 24px auto;
 `
 
 const StickyAppBar = styled(AppBar)`
@@ -72,7 +72,7 @@ const PostVideo = styled.div`
 const EditorLink = styled(Link)`
   display: block;
   color: #515151;
-  margin: 16px 0;
+  margin: 16px;
 `
 
 const PostActions = styled.div`

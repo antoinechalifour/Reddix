@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
+import moment from 'moment'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdFavorite from 'react-icons/lib/md/favorite'
@@ -29,6 +30,22 @@ const Divider = styled.div`
   margin-top: 16px;
   margin-bottom: 16px;
   background: #d6d7d8;
+`
+
+const Header = styled.div`
+  font-size: 14px;
+  font-style: italic;
+  color: #bcbcbc;
+  margin-bottom: 8px;
+
+  span, a {
+    font-weight: bold;
+    color: #666;
+  }
+
+  a {
+    text-decoration: none;
+  }
 `
 
 const Body = styled.div`
@@ -101,6 +118,11 @@ class Comment extends PureComponent {
           style={{ borderLeft: `4px solid ${repliesIndicatorColor}` }}
           isReply={isReply}
         >
+          <Header>
+            <Link to={`/u/${this.props.author}`}>
+              {this.props.author}
+            </Link> wrote <span>{moment(this.props.created_utc * 1000).fromNow()}</span>
+          </Header>
           <Markdown
             source={this.props.body}
           />

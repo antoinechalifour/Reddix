@@ -1,12 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import MdLink from 'react-icons/lib/md/link'
+import MdText from 'react-icons/lib/md/text-fields'
 
 const isActualThumbnail = thumbnail => thumbnail.startsWith('http')
-const getPlaceholder = str => {
-  if (['nsfw'].includes(str)) {
-    return str
+const getPlaceholder = ({ thumbnail, url }) => {
+  if (['nsfw'].includes(thumbnail)) {
+    return thumbnail
+  } else if (url.includes('www.reddit.com')) {
+    return <MdText />
   } else {
-    return 'self'
+    return <MdLink />
   }
 }
 
@@ -30,6 +34,10 @@ const Letter = BaseThumbnail.extend`
   color: #fff;
   text-transform: uppercase;
   font-size: 20px;
+
+  svg {
+    font-size: 32px;
+  }
 `
 
 const Thumbnail = props => {
@@ -37,7 +45,7 @@ const Thumbnail = props => {
     return <Image {...props} />
   }
 
-  return <Letter>{getPlaceholder(props.thumbnail)}</Letter>
+  return <Letter>{getPlaceholder(props)}</Letter>
 }
 
 export default Thumbnail
