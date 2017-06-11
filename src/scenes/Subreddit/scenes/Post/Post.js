@@ -10,6 +10,11 @@ import AppBar from 'Components/AppBar'
 import FluidIframe from 'Components/FluidIframe'
 import OverlayModal from 'Components/OverlayModal'
 import {
+  upvotableHOC,
+  downvotableHOC,
+  savableHOC
+} from 'Components/ThingActions'
+import {
   RESPONSIVE_BREAKPOINT,
   BOX_SHADOW_2
 } from 'Util/constants'
@@ -62,6 +67,10 @@ const PostLayout = styled.div`
   }
 `
 
+const UpvoteButton = upvotableHOC(ActionIcon)
+const DownvoteButton = downvotableHOC(ActionIcon)
+const SaveButton = savableHOC(ActionIcon)
+
 class Post extends Component {
   componentDidMount () {
     this.props.actions.requestPost(
@@ -80,24 +89,15 @@ class Post extends Component {
             ? (
               <PostLayout>
                 <ActionGroup>
-                  <ActionIcon
-                    active={this.props.likes === 1}
-                    onClick={() => this.props.actions.toggleUpvote(this.props.id)}
-                  >
+                  <UpvoteButton id={this.props.name}>
                     <MdArrowUpward />
-                  </ActionIcon>
-                  <ActionIcon
-                    active={this.props.saved}
-                    onClick={() => this.props.actions.toggleSave(this.props.id)}
-                  >
+                  </UpvoteButton>
+                  <SaveButton id={this.props.name}>
                     <MdStar />
-                  </ActionIcon>
-                  <ActionIcon
-                    active={this.props.likes === -1}
-                    onClick={() => this.props.actions.toggleDownvote(this.props.id)}
-                  >
+                  </SaveButton>
+                  <DownvoteButton id={this.props.name}>
                     <MdArrowDownward />
-                  </ActionIcon>
+                  </DownvoteButton>
                 </ActionGroup>
                 <div>
                   <ThreadInformation>

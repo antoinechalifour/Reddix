@@ -70,65 +70,6 @@ function * requestPosts () {
   }
 }
 
-function * watchToggleSave () {
-  while (true) {
-    const { id } = yield take(actions.TOGGLE_SAVE)
-    const { saved } = yield select(state => state.posts.byId[id])
-    const r = yield select(state => state.r)
-
-    // Save / unsave category requires the ID prefix
-    const prefixedId = `t3_${id}`
-
-    if (saved) {
-      yield r.unsave(prefixedId)
-      yield put(actions.updatePost(id, { saved: false }))
-    } else {
-      yield r.save(prefixedId)
-      yield put(actions.updatePost(id, { saved: true }))
-    }
-  }
-}
-
-function * watchToggleUpvote () {
-  while (true) {
-    const { id } = yield take(actions.TOGGLE_UPVOTE)
-    const { likes } = yield select(state => state.posts.byId[id])
-    const r = yield select(state => state.r)
-    const prefixedId = `t3_${id}`
-    const updates = {}
-
-    if (likes === 1) {
-      yield r.unvote(prefixedId)
-      updates.likes = 0
-    } else {
-      yield r.upvote(prefixedId)
-      updates.likes = 1
-    }
-
-    yield put(actions.updatePost(id, updates))
-  }
-}
-
-function * watchToggleDownvote () {
-  while (true) {
-    const { id } = yield take(actions.TOGGLE_DOWNVOTE)
-    const { likes } = yield select(state => state.posts.byId[id])
-    const r = yield select(state => state.r)
-    const prefixedId = `t3_${id}`
-    const updates = {}
-
-    if (likes === -1) {
-      yield r.unvote(prefixedId)
-      updates.likes = 0
-    } else {
-      yield r.downvote(prefixedId)
-      updates.likes = -1
-    }
-
-    yield put(actions.updatePost(id, updates))
-  }
-}
-
 function * watchSubmitPost () {
   while (true) {
     const action = yield take(actions.SUBMIT_POST)
@@ -157,8 +98,5 @@ function * watchSubmitPost () {
 export default function * root () {
   yield fork(requestPost)
   yield fork(requestPosts)
-  yield fork(watchToggleSave)
-  yield fork(watchToggleUpvote)
-  yield fork(watchToggleDownvote)
   yield fork(watchSubmitPost)
 }

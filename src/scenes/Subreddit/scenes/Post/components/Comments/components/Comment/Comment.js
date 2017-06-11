@@ -5,6 +5,11 @@ import Markdown from 'react-markdown'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdStar from 'react-icons/lib/md/star'
+import {
+  upvotableHOC,
+  downvotableHOC,
+  savableHOC
+} from 'Components/ThingActions'
 import CommentContainer from './index'
 import ActionGroup from '../../../../../../components/ActionGroup'
 import ActionIcon from '../../../../../../components/ActionIcon'
@@ -36,6 +41,10 @@ const MoreComments = styled.div`
   cursor: pointer;
 `
 
+const UpvoteButton = upvotableHOC(ActionIcon)
+const DownvoteButton = downvotableHOC(ActionIcon)
+const SaveButton = savableHOC(ActionIcon)
+
 class Comment extends PureComponent {
   constructor (props) {
     super(props)
@@ -44,9 +53,6 @@ class Comment extends PureComponent {
       showChildren: true
     }
 
-    this.upvote = () => this.props.actions.toggleUpvote(this.props.id)
-    this.downvote = () => this.props.actions.toggleDownvote(this.props.id)
-    this.save = () => this.props.actions.toggleSave(this.props.id)
     this.requestMore = () => this.props.actions.requestMoreComments(this.props.id)
 
     this.hideReplies = () => this.setState({ showChildren: false })
@@ -74,24 +80,15 @@ class Comment extends PureComponent {
           >
             <div>
               <ActionGroup>
-                <ActionIcon
-                  active={this.props.likes === 1}
-                  onClick={this.upvote}
-                >
+                <UpvoteButton id={this.props.name}>
                   <MdArrowUpward />
-                </ActionIcon>
-                <ActionIcon
-                  active={this.props.saved}
-                  onClick={this.save}
-                >
+                </UpvoteButton>
+                <SaveButton id={this.props.name}>
                   <MdStar />
-                </ActionIcon>
-                <ActionIcon
-                  active={this.props.likes === -1}
-                  onClick={this.downvote}
-                >
+                </SaveButton>
+                <DownvoteButton id={this.props.name}>
                   <MdArrowDownward />
-                </ActionIcon>
+                </DownvoteButton>
               </ActionGroup>
             </div>
             <Body>

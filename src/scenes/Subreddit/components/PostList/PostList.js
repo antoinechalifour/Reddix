@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import PostItem from './components/PostItem'
+import PostItem from 'Components/PostItem'
 import debounce from 'Util/debounce'
 
 const Outer = styled.div`
