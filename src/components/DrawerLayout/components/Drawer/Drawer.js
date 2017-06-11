@@ -100,7 +100,6 @@ const Item = styled.div`
   text-decoration: none;
   cursor: pointer;
   color: ${props => props.theme.colors.textLight};
-  font-size: 14px;
   transition: color .2s ease-in;
 
   &:hover {

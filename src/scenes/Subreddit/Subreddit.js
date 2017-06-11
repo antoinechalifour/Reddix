@@ -18,12 +18,12 @@ const Header = styled.div`
 
   h1 {
     text-transform: uppercase;
-    font-size: 1.3rem;
+    font-size: ${props => props.theme.font.size * 1.7}px;
   }
 `
 
 const Overview = styled.div`
-  font-size: 0.85rem;
+  font-size: ${props => props.theme.font.size * 0.8}px;
   color: ${props => props.theme.colors.textLight};
 
   div {
@@ -40,7 +40,7 @@ const Overview = styled.div`
   }
 
   span {
-    font-size: 1rem;
+    font-size: ${props => props.theme.font.size}px;
     color: ${props => props.theme.colors.text};
   }
 `

@@ -8,6 +8,8 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+
+  font-size: ${props => props.theme.font.size * 0.8}px;
 `
 
 const Separator = Action.extend`

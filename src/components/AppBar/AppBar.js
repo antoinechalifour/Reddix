@@ -44,7 +44,10 @@ const Search = styled.div`
     background: none;
     color: inherit;
 
-    font-size: inherit;
+  }
+
+  :placeholder {
+    color: inherit;
   }
 `
 
@@ -57,7 +60,6 @@ const Suggestions = styled.div`
   background: #fff;
   box-shadow: ${BOX_SHADOW_2};
   
-  font-size: 16px;
   padding: 12px;
 
   a {

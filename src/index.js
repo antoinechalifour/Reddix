@@ -22,28 +22,6 @@ injectGlobal`
     font-family: 'SourceSansPro';
     src: url(${SourceSansPro});
   }
-
-  body {
-    font-size: 16px;
-    color: #131516;
-    background: #f7f7f9;
-    line-height: 1.7;
-    letter-spacing: 0.03rem;
-    font-family: 'SourceSansPro', sans-serif;
-  }
-
-  button, input, textarea {
-    font-family: inherit;
-  }
-
-  code {
-    margin: 12px 0;
-    display: block;
-    font-family: monospace;
-    padding: 8px;
-    background: rgba(0, 0, 0, .08);
-    border-left: 4px solid rgba(0, 0, 0, .1);
-  }
 `
 
 // (2.) Application bootstrap

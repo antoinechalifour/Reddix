@@ -19,8 +19,7 @@ import {
 import Thumbnail from 'Components/Thumbnail'
 
 const Header = styled.div`
-  font-size: 14px;
-  font-style: italic;
+  font-size: ${props => props.theme.font.size * 0.8}px;
   color: ${props => props.theme.colors.textLight};
   margin-bottom: 8px;
 

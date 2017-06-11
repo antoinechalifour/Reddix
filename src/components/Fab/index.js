@@ -13,8 +13,13 @@ export default styled.div`
   box-shadow: ${BOX_SHADOW_1};
   color: #fff;
 
-  font-size: 24px;
+  font-size: ${props => props.theme.font.size * 2}px;
   cursor: pointer;
+
+  > * {
+    position: relative;
+    top: -2px;
+  }
 
   a {
     color: inherit;

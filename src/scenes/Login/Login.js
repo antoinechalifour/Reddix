@@ -20,7 +20,8 @@ const Outer = styled.div`
 `
 
 const Title = styled.h1`
-  font-size: 6rem;
+  font-size: 4rem;
+  margin-bottom: 2rem;
   text-transform: uppercase;
 `
 
