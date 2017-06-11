@@ -5,6 +5,7 @@ import moment from 'moment'
 import Humanize from 'humanize-plus'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
+import FaPin from 'react-icons/lib/fa/map-pin'
 import MdFav from 'react-icons/lib/md/favorite'
 import MdChat from 'react-icons/lib/md/chat-bubble'
 import { Card, CardContent } from 'Components/Card'
@@ -53,12 +54,16 @@ const Title = styled.div`
   }
 `
 
+const Container = Card.extend`
+  border-left: 4px solid ${({ stickied, theme }) => stickied ? theme.colors.textLight : 'transparent'}
+`
+
 const UpvoteButton = upvotableHOC(Action)
 const DownvoteButton = downvotableHOC(Action)
 const SaveButton = savableHOC(Action)
 
 const PostItem = props => (
-  <Card>
+  <Container stickied={props.stickied}>
     <CardContent>
       <Header>
         <Link to={`/u/${props.author}`}>
@@ -81,6 +86,13 @@ const PostItem = props => (
       </Content>
 
       <ThingActions>
+        {props.stickied && (
+          <ActionGroup>
+            <Action>
+              <FaPin />
+            </Action>
+          </ActionGroup>
+        )}
         <ActionGroup>
           <Action>{Humanize.compactInteger(props.score)}</Action>
         </ActionGroup>
@@ -112,7 +124,7 @@ const PostItem = props => (
         </ActionGroup>
       </ThingActions>
     </CardContent>
-  </Card>
+  </Container>
 )
 
 export default PostItem
