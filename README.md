@@ -1,7 +1,7 @@
 ![Build Status](https://travis-ci.org/antoinechalifour/Reddix.svg?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-![Reddix Screenshot](http://i.imgur.com/kNOLRKm.png)
+![Reddix Screenshot](http://i.imgur.com/2SXSIcd.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). Thanks guys for the amazing work!
 
