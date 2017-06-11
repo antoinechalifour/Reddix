@@ -120,7 +120,15 @@ const PostItem = props => (
         </ActionGroup>
 
         <ActionGroup>
-          <Action>{props.domain}</Action>
+          <Action>
+            {props.is_self ? (
+              <Link to={`/r/${props.subreddit}`}>
+                {props.domain}
+              </Link>
+            ) : (
+              <a href={props.url} target='_blank'>{props.domain}</a>
+            )}
+          </Action>
         </ActionGroup>
       </ThingActions>
     </CardContent>

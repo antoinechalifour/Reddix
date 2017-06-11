@@ -153,7 +153,15 @@ class Post extends Component {
                         </ActionGroup>
 
                         <ActionGroup>
-                          <Action>{this.props.domain}</Action>
+                          <Action>
+                            {this.props.is_self ? (
+                              <Link to={`/r/${this.props.subreddit}`}>
+                                {this.props.domain}
+                              </Link>
+                            ) : (
+                              <a href={this.props.url} target='_blank'>{this.props.domain}</a>
+                            )}
+                          </Action>
                         </ActionGroup>
                       </ThingActions>
                     </PostBody>
