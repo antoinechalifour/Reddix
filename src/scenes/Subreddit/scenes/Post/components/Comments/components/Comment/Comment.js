@@ -10,7 +10,10 @@ import MdReply from 'react-icons/lib/md/reply'
 import {
   upvotableHOC,
   downvotableHOC,
-  savableHOC
+  savableHOC,
+  ThingActions,
+  ActionGroup,
+  Action
 } from 'Components/ThingActions'
 import CommentContainer from './index'
 
@@ -52,30 +55,6 @@ const Body = styled.div`
   padding-left: ${({ isReply }) => isReply ? '16px' : 0};
 `
 
-const CommentActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-const CommentAction = styled.div`
-  margin-right: 12px;
-  color: ${({ active, theme }) => active ? theme.colors.accent : theme.colors.textLight};
-  cursor: pointer;
-
-  button {
-    background: transparent;
-    border: none;
-    color: inherit;
-    font-size: 12px;
-    padding: 0;
-  }
-
-  a {
-    color: inherit;
-  }
-`
-
 const MoreComments = styled.div`
   font-style: italic;
   font-size: 14px;
@@ -83,9 +62,9 @@ const MoreComments = styled.div`
   cursor: pointer;
 `
 
-const UpvoteButton = upvotableHOC(CommentAction)
-const DownvoteButton = downvotableHOC(CommentAction)
-const SaveButton = savableHOC(CommentAction)
+const UpvoteButton = upvotableHOC(Action)
+const DownvoteButton = downvotableHOC(Action)
+const SaveButton = savableHOC(Action)
 
 class Comment extends PureComponent {
   constructor (props) {
@@ -128,33 +107,39 @@ class Comment extends PureComponent {
             source={this.props.body}
           />
 
-          <CommentActions>
-            <UpvoteButton id={this.props.name}>
-              <MdArrowUpward />
-            </UpvoteButton>
+          <ThingActions>
+            <ActionGroup>
+              <UpvoteButton id={this.props.name}>
+                <MdArrowUpward />
+              </UpvoteButton>
 
-            <SaveButton id={this.props.name}>
-              <MdFavorite />
-            </SaveButton>
+              <SaveButton id={this.props.name}>
+                <MdFavorite />
+              </SaveButton>
 
-            <DownvoteButton id={this.props.name}>
-              <MdArrowDownward />
-            </DownvoteButton>
+              <DownvoteButton id={this.props.name}>
+                <MdArrowDownward />
+              </DownvoteButton>
+            </ActionGroup>
 
-            <CommentAction>
-              <Link to={`/r/${this.props.subreddit}/comments/${postId}/submit/${this.props.name}`}>
-                <MdReply />
-              </Link>
-            </CommentAction>
+            <ActionGroup>
+              <Action>
+                <Link to={`/r/${this.props.subreddit}/comments/${postId}/submit/${this.props.name}`}>
+                  <MdReply />
+                </Link>
+              </Action>
+            </ActionGroup>
 
             {this.props.replies.length > 0 && (
-              <CommentAction>
-                <button onClick={() => this.setState({ showChildren: !this.state.showChildren })}>
-                  {this.state.showChildren ? 'Less' : 'More'}
-                </button>
-              </CommentAction>
+              <ActionGroup>
+                <Action>
+                  <button onClick={() => this.setState({ showChildren: !this.state.showChildren })}>
+                    {this.state.showChildren ? 'Less' : 'More'}
+                  </button>
+                </Action>
+              </ActionGroup>
             )}
-          </CommentActions>
+          </ThingActions>
         </Body>
 
         {this.state.showChildren && (this.props.replies.length > 0 || this.props.more > 0) && (

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-// import Humanize from 'humanize-plus'
+import Humanize from 'humanize-plus'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
 import MdFav from 'react-icons/lib/md/favorite'
@@ -11,7 +11,10 @@ import { Card, CardContent } from 'Components/Card'
 import {
   upvotableHOC,
   downvotableHOC,
-  savableHOC
+  savableHOC,
+  ThingActions,
+  ActionGroup,
+  Action
 } from 'Components/ThingActions'
 import Thumbnail from 'Components/Thumbnail'
 
@@ -51,32 +54,9 @@ const Title = styled.div`
   }
 `
 
-const PostActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-`
-
-const PostInformation = styled.div`
-  margin-top: 16px;
-  margin-right: 12px;
-  color: ${props => props.theme.colors.textLight};
-  cursor: pointer;
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-`
-
-const PostAction = PostInformation.extend`
-  color: ${({ active, theme }) => active ? theme.colors.accent : theme.colors.textLight};
-`
-
-const UpvoteButton = upvotableHOC(PostAction)
-const DownvoteButton = downvotableHOC(PostAction)
-const SaveButton = savableHOC(PostAction)
+const UpvoteButton = upvotableHOC(Action)
+const DownvoteButton = downvotableHOC(Action)
+const SaveButton = savableHOC(Action)
 
 const PostItem = props => (
   <Card>
@@ -101,37 +81,37 @@ const PostItem = props => (
         </div>
       </Content>
 
-      <PostActions>
-        <UpvoteButton id={props.name}>
-          <MdArrowUpward />
-        </UpvoteButton>
+      <ThingActions>
+        <ActionGroup>
+          <Action>{Humanize.compactInteger(props.score)}</Action>
+        </ActionGroup>
 
-        <SaveButton id={props.name}>
-          <MdFav />
-        </SaveButton>
+        <ActionGroup>
+          <UpvoteButton id={props.name}>
+            <MdArrowUpward />
+          </UpvoteButton>
 
-        <DownvoteButton id={props.name}>
-          <MdArrowDownward />
-        </DownvoteButton>
+          <SaveButton id={props.name}>
+            <MdFav />
+          </SaveButton>
 
-        <PostInformation>
-          <div>•</div>
-        </PostInformation>
+          <DownvoteButton id={props.name}>
+            <MdArrowDownward />
+          </DownvoteButton>
+        </ActionGroup>
 
-        <PostInformation>
-          <Link to={`/r/${props.subreddit}/comments/${props.id}`}>
-            <MdChat /> {props.num_comments}
-          </Link>
-        </PostInformation>
+        <ActionGroup>
+          <Action>
+            <Link to={`/r/${props.subreddit}/comments/${props.id}`}>
+              <MdChat /> {props.num_comments}
+            </Link>
+          </Action>
+        </ActionGroup>
 
-        <PostInformation>
-          <div>•</div>
-        </PostInformation>
-
-        <PostInformation>
-          <div>{props.domain}</div>
-        </PostInformation>
-      </PostActions>
+        <ActionGroup>
+          <Action>{props.domain}</Action>
+        </ActionGroup>
+      </ThingActions>
     </CardContent>
   </Card>
 )

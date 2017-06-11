@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Markdown from 'react-markdown'
 import styled from 'styled-components'
+import Humanize from 'humanize-plus'
+import moment from 'moment'
 import { Route, Link } from 'react-router-dom'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
@@ -13,7 +15,10 @@ import OverlayModal from 'Components/OverlayModal'
 import {
   upvotableHOC,
   downvotableHOC,
-  savableHOC
+  savableHOC,
+  ThingActions,
+  ActionGroup,
+  Action
 } from 'Components/ThingActions'
 import Placeholder from './components/Placeholder'
 import Comments from './components/Comments'
@@ -72,23 +77,9 @@ const EditorLink = styled(Link)`
   margin: 16px;
 `
 
-const PostActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-const PostAction = styled.div`
-  margin-top: 16px;
-  margin-right: 12px;
-  cursor: pointer;
-
-  color: ${({ active, theme }) => active ? theme.colors.accent : theme.colors.textLight};
-`
-
-const UpvoteButton = upvotableHOC(PostAction)
-const DownvoteButton = downvotableHOC(PostAction)
-const SaveButton = savableHOC(PostAction)
+const UpvoteButton = upvotableHOC(Action)
+const DownvoteButton = downvotableHOC(Action)
+const SaveButton = savableHOC(Action)
 
 class Post extends Component {
   componentDidMount () {
@@ -132,19 +123,39 @@ class Post extends Component {
                         </PostVideo>
                       )}
 
-                      <PostActions>
-                        <UpvoteButton id={this.props.name}>
-                          <MdArrowUpward />
-                        </UpvoteButton>
+                      <ThingActions>
+                        <ActionGroup>
+                          <Action>{Humanize.compactInteger(this.props.score)}</Action>
+                        </ActionGroup>
 
-                        <SaveButton id={this.props.name}>
-                          <MdFav />
-                        </SaveButton>
+                        <ActionGroup>
+                          <UpvoteButton id={this.props.name}>
+                            <MdArrowUpward />
+                          </UpvoteButton>
 
-                        <DownvoteButton id={this.props.name}>
-                          <MdArrowDownward />
-                        </DownvoteButton>
-                      </PostActions>
+                          <SaveButton id={this.props.name}>
+                            <MdFav />
+                          </SaveButton>
+
+                          <DownvoteButton id={this.props.name}>
+                            <MdArrowDownward />
+                          </DownvoteButton>
+                        </ActionGroup>
+
+                        <ActionGroup>
+                          <Action>
+                            <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
+                          </Action>
+                        </ActionGroup>
+
+                        <ActionGroup>
+                          <Action>{moment(this.props.created_utc * 1000).fromNow()}</Action>
+                        </ActionGroup>
+
+                        <ActionGroup>
+                          <Action>{this.props.domain}</Action>
+                        </ActionGroup>
+                      </ThingActions>
                     </PostBody>
                   </div>
                 ) : (
