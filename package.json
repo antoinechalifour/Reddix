@@ -69,6 +69,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build:netlify": "node scripts/build.js && cp deploy/netlify/_redirects build/",
     "test": "node scripts/test.js --env=jsdom",
     "lint": "./node_modules/.bin/standard"
   },
