@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import { Route, Link } from 'react-router-dom'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
-import MdStar from 'react-icons/lib/md/star'
-// import MdReply from 'react-icons/lib/md/reply'
+import MdFav from 'react-icons/lib/md/favorite'
 import AppBar from 'Components/AppBar'
+import { Card, CardContent } from 'Components/Card'
+import Thumbnail from 'Components/Thumbnail'
 import FluidIframe from 'Components/FluidIframe'
 import OverlayModal from 'Components/OverlayModal'
 import {
@@ -15,41 +16,16 @@ import {
   savableHOC
 } from 'Components/ThingActions'
 import {
-  RESPONSIVE_BREAKPOINT,
-  BOX_SHADOW_2
+  RESPONSIVE_BREAKPOINT
 } from 'Util/constants'
 import Placeholder from './components/Placeholder'
-import ThreadHeader from '../../components/ThreadHeader'
-import ThreadInformation from '../../components/ThreadInformation'
-import ActionGroup from '../../components/ActionGroup'
-import ActionIcon from '../../components/ActionIcon'
-import ThreadScore from '../../components/ThreadScore'
 import Comments from './components/Comments'
 import CommentEditor from './components/CommentEditor'
 
-const Content = styled.div`
+const Container = styled.div`
   max-width: ${RESPONSIVE_BREAKPOINT};
   box-sizing: border-box;
-  margin: 24px auto;
-  border-radius: 4px;
-  overflow: hidden;
-
-  background: #fff;
-  box-shadow: ${BOX_SHADOW_2};
-`
-
-const SelfText = styled.div`
-  font-size: 14px;
-`
-
-const RichMedia = styled.div`
-  margin-left: -16px;
-  margin-right: -16px;
-  margin-bottom: -16px;
-
-  iframe {
-    display: block;
-  }
+  margin: auto;
 `
 
 const StickyAppBar = styled(AppBar)`
@@ -57,19 +33,64 @@ const StickyAppBar = styled(AppBar)`
   top: 0px;
 `
 
-const PostLayout = styled.div`
+const PostHeader = styled.div`
   display: flex;
   flex-direction: row;
 
-  > div:nth-child(2) {
-    padding: 16px;
+  > :first-child {
+    margin-right: 12px;
+  }
+
+  > :nth-child(2) {
     flex: 1;
   }
 `
 
-const UpvoteButton = upvotableHOC(ActionIcon)
-const DownvoteButton = downvotableHOC(ActionIcon)
-const SaveButton = savableHOC(ActionIcon)
+const PostBody = styled.div`
+  margin-top: 12px;
+`
+
+const PostImage = styled.div`
+  margin-left: -16px;
+  margin-right: -16px;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+`
+
+const PostVideo = styled.div`
+  margin-left: -16px;
+  margin-right: -16px;
+
+  iframe {
+    display: block;
+  }
+`
+
+const EditorLink = styled(Link)`
+  display: block;
+  color: #515151;
+  margin: 16px 0;
+`
+
+const PostActions = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const PostAction = styled.div`
+  margin-top: 16px;
+  margin-right: 12px;
+
+  color: ${({ active }) => active ? '#ff003c' : '#bcbcbc'};
+`
+
+const UpvoteButton = upvotableHOC(PostAction)
+const DownvoteButton = downvotableHOC(PostAction)
+const SaveButton = savableHOC(PostAction)
 
 class Post extends Component {
   componentDidMount () {
@@ -84,72 +105,79 @@ class Post extends Component {
       <div>
         <StickyAppBar r={this.props.r} />
 
-        <Content>
-          {this.props.author
-            ? (
-              <PostLayout>
-                <ActionGroup>
-                  <UpvoteButton id={this.props.name}>
-                    <MdArrowUpward />
-                  </UpvoteButton>
-                  <SaveButton id={this.props.name}>
-                    <MdStar />
-                  </SaveButton>
-                  <DownvoteButton id={this.props.name}>
-                    <MdArrowDownward />
-                  </DownvoteButton>
-                </ActionGroup>
-                <div>
-                  <ThreadInformation>
-                    <div>
-                      <ThreadScore>{this.props.score}</ThreadScore>
-                    </div>
-                    <div>
-                      Posted by <Link to={`/u/${this.props.author}`}>{this.props.author}</Link>
-                    </div>
-                  </ThreadInformation>
+        <Container>
+          <Card>
+            <CardContent>
+              {this.props.author
+                ? (
+                  <div>
+                    <PostHeader>
+                      <Thumbnail {...this.props} />
+                      <div>
+                        {this.props.title}
+                      </div>
+                    </PostHeader>
+                    <PostBody>
+                      {this.props.selftext && (
+                        <Markdown source={this.props.selftext} />
+                      )}
 
-                  <ThreadHeader {...this.props} />
+                      {this.props.post_hint === 'image' && (
+                        <PostImage>
+                          <img src={this.props.url} />
+                        </PostImage>
+                      )}
 
-                  {/* Only for selfs posts with texts */}
-                  {this.props.selftext && (
-                    <SelfText>
-                      <Markdown source={this.props.selftext} />
-                    </SelfText>
-                  )}
+                      {this.props.post_hint === 'rich:video' && (
+                        <PostVideo>
+                          <FluidIframe {...this.props.media_embed} />
+                        </PostVideo>
+                      )}
 
-                  {/* Only for Rich:Video content */}
-                  {this.props.post_hint === 'rich:video' && (
-                    <RichMedia>
-                      <FluidIframe {...this.props.media_embed} />
-                    </RichMedia>
-                  )}
+                      <PostActions>
+                        <UpvoteButton id={this.props.name}>
+                          <MdArrowUpward />
+                        </UpvoteButton>
 
-                  <Link to={`/r/${this.props.r}/comments/${this.props.id}/submit/${this.props.name}`}>Reply</Link>
-                </div>
-              </PostLayout>
-            ) : (
-              <Placeholder />
-            )
-          }
-        </Content>
+                        <SaveButton id={this.props.name}>
+                          <MdFav />
+                        </SaveButton>
 
-        {this.props.name && (
-          <Route
-            path='/r/:r/comments/:id/submit/:name'
-            render={({ match }) => {
-              const { name } = match.params
+                        <DownvoteButton id={this.props.name}>
+                          <MdArrowDownward />
+                        </DownvoteButton>
+                      </PostActions>
+                    </PostBody>
+                  </div>
+                ) : (
+                  <Placeholder />
+                )
+              }
+            </CardContent>
+          </Card>
 
-              return (
-                <OverlayModal>
-                  <CommentEditor id={name} />
-                </OverlayModal>
-              )
-            }}
-          />
-        )}
+          {this.props.name && (
+            <div>
+              <EditorLink to={`/r/${this.props.subreddit}/comments/${this.props.id}/submit/${this.props.name}`}>
+                Write something...
+              </EditorLink>
+              <Route
+                path='/r/:r/comments/:id/submit/:name'
+                render={({ match }) => {
+                  const { name } = match.params
 
-        <Comments id={this.props.id} />
+                  return (
+                    <OverlayModal>
+                      <CommentEditor id={name} />
+                    </OverlayModal>
+                  )
+                }}
+              />
+            </div>
+          )}
+
+          <Comments id={this.props.id} />
+        </Container>
       </div>
     )
   }

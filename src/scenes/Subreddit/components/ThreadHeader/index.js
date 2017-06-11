@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import Thumbnail from '../Thumbnail'
+import Thumbnail from 'Components/Thumbnail'
 
 const Outer = styled.div`
   display: flex;

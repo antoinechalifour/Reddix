@@ -11,7 +11,7 @@ import {
   upvotableHOC,
   downvotableHOC
 } from 'Components/ThingActions'
-import Thumbnail from './components/Thumbnail'
+import Thumbnail from 'Components/Thumbnail'
 
 const Content = styled(CardContent)`
   display: flex;

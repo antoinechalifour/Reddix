@@ -59,6 +59,7 @@ class PostList extends Component {
   }
 
   render () {
+    console.log(this.props.posts.map(x => x.post_hint))
     return (
       <Outer>
         {this.props.posts.map(p => (

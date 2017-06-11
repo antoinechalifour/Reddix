@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { Card, CardContent } from 'Components/Card'
 import Comment from './components/Comment'
-import { BOX_SHADOW_1, RESPONSIVE_BREAKPOINT } from 'Util/constants'
+// import { BOX_SHADOW_1, RESPONSIVE_BREAKPOINT } from 'Util/constants'
 
-const Outer = styled.div`
-  max-width: ${RESPONSIVE_BREAKPOINT};
-  box-sizing: border-box;
-  margin: 24px auto;
-  border-radius: 4px;
-  overflow: hidden;
-
-  background: #fff;
-  box-shadow: ${BOX_SHADOW_1};
+const Container = styled(Card)`
+  margin-top: 12px;
 `
 
 class Comments extends Component {
@@ -23,15 +17,18 @@ class Comments extends Component {
     }
 
     return (
-      <Outer>
+      <div>
         {this.props.commentIds.map(id => (
-          <Comment
-            key={id}
-            id={id}
-            depth={0}
-          />
-        ))}
-      </Outer>
+          <Container key={id}>
+            <CardContent>
+              <Comment
+                id={id}
+                depth={0}
+              />
+            </CardContent>
+          </Container>
+          ))}
+      </div>
     )
   }
 }

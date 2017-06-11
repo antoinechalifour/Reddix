@@ -10,10 +10,6 @@ const backgroundAnimation = keyframes`
   }
 `
 
-const Outer = styled.div`
-  padding: 16px;
-`
-
 const Animated = styled.div`
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -91,18 +87,16 @@ const TitleMaskRightBottom = BaseMasker.extend`
 `
 
 const Placeholder = () => (
-  <Outer>
-    <Animated>
-      <InformationMask />
-      <InformationSeparator />
-      <TitleSeparator />
-      <TitleSeparatorCenter />
-      <TitleSeparatorMiddle />
-      <TitleSeparatorBottom />
-      <TitleMaskRightTop />
-      <TitleMaskRightBottom />
-    </Animated>
-  </Outer>
+  <Animated>
+    <InformationMask />
+    <InformationSeparator />
+    <TitleSeparator />
+    <TitleSeparatorCenter />
+    <TitleSeparatorMiddle />
+    <TitleSeparatorBottom />
+    <TitleMaskRightTop />
+    <TitleMaskRightBottom />
+  </Animated>
 )
 
 export default Placeholder

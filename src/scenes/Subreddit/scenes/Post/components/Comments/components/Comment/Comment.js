@@ -4,46 +4,70 @@ import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
 import MdArrowUpward from 'react-icons/lib/md/arrow-upward'
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward'
-import MdStar from 'react-icons/lib/md/star'
+import MdFavorite from 'react-icons/lib/md/favorite'
+import MdReply from 'react-icons/lib/md/reply'
 import {
   upvotableHOC,
   downvotableHOC,
   savableHOC
 } from 'Components/ThingActions'
 import CommentContainer from './index'
-import ActionGroup from '../../../../../../components/ActionGroup'
-import ActionIcon from '../../../../../../components/ActionIcon'
-import ThreadInformation from '../../../../../../components/ThreadInformation'
-import ThreadScore from '../../../../../../components/ThreadScore'
 
-const Outer = styled.div`
-  font-size: 14px;
+const generateColor = seed => {
+  let color = Math.floor((Math.abs(Math.sin(seed) * 16777215)) % 16777215)
+  color = color.toString(16)
+
+  while (color.length < 6) {
+    color = `0${color}`
+  }
+
+  return `#${color}`
+}
+
+const Divider = styled.div`
+  height: 1px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background: #d6d7d8;
 `
 
-const Main = styled.div`
+const Body = styled.div`
+  padding-left: ${({ isReply }) => isReply ? '16px' : 0};
+`
+
+const CommentActions = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
 `
 
-const Divider = styled.div`
-  border-bottom: 1px solid #d1d2d3;
-`
+const CommentAction = styled.div`
+  margin-right: 12px;
+  color: ${({ active }) => active ? '#ff003c' : '#bcbcbc'};
 
-const Body = styled.div`
-  padding: 16px;
-  flex: 1;
+  button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 12px;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+  }
 `
 
 const MoreComments = styled.div`
-  margin: 16px 0;
-  color: #bcbcbc;
+  font-style: italic;
+  font-size: 14px;
+  margin: 12px;
   cursor: pointer;
 `
 
-const UpvoteButton = upvotableHOC(ActionIcon)
-const DownvoteButton = downvotableHOC(ActionIcon)
-const SaveButton = savableHOC(ActionIcon)
+const UpvoteButton = upvotableHOC(CommentAction)
+const DownvoteButton = downvotableHOC(CommentAction)
+const SaveButton = savableHOC(CommentAction)
 
 class Comment extends PureComponent {
   constructor (props) {
@@ -54,97 +78,82 @@ class Comment extends PureComponent {
     }
 
     this.requestMore = () => this.props.actions.requestMoreComments(this.props.id)
-
-    this.hideReplies = () => this.setState({ showChildren: false })
-    this.showReplies = () => this.setState({ showChildren: true })
   }
 
   render () {
     const { link_id: linkId } = this.props
     const postId = linkId.substr(3)
-    const leftOffset = 4 * this.props.depth
-    const repliesIndicatorOpacity = 1 - 1 / (1 + this.props.depth / 8)
-    const repliesIndicatorColor = `rgba(255, 0, 60, ${repliesIndicatorOpacity})`
+    const baseOffset = 8
+    const leftOffset = baseOffset * this.props.depth
+    let repliesIndicatorColor = 'transparent'
+
+    if (this.props.depth > 0) {
+      repliesIndicatorColor = generateColor(this.props.depth)
+    }
+
+    const isReply = this.props.depth > 0
 
     return (
-      <Outer>
-        <Divider
-          style={{
-            paddingLeft: `${leftOffset}px`
-          }}
+      <div style={{ paddingLeft: `${baseOffset}px` }}>
+        {isReply && (<Divider style={{ marginLeft: `-${leftOffset}px` }} />)}
+
+        <Body
+          style={{ borderLeft: `4px solid ${repliesIndicatorColor}` }}
+          isReply={isReply}
         >
-          <Main
-            style={{
-              borderLeft: `4px solid ${repliesIndicatorColor}`
-            }}
-          >
-            <div>
-              <ActionGroup>
-                <UpvoteButton id={this.props.name}>
-                  <MdArrowUpward />
-                </UpvoteButton>
-                <SaveButton id={this.props.name}>
-                  <MdStar />
-                </SaveButton>
-                <DownvoteButton id={this.props.name}>
-                  <MdArrowDownward />
-                </DownvoteButton>
-              </ActionGroup>
-            </div>
-            <Body>
-              <ThreadInformation>
-                <div>
-                  <ThreadScore>{this.props.score}</ThreadScore>
-                </div>
-                <div>
-                  Posted by <Link to={`/u/${this.props.author}`}>/u/{this.props.author}</Link>
-                </div>
-              </ThreadInformation>
+          <Markdown
+            source={this.props.body}
+          />
 
-              <Markdown source={this.props.body} />
+          <CommentActions>
+            <UpvoteButton id={this.props.name}>
+              <MdArrowUpward />
+            </UpvoteButton>
 
-              <ThreadInformation>
-                {this.state.showChildren && (
-                  <div onClick={this.hideReplies}>Hide replies</div>
-                )}
-                {!this.state.showChildren && (
-                  <div onClick={this.showReplies}>Show replies</div>
-                )}
+            <SaveButton id={this.props.name}>
+              <MdFavorite />
+            </SaveButton>
 
-                <Link to={`/r/${this.props.subreddit}/comments/${postId}/submit/${this.props.name}`}>Reply</Link>
-              </ThreadInformation>
-            </Body>
-          </Main>
-        </Divider>
+            <DownvoteButton id={this.props.name}>
+              <MdArrowDownward />
+            </DownvoteButton>
 
-        <div>
-          {this.state.showChildren && this.props.replies.length > 0 && (
-            <div>
-              {this.props.replies.map(id => {
-                return (
-                  <CommentContainer
-                    key={id}
-                    id={id}
-                    depth={this.props.depth + 1}
-                  />
-                )
-              })}
-            </div>
-          )}
+            <CommentAction>
+              <Link to={`/r/${this.props.subreddit}/comments/${postId}/submit/${this.props.name}`}>
+                <MdReply />
+              </Link>
+            </CommentAction>
 
-          {this.props.more > 0 && (
-            <MoreComments
-              style={{
-                paddingLeft: `${leftOffset}px`
-              }}
-              onClick={this.requestMore}
-            >
-              Load {this.props.more} more comments...
-            </MoreComments>
-          )}
-        </div>
+            {this.props.replies.length > 0 && (
+              <CommentAction>
+                <button onClick={() => this.setState({ showChildren: !this.state.showChildren })}>
+                  {this.state.showChildren ? 'Less' : 'More'}
+                </button>
+              </CommentAction>
+            )}
+          </CommentActions>
+        </Body>
 
-      </Outer>
+        {this.state.showChildren && (this.props.replies.length > 0 || this.props.more > 0) && (
+          <div>
+            {this.props.replies.map(id => (
+              <CommentContainer
+                key={id}
+                id={id}
+                depth={this.props.depth + 1}
+              />
+            ))}
+            {this.props.more && (
+              <MoreComments
+                style={{ paddingLeft: `${baseOffset}px` }}
+                onClick={this.requestMore}
+              >
+                Load {this.props.more} more comments
+              </MoreComments>
+            )}
+          </div>
+        )}
+      </div>
     )
   }
 }
