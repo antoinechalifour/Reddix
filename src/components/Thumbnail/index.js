@@ -6,7 +6,7 @@ const getPlaceholder = str => {
   if (['nsfw'].includes(str)) {
     return str
   } else {
-    return 's'
+    return 'self'
   }
 }
 
@@ -29,7 +29,7 @@ const Letter = BaseThumbnail.extend`
   background: #323a45;
   color: #fff;
   text-transform: uppercase;
-  font-size: 24px;
+  font-size: 20px;
 `
 
 const Thumbnail = props => {
