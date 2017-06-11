@@ -5,8 +5,7 @@ import MdMenu from 'react-icons/lib/md/menu'
 import debounce from 'Util/debounce'
 import {
   BOX_SHADOW_1,
-  BOX_SHADOW_2,
-  FONT_FAMILY_SECONDARY
+  BOX_SHADOW_2
 } from 'Util/constants'
 
 const Outer = styled.div`
@@ -20,8 +19,6 @@ const Outer = styled.div`
   color: #fff;
   background: ${props => props.theme.colors.primary};
   box-shadow: ${BOX_SHADOW_1};
-
-  font-family: ${FONT_FAMILY_SECONDARY};
 
   a {
     text-decoration: none;
@@ -47,7 +44,6 @@ const Search = styled.div`
     background: none;
     color: inherit;
 
-    font-family: inherit;
     font-size: inherit;
   }
 `

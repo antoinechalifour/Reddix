@@ -1,7 +1,6 @@
 // (1.) Style setup imports
 import './reset.css'
-import Merriweather from './fonts/Merriweather-Regular.ttf'
-import Raleway from './fonts/Raleway-Medium.ttf'
+import SourceSansPro from './fonts/SourceSansPro-Regular.ttf'
 import { injectGlobal } from 'styled-components'
 
 // (2.) Application bootstrap imports
@@ -20,13 +19,8 @@ import sagas from './sagas'
 // eslint-disable-next-line
 injectGlobal`
   @font-face {
-    font-family: 'Merriweather';
-    src: url(${Merriweather});
-  }
-
-  @font-face {
-    font-family: 'Raleway';
-    src: url(${Raleway});
+    font-family: 'SourceSansPro';
+    src: url(${SourceSansPro});
   }
 
   body {
@@ -34,7 +28,12 @@ injectGlobal`
     color: #131516;
     background: #f7f7f9;
     line-height: 1.7;
-    font-family: 'Merriweather', sans-serif;
+    letter-spacing: 0.03rem;
+    font-family: 'SourceSansPro', sans-serif;
+  }
+
+  button, input, textarea {
+    font-family: inherit;
   }
 
   code {

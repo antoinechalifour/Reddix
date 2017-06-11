@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import {
-  FONT_FAMILY_SECONDARY,
   BOX_SHADOW_1
 } from 'Util/constants'
 
@@ -36,7 +35,6 @@ const TabOuter = styled.div`
   text-align:center;
   text-transform: uppercase;
   cursor: pointer;
-  font-family: ${FONT_FAMILY_SECONDARY};
 
   ${({ active, theme }) => {
     if (active) {

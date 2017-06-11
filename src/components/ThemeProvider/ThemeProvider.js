@@ -10,7 +10,6 @@ const theme = {
     textLight: '#8C979A',
     light: '#d1d2d3'
   },
-  fonts: {},
   dimens: {
     breakpoint: '800px'
   }
