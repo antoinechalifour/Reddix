@@ -31,6 +31,12 @@ const MenuIcon = styled(MdMenu)`
   font-size: 1.2rem;
 `
 
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+`
+
 const Search = styled.div`
   position: relative;
   padding: 4px 12px;
@@ -112,10 +118,10 @@ class AppBar extends Component {
 
     return (
       <Outer className={this.props.className}>
-        <div>
+        <Title>
           <MenuIcon onClick={() => this.props.actions.toggleDrawer()} />
           <Link to={href}>{title}</Link>
-        </div>
+        </Title>
         <Search>
           <span>/r/</span>
           <input
