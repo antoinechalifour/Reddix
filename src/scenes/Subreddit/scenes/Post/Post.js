@@ -15,15 +15,12 @@ import {
   downvotableHOC,
   savableHOC
 } from 'Components/ThingActions'
-import {
-  RESPONSIVE_BREAKPOINT
-} from 'Util/constants'
 import Placeholder from './components/Placeholder'
 import Comments from './components/Comments'
 import CommentEditor from './components/CommentEditor'
 
 const Container = styled.div`
-  max-width: ${RESPONSIVE_BREAKPOINT};
+  max-width: ${props => props.theme.dimens.breakpoint};
   box-sizing: border-box;
   margin: 24px auto;
 `
@@ -71,7 +68,7 @@ const PostVideo = styled.div`
 
 const EditorLink = styled(Link)`
   display: block;
-  color: #515151;
+  color: ${props => props.theme.colors.textLight};
   margin: 16px;
 `
 
@@ -84,8 +81,9 @@ const PostActions = styled.div`
 const PostAction = styled.div`
   margin-top: 16px;
   margin-right: 12px;
+  cursor: pointer;
 
-  color: ${({ active }) => active ? '#ff003c' : '#bcbcbc'};
+  color: ${({ active, theme }) => active ? theme.colors.accent : theme.colors.textLight};
 `
 
 const UpvoteButton = upvotableHOC(PostAction)

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PRIMARY_COLOR, BOX_SHADOW_1 } from 'Util/constants'
+import { BOX_SHADOW_1 } from 'Util/constants'
 
 export default styled.button`
   font-size: inherit;
@@ -12,8 +12,8 @@ export default styled.button`
   box-shadow: ${BOX_SHADOW_1};
   cursor: pointer;
 
-  ${({ primary }) => primary && `
+  ${({ primary, theme }) => primary && `
     color: #fff;
-    background: ${PRIMARY_COLOR};
+    background: ${theme.colors.primary};
   `}
 `

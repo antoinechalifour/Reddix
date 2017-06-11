@@ -29,18 +29,18 @@ const Divider = styled.div`
   height: 1px;
   margin-top: 16px;
   margin-bottom: 16px;
-  background: #d6d7d8;
+  background: ${props => props.theme.colors.light};
 `
 
 const Header = styled.div`
   font-size: 14px;
   font-style: italic;
-  color: #bcbcbc;
+  color: ${props => props.theme.colors.textLight};
   margin-bottom: 8px;
 
   span, a {
     font-weight: bold;
-    color: #666;
+    color: ${props => props.theme.colors.text};
   }
 
   a {
@@ -60,7 +60,8 @@ const CommentActions = styled.div`
 
 const CommentAction = styled.div`
   margin-right: 12px;
-  color: ${({ active }) => active ? '#ff003c' : '#bcbcbc'};
+  color: ${({ active, theme }) => active ? theme.colors.accent : theme.colors.textLight};
+  cursor: pointer;
 
   button {
     background: transparent;

@@ -30,7 +30,7 @@ const Letter = BaseThumbnail.extend`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #323a45;
+  background: ${props => props.theme.colors.primaryDark};
   color: #fff;
   text-transform: uppercase;
   font-size: 20px;

@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom'
 import MdMenu from 'react-icons/lib/md/menu'
 import debounce from 'Util/debounce'
 import {
-  PRIMARY_COLOR,
   BOX_SHADOW_1,
   BOX_SHADOW_2,
-  FONT_FAMILY_SECONDARY,
-  FONT_COLOR_LIGHT
+  FONT_FAMILY_SECONDARY
 } from 'Util/constants'
 
 const Outer = styled.div`
@@ -20,7 +18,7 @@ const Outer = styled.div`
   padding: 12px;
 
   color: #fff;
-  background: ${PRIMARY_COLOR};
+  background: ${props => props.theme.colors.primary};
   box-shadow: ${BOX_SHADOW_1};
 
   font-family: ${FONT_FAMILY_SECONDARY};
@@ -61,16 +59,15 @@ const Suggestions = styled.div`
   z-index: 10;
 
   background: #fff;
-  color: ${FONT_COLOR_LIGHT};
   box-shadow: ${BOX_SHADOW_2};
   
-  font-size: 13px;
+  font-size: 16px;
   padding: 12px;
 
   a {
     display: block;
     text-decoration: none;
-    color: inherit;
+    color: ${props => props.theme.colors.text};
   }
 `
 

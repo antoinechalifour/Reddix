@@ -31,7 +31,7 @@ injectGlobal`
 
   body {
     font-size: 16px;
-    color: #555f61;
+    color: #131516;
     background: #f7f7f9;
     line-height: 1.7;
     font-family: 'Merriweather', sans-serif;

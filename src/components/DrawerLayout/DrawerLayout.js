@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { RESPONSIVE_BREAKPOINT } from 'Util/constants'
 import Drawer from './components/Drawer'
 
 const drawerWidth = '256px'
 
 const Outer = styled.div`
-  @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (max-width: ${props => props.theme.dimens.breakpoint}) {
     overflow-x: hidden;
   }
 
-  @media (min-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (min-width: ${props => props.theme.dimens.breakpoint}) {
     display: flex;
     flex-direction: row;
   }
@@ -20,7 +19,7 @@ const StyledDrawer = styled.div`
   background: #fff;
   z-index: 10;
 
-  @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (max-width: ${props => props.theme.dimens.breakpoint}) {
     height: 100vh;
     width: ${drawerWidth};
     position: fixed;
@@ -29,7 +28,7 @@ const StyledDrawer = styled.div`
     left: ${({ isOpen }) => isOpen ? '0' : `-${drawerWidth}`}
   }
 
-  @media (min-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (min-width: ${props => props.theme.dimens.breakpoint}) {
     width: ${drawerWidth};
   }
 `
@@ -37,7 +36,7 @@ const StyledDrawer = styled.div`
 const Content = styled.main`
   min-height: 100vh;
 
-  @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (max-width: ${props => props.theme.dimens.breakpoint}) {
     position: relative;
     left: 0;
     transition: left .2s ease-in;
@@ -52,7 +51,7 @@ const Content = styled.main`
     }}
   }
 
-  @media (min-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (min-width: ${props => props.theme.dimens.breakpoint}) {
     flex: 1;
   }
 `

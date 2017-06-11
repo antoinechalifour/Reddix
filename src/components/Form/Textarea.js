@@ -11,10 +11,10 @@ export default styled.textarea`
   width: 100%;
   padding: 16px 8px;
 
-  border-bottom: 1px solid #bcbcbc;
+  border-bottom: 1px solid ${props => props.theme.colors.textLight};
   transition: border-bottom .2s ease-in;
 
   &:focus {
-    border-bottom: 1px solid #56571c;
+    border-bottom: 1px solid ${props => props.theme.colors.text};
   }
 `

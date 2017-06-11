@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import InfiniteProgressWrapper from 'Components/InfiniteProgressWrapper'
 import {
-  PRIMARY_COLOR,
   BOX_SHADOW_1,
   BOX_SHADOW_2
 } from 'Util/constants'
@@ -16,7 +15,7 @@ const Outer = styled.div`
   justify-content: center;
   text-align: center;
 
-  background: ${PRIMARY_COLOR};
+  background: ${props => props.theme.colors.primary};
   color: #fff;
 `
 

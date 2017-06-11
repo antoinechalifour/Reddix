@@ -8,7 +8,6 @@ import MdAdd from 'react-icons/lib/md/add'
 import AppBar from 'Components/AppBar'
 import { Tabs, Tab, TabList, TabPanels } from 'Components/Tabs'
 import Fab from 'Components/Fab'
-import { FONT_COLOR, RESPONSIVE_BREAKPOINT } from 'Util/constants'
 import PostListContainer from './components/PostList'
 import MediaViewer from './scenes/MediaViewer'
 import PostEditor from './scenes/PostEditor'
@@ -25,7 +24,7 @@ const Header = styled.div`
 
 const Overview = styled.div`
   font-size: 0.85rem;
-  color: #bcbcbc;
+  color: ${props => props.theme.colors.textLight};
 
   div {
     display: inline-block;
@@ -42,7 +41,7 @@ const Overview = styled.div`
 
   span {
     font-size: 1rem;
-    color: ${FONT_COLOR};
+    color: ${props => props.theme.colors.text};
   }
 `
 
@@ -52,7 +51,7 @@ const Actions = styled.div`
   padding: 12px;
 
   svg {
-    color: #bcbcbc;
+    color: ${props => props.theme.colors.textLight};
     font-size: 24px;
     cursor: pointer;
   }
@@ -65,9 +64,9 @@ const Actions = styled.div`
 const PostList = styled.div`
   margin-top: 8px;
 
-  @media (min-width: ${RESPONSIVE_BREAKPOINT}) {
+  @media (min-width: ${props => props.theme.dimens.breakpoint}) {
     width: 95%;
-    max-width: ${RESPONSIVE_BREAKPOINT};
+    max-width: ${props => props.theme.dimens.breakpoint};
     margin-left: auto;
     margin-right: auto;
   }

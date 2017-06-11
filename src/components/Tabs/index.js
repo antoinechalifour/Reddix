@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import {
-  PRIMARY_COLOR,
   FONT_FAMILY_SECONDARY,
   BOX_SHADOW_1
 } from 'Util/constants'
@@ -39,9 +38,9 @@ const TabOuter = styled.div`
   cursor: pointer;
   font-family: ${FONT_FAMILY_SECONDARY};
 
-  ${({ active }) => {
+  ${({ active, theme }) => {
     if (active) {
-      return `border-bottom: 4px solid ${PRIMARY_COLOR};`
+      return `border-bottom: 4px solid ${theme.colors.primary};`
     }
 
     return `border-bottom: 4px solid transparent;`

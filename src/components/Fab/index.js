@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { ACCENT_COLOR, BOX_SHADOW_1, BOX_SHADOW_2 } from 'Util/constants'
+import { BOX_SHADOW_1, BOX_SHADOW_2 } from 'Util/constants'
 
 export default styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export default styled.div`
   height: 64px;
 
   border-radius: 50%;
-  background: ${ACCENT_COLOR};
+  background: ${props => props.theme.colors.accent};
   box-shadow: ${BOX_SHADOW_1};
   color: #fff;
 
