@@ -40,7 +40,8 @@ const TimelineItem = props => {
   const body = props.selftext || props.body
   const isComment = type === 't1'
   const postId = isComment ? thingIdFromFullname(props.link_id) : props.id
-  const postLink = `/r/${props.subreddit}/comments/${postId}`
+  const subLink = `/r/${props.subreddit}`
+  const postLink = `${subLink}/comments/${postId}`
 
   return (
     <Container>
@@ -52,7 +53,7 @@ const TimelineItem = props => {
               : isSelfPost
                 ? 'post'
                 : 'link'
-            }</Link>
+            }</Link> in <Link to={subLink}>{subLink}</Link>
           </div>
         </Header>
         <Body isComment={isComment}>
