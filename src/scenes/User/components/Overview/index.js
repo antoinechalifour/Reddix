@@ -14,8 +14,6 @@ const Overview = ({ username, data = [] }) => {
     return group
   }, {})
 
-  console.log(groupByDate)
-
   return (
     <div>
       {Object.keys(groupByDate).map(date => (
