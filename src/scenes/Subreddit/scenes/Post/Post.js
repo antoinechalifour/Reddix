@@ -160,7 +160,7 @@ class Post extends Component {
                               </Link>
                             ) : (
                               <a href={this.props.url} target='_blank'>{this.props.domain}</a>
-                            )}
+                              )}
                           </Action>
                         </ActionGroup>
                       </ThingActions>
